@@ -2,33 +2,20 @@ import { INavData } from '@coreui/angular';
 
 export const navItems: INavData[] = [
   {
-    name: 'Dashboard',
+    name: 'Statistiche',
     url: '/dashboard',
-    icon: 'icon-speedometer',
-    badge: {
-      variant: 'info',
-      text: 'NEW'
-    }
-  },
-  {
-    title: true,
-    name: 'Components'
-  },
-  {
-    name: 'Base',
-    url: '/base',
-    icon: 'icon-puzzle'
-  },
-  {
-    name: 'Pages',
-    url: '/pages',
-    icon: 'icon-star',
+    icon: 'icon-chart',
     children: [
       {
-        name: 'Login',
-        url: '/login',
-        icon: 'icon-star'
+        name: 'Grafici',
+        url: '/charts',
+        icon: 'icon-pie-chart'
       }
     ]
+  },
+  {
+    name: 'Articoli',
+    url: '/base',
+    icon: 'icon-list'
   }
 ];

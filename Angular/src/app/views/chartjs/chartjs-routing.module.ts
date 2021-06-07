@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { ChartJSComponent } from './chartjs.component';
+
 const routes: Routes = [
   {
     path: '',
+    component: ChartJSComponent,
     data: {
-      title: 'Articoli'
+      title: 'Charts'
     }
   }
 ];
@@ -14,4 +17,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class BaseRoutingModule {}
+export class ChartJSRoutingModule {}

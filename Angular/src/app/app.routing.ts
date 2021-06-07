@@ -10,8 +10,9 @@ import { LoginComponent } from './views/login/login.component';
 
 export const routes: Routes = [
   {
+    //prima pagina che si carica
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
   {
@@ -47,8 +48,16 @@ export const routes: Routes = [
         loadChildren: () => import('./views/base/base.module').then(m => m.BaseModule)
       },
       {
+        path: 'charts',
+        loadChildren: () => import('./views/chartjs/chartjs.module').then(m => m.ChartJSModule)
+      },
+      {
         path: 'dashboard',
         loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule)
+      },
+      {
+        path: 'notifications',
+        loadChildren: () => import('./views/notifications/notifications.module').then(m => m.NotificationsModule)
       },
     ]
   },
