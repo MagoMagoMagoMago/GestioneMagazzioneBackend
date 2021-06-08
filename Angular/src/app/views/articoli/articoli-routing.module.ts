@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { ArticoliComponent } from './articoli.component';
+
 const routes: Routes = [
   {
     path: '',
+    component: ArticoliComponent,
     data: {
       title: 'Articoli'
     }
@@ -14,4 +17,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class BaseRoutingModule {}
+export class ArticoliRoutingModule {}

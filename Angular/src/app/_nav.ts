@@ -15,7 +15,7 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Articoli',
-    url: '/base',
+    url: '/articoli',
     icon: 'icon-list'
   }
 ];

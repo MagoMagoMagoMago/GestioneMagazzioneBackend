@@ -12,7 +12,7 @@ export const routes: Routes = [
   {
     //prima pagina che si carica
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'dashboard',
     pathMatch: 'full',
   },
   {
@@ -44,8 +44,8 @@ export const routes: Routes = [
     },
     children: [
       {
-        path: 'base',
-        loadChildren: () => import('./views/base/base.module').then(m => m.BaseModule)
+        path: 'articoli',
+        loadChildren: () => import('./views/articoli/articoli.module').then(m => m.ArticoliModule)
       },
       {
         path: 'charts',
