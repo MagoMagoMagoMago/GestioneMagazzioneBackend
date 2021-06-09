@@ -26,6 +26,8 @@ CREATE TABLE items (
 	category_id int not null,
 	price double not null,
 	storage int not null,
+	image varchar(400) not null,
+	min_availability int not null,
 	created_at timestamp not null,
 	updated_at timestamp,
 	deleted_at timestamp,
