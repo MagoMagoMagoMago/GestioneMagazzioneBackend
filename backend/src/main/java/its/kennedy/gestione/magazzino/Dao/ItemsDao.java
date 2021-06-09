@@ -156,6 +156,7 @@ public class ItemsDao implements Serializable {
 		this.category_id = category_id;
 	}
     
+	
 	@Override
 	public String toString() {
 		return "ItemsDao [id=" + id + ", asin=" + asin + ", title=" + title + ", description=" + description
