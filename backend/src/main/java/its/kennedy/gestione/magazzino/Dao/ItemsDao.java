@@ -132,6 +132,10 @@ public class ItemsDao implements Serializable {
 		this.createdAt = createdAt;
 	}
 
+
+
+	
+
 	public Instant getUpdatedAt() {
 		return updatedAt;
 	}
@@ -156,7 +160,68 @@ public class ItemsDao implements Serializable {
 		this.category_id = category_id;
 	}
     
-	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ItemsDao other = (ItemsDao) obj;
+		if (asin == null) {
+			if (other.asin != null)
+				return false;
+		} else if (!asin.equals(other.asin))
+			return false;
+		if (category_id != other.category_id)
+			return false;
+		if (createdAt == null) {
+			if (other.createdAt != null)
+				return false;
+		} else if (!createdAt.equals(other.createdAt))
+			return false;
+		if (deletedAt == null) {
+			if (other.deletedAt != null)
+				return false;
+		} else if (!deletedAt.equals(other.deletedAt))
+			return false;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (image == null) {
+			if (other.image != null)
+				return false;
+		} else if (!image.equals(other.image))
+			return false;
+		if (min_availability != other.min_availability)
+			return false;
+		if (price == null) {
+			if (other.price != null)
+				return false;
+		} else if (!price.equals(other.price))
+			return false;
+		if (storage != other.storage)
+			return false;
+		if (title == null) {
+			if (other.title != null)
+				return false;
+		} else if (!title.equals(other.title))
+			return false;
+		if (updatedAt == null) {
+			if (other.updatedAt != null)
+				return false;
+		} else if (!updatedAt.equals(other.updatedAt))
+			return false;
+		return true;
+	}
 	@Override
 	public String toString() {
 		return "ItemsDao [id=" + id + ", asin=" + asin + ", title=" + title + ", description=" + description
