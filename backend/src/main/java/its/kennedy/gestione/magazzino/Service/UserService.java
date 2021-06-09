@@ -18,8 +18,8 @@ public class UserService implements IUser{
 	private ModelMapper modelMapper;
 
 	@Override
-	public UserDto getById(Integer Id) {
-		return modelMapper.map(userRepository.getById(Id), UserDto.class);
+	public UserDto getById(Integer id) {
+		return modelMapper.map(userRepository.getById(id), UserDto.class);
 	}
 
 }

@@ -7,8 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import its.kennedy.gestione.magazzino.Dao.UserDao;
 
+/**
+ * Spring Data repository for the UserDao entity.
+ */
 @Repository
 public interface UserRepository extends JpaRepository<UserDao, Integer> {
 
-	Optional<UserDao> findById(Integer Id);
+	Optional<UserDao> findById(Integer id);
 }

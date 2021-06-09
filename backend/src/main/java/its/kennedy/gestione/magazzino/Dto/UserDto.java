@@ -19,6 +19,8 @@ public class UserDto {
     private String email;
 	
     private String username;
+    
+    private String password;
 
     private Instant createdAt;
 
@@ -106,6 +108,12 @@ public class UserDto {
 	public void setDeletedAt(Instant deletedAt) {
 		this.deletedAt = deletedAt;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "UserDto [id=" + id + ", name=" + name + ", surname=" + surname + ", bornAt=" + bornAt + ", birthdate="
+				+ birthdate + ", email=" + email + ", username=" + username + ", password=" + password + ", createdAt="
+				+ createdAt + ", updatedAt=" + updatedAt + ", deletedAt=" + deletedAt + "]";
+	}
+
 }

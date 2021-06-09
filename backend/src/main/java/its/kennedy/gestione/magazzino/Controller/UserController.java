@@ -1,6 +1,7 @@
 package its.kennedy.gestione.magazzino.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,16 +11,32 @@ import org.springframework.web.bind.annotation.RestController;
 import its.kennedy.gestione.magazzino.Dto.UserDto;
 import its.kennedy.gestione.magazzino.Service.UserService;
 
+/**
+ * REST controller for managing {@link its.kennedy.gestione.magazzino.Dao.UserDao}.
+ */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/user")
 @Transactional
 public class UserController {
 
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping("/user/{id}")
-	public UserDto getUserById(@PathVariable Integer id) {
-		return userService.getById(id);
+	/**
+	 * {@code GET  /user/{id}} : Get User by id.
+	 *
+	 * @param id
+	 * @return the {@link ResponseEntity<UserDto>} with status {@code 200 (OK)} and with body
+	 *         the UserDto, or with status {@code 404 (Not Found)}
+	 */
+	@GetMapping("{id}")
+	public ResponseEntity<UserDto> getUserById(@PathVariable Integer id){
+		UserDto dto = null;
+		try {
+			dto = userService.getById(id);
+		} catch (Exception e) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().body(dto);
 	}
 }
