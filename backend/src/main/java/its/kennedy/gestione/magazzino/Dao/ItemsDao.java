@@ -57,7 +57,7 @@ public class ItemsDao implements Serializable {
 	@Column(name = "deleted_at")
 	private Instant deletedAt;
 	@NotNull
-	@Column(name = "category_id", length = 100, nullable = false)
+	@Column(name = "category_id", nullable = false)
 	private int category_id;
 
 	public Integer getId() {
