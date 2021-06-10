@@ -9,34 +9,10 @@
           </a>
   
           <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
-            <li>
-              <a href="#" class="nav-link text-white" (mouseover)="onHover($event)" (mouseleave)="removeHover($event)">
-                <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="bootstrap-icons.svg#house-door"/></svg>
-                Home
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link text-white" (mouseover)="onHover($event)" (mouseleave)="removeHover($event)">
-                <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="bootstrap-icons.svg#speedometer2"/></svg>
-                Dashboard
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link text-white" (mouseover)="onHover($event)" (mouseleave)="removeHover($event)">
-                <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="bootstrap-icons.svg#table"/></svg>
-                Orders
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link text-white" (mouseover)="onHover($event)" (mouseleave)="removeHover($event)">
-                <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="bootstrap-icons.svg#grid"/></svg>
-                Products
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link text-white" (mouseover)="onHover($event)" (mouseleave)="removeHover($event)">
-                <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="bootstrap-icons.svg#person-circle"/></svg>
-                Profile
+            <li *ngFor="let item of navbar">
+              <a href="#" class="nav-link" [ngClass]="{'text-white': !item.hover, 'text-warning' : item.hover }" (mouseover)="onHover(item)" (mouseleave)="removeHover(item)">
+                <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use [attr.xlink:href]="item.icon"  /></svg>
+                {{item.title}}
               </a>
             </li>
           </ul>
@@ -44,7 +20,7 @@
             <li>
                 <a href="#" class="nav-link text-white">
                   <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="bootstrap-icons.svg#cart4"/></svg>
-                  Shopping Cart
+                  Carello
                 </a>
               </li>
           </ul>
