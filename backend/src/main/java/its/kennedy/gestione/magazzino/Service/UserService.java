@@ -22,4 +22,11 @@ public class UserService implements IUser{
 		return modelMapper.map(userRepository.getById(id), UserDto.class);
 	}
 
+	@Override
+	public Boolean login(String email, String password) {
+		if(userRepository.findByEmailAndPassword(email, password).isEmpty())
+		return false;
+		return true;
+	}
+
 }
