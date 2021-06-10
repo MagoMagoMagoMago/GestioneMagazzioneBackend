@@ -11,7 +11,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "Orders")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-public class Orders implements Serializable {
+public class OrdersDao implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -365,7 +365,7 @@ public class Orders implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Orders orders = (Orders) o;
+        OrdersDao orders = (OrdersDao) o;
         return getAmazonOrderId().equals(orders.getAmazonOrderId())
                 && Objects.equals(getBuyerEmail(), orders.getBuyerEmail())
                 && Objects.equals(getBuyerName(), orders.getBuyerName())

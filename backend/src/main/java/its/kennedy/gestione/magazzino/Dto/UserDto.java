@@ -6,20 +6,20 @@ import java.time.LocalDate;
 
 public class UserDto {
 
-	private Integer id;
-	
+    private Integer id;
+
     private String name;
-	
+
     private String surname;
-	
+
     private String bornAt;
-	
+
     private LocalDate birthdate;
-	
+
     private String email;
-	
+
     private String username;
-    
+
     private String password;
 
     private Instant createdAt;
@@ -27,93 +27,93 @@ public class UserDto {
     private Instant updatedAt;
 
     private Instant deletedAt;
-    
 
-	public Integer getId() {
-		return id;
-	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getSurname() {
-		return surname;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
+    public String getSurname() {
+        return surname;
+    }
 
-	public String getBornAt() {
-		return bornAt;
-	}
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
 
-	public void setBornAt(String bornAt) {
-		this.bornAt = bornAt;
-	}
+    public String getBornAt() {
+        return bornAt;
+    }
 
-	public LocalDate getBirthdate() {
-		return birthdate;
-	}
+    public void setBornAt(String bornAt) {
+        this.bornAt = bornAt;
+    }
 
-	public void setBirthdate(LocalDate birthdate) {
-		this.birthdate = birthdate;
-	}
+    public LocalDate getBirthdate() {
+        return birthdate;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setBirthdate(LocalDate birthdate) {
+        this.birthdate = birthdate;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public Instant getCreatedAt() {
-		return createdAt;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public void setCreatedAt(Instant createdAt) {
-		this.createdAt = createdAt;
-	}
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
 
-	public Instant getUpdatedAt() {
-		return updatedAt;
-	}
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
+    }
 
-	public void setUpdatedAt(Instant updatedAt) {
-		this.updatedAt = updatedAt;
-	}
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
 
-	public Instant getDeletedAt() {
-		return deletedAt;
-	}
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 
-	public void setDeletedAt(Instant deletedAt) {
-		this.deletedAt = deletedAt;
-	}
+    public Instant getDeletedAt() {
+        return deletedAt;
+    }
 
-	@Override
-	public String toString() {
-		return "UserDto [id=" + id + ", name=" + name + ", surname=" + surname + ", bornAt=" + bornAt + ", birthdate="
-				+ birthdate + ", email=" + email + ", username=" + username + ", password=" + password + ", createdAt="
-				+ createdAt + ", updatedAt=" + updatedAt + ", deletedAt=" + deletedAt + "]";
-	}
+    public void setDeletedAt(Instant deletedAt) {
+        this.deletedAt = deletedAt;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDto [id=" + id + ", name=" + name + ", surname=" + surname + ", bornAt=" + bornAt + ", birthdate="
+                + birthdate + ", email=" + email + ", username=" + username + ", password=" + password + ", createdAt="
+                + createdAt + ", updatedAt=" + updatedAt + ", deletedAt=" + deletedAt + "]";
+    }
 
 }
