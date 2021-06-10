@@ -33,7 +33,7 @@ public class ItemsController {
 	public ResponseEntity<List<ItemsDto>> selezionapagina(@PathVariable String ord,@PathVariable Integer p,@PathVariable Integer q){
 		List<ItemsDto> dto = null;
 		try {
-			dto = itemService.selezionapagina(p,q,"Id",true);
+			dto = itemService.selezionapagina(p,q,ord,true);
 		} catch (Exception e) {
 			return ResponseEntity.notFound().build();
 		}
