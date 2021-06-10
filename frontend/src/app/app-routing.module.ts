@@ -8,6 +8,7 @@ const routes: Routes = [
     path: "",
     component: LoginComponent
   },
+  { path: 'items', loadChildren: () => import('./items/items.module').then(m => m.ItemsModule) },
   {
     path: "**",
     component: ErrorPageComponent
