@@ -1,29 +1,28 @@
 package its.kennedy.gestione.magazzino.Dao;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.Instant;
 
-@Entity
-@Table(name = "categories")
-@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-public class CategoriesDao implements Serializable {
+public class Purchases implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
-
     @NotNull
-    @Column(name = "name", length = 100, nullable = false)
-    private String name;
-
+    @Column(name = "supplier_id", nullable = false)
+    private int supplier_id;
+    @NotNull
+    @Column(name = "number_invoice", nullable = false)
+    private int number_invoice;
+    @Column(name = "note", length = 400)
+    private String note;
     @NotNull
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
@@ -33,9 +32,9 @@ public class CategoriesDao implements Serializable {
 
     @Column(name = "deleted_at")
     private Instant deletedAt;
-
-    @Column(name = "description", length = 400)
-    private String description;
+    @NotNull
+    @Column(name = "date_invoice", nullable = false)
+    private Instant date_invoice;
 
     public Integer getId() {
         return id;
@@ -45,12 +44,28 @@ public class CategoriesDao implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public int getSupplier_id() {
+        return supplier_id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSupplier_id(int supplier_id) {
+        this.supplier_id = supplier_id;
+    }
+
+    public int getNumber_invoice() {
+        return number_invoice;
+    }
+
+    public void setNumber_invoice(int number_invoice) {
+        this.number_invoice = number_invoice;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public Instant getCreatedAt() {
@@ -77,24 +92,19 @@ public class CategoriesDao implements Serializable {
         this.deletedAt = deletedAt;
     }
 
-    public String getDescription() {
-        return description;
+    public Instant getDate_invoice() {
+        return date_invoice;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDate_invoice(Instant date_invoice) {
+        this.date_invoice = date_invoice;
     }
 
     @Override
     public String toString() {
-        return "CategoriesDao{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                ", deletedAt=" + deletedAt +
-                ", description='" + description + '\'' +
-                '}';
+        return "PurchasesDao [id=" + id + ", supplier_id=" + supplier_id + ", number_invoice=" + number_invoice
+                + ", note=" + note + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", deletedAt="
+                + deletedAt + ", date_invoice=" + date_invoice + "]";
     }
 
     @Override
@@ -108,12 +118,19 @@ public class CategoriesDao implements Serializable {
         if (getClass() != obj.getClass()) {
 			return false;
 		}
-        CategoriesDao other = (CategoriesDao) obj;
+        Purchases other = (Purchases) obj;
         if (createdAt == null) {
             if (other.createdAt != null) {
 				return false;
 			}
         } else if (!createdAt.equals(other.createdAt)) {
+			return false;
+		}
+        if (date_invoice == null) {
+            if (other.date_invoice != null) {
+				return false;
+			}
+        } else if (!date_invoice.equals(other.date_invoice)) {
 			return false;
 		}
         if (deletedAt == null) {
@@ -123,13 +140,6 @@ public class CategoriesDao implements Serializable {
         } else if (!deletedAt.equals(other.deletedAt)) {
 			return false;
 		}
-        if (description == null) {
-            if (other.description != null) {
-				return false;
-			}
-        } else if (!description.equals(other.description)) {
-			return false;
-		}
         if (id == null) {
             if (other.id != null) {
 				return false;
@@ -137,11 +147,17 @@ public class CategoriesDao implements Serializable {
         } else if (!id.equals(other.id)) {
 			return false;
 		}
-        if (name == null) {
-            if (other.name != null) {
+        if (note == null) {
+            if (other.note != null) {
 				return false;
 			}
-        } else if (!name.equals(other.name)) {
+        } else if (!note.equals(other.note)) {
+			return false;
+		}
+        if (number_invoice != other.number_invoice) {
+			return false;
+		}
+        if (supplier_id != other.supplier_id) {
 			return false;
 		}
         if (updatedAt == null) {

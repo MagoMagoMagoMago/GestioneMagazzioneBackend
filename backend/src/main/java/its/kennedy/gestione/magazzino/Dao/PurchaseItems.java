@@ -12,7 +12,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "purchase_items")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-public class PurchaseItemsDao implements Serializable {
+public class PurchaseItems implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -131,7 +131,7 @@ public class PurchaseItemsDao implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        PurchaseItemsDao that = (PurchaseItemsDao) o;
+        PurchaseItems that = (PurchaseItems) o;
         return getId().equals(that.getId())
                 && getPurchase_id().equals(that.getPurchase_id())
                 && getItem_id().equals(that.getItem_id())

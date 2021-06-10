@@ -20,7 +20,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "users")
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-public class UserDao implements Serializable {
+public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -174,7 +174,7 @@ public class UserDao implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        UserDao userDao = (UserDao) o;
+        User userDao = (User) o;
         return getId().equals(userDao.getId()) && getName().equals(userDao.getName()) && getSurname().equals(userDao.getSurname())
                 && getBornAt().equals(userDao.getBornAt()) && getBirthdate().equals(userDao.getBirthdate())
                 && getEmail().equals(userDao.getEmail()) && getUsername().equals(userDao.getUsername())
