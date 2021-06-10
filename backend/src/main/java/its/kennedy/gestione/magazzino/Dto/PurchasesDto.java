@@ -59,5 +59,11 @@ public class PurchasesDto {
 	public void setDate_invoice(Instant date_invoice) {
 		this.date_invoice = date_invoice;
 	}
+	@Override
+	public String toString() {
+		return "PurchasesDto [id=" + id + ", supplier_id=" + supplier_id + ", number_invoice=" + number_invoice
+				+ ", note=" + note + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", deletedAt="
+				+ deletedAt + ", date_invoice=" + date_invoice + "]";
+	}
 	
 }
