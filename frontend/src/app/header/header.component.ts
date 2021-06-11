@@ -43,14 +43,7 @@ export class HeaderComponent implements OnInit {
       hover:false,
       link:"home",
       visible: true
-    },
-    {
-      title: "Profilo",
-      icon: "bootstrap-icons.svg#person-circle",
-      hover: false,
-      link: "home",
-      visible: true
-    },
+    }
   ]
   constructor() { }
 
