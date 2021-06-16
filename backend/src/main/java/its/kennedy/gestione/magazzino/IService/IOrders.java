@@ -22,4 +22,14 @@ public interface IOrders {
      */
     Boolean addOrders(List<OrdersDto> orders);
 
+    /**
+     * Get a list of paginated orders
+     *
+     * @param pagina   the number of the page to retrive
+     * @param quantita
+     * @param sortBy
+     * @param dir
+     * @return
+     */
+    List<OrdersDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean dir);
 }
