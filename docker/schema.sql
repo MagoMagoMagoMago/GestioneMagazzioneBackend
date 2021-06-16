@@ -82,7 +82,7 @@ CREATE TABLE users (
 	surname varchar(100) not null,
 	born_at varchar(100) not null,
 	birthdate Date not null,
-	email varchar(100) not null,
+	email varchar(100) not null unique,
 	username varchar(100) not null,
 	password varchar(100) not null,
 	created_at timestamp not null,

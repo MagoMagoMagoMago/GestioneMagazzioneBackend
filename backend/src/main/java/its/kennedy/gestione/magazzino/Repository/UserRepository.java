@@ -1,17 +1,17 @@
 package its.kennedy.gestione.magazzino.Repository;
 
-import java.util.Optional;
-
+import its.kennedy.gestione.magazzino.Dao.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import its.kennedy.gestione.magazzino.Dao.UserDao;
+import java.util.Optional;
 
 /**
  * Spring Data repository for the UserDao entity.
  */
 @Repository
-public interface UserRepository extends JpaRepository<UserDao, Integer> {
+public interface UserRepository extends JpaRepository<User, Integer> {
 
-	Optional<UserDao> findById(Integer id);
+    Optional<User> findByEmailAndPassword(String email, String password);
+
 }
