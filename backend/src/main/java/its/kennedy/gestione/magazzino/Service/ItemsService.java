@@ -26,7 +26,15 @@ public class ItemsService implements IItems {
     public ItemsDto getById(Integer id) {
         return modelMapper.map(itemsRepository.getById(id), ItemsDto.class);
     }
-
+    @Override
+    public Boolean modifica(Items entity) {
+    	try {
+    		itemsRepository.saveAndFlush(entity);	
+    	}catch(Exception e){
+    		return false;
+    	}
+        return true;
+    }
     @Override
     public List<ItemsDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean dir) {
         Pageable p;
