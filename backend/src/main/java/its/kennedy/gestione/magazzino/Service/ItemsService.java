@@ -31,7 +31,11 @@ public class ItemsService implements IItems {
     @Override
     public Boolean modifica(Items entity) {
     	try {
-    		entity.setUpdatedAt(Instant.now());
+    		if(entity.getId()==null) {
+    		entity.setCreatedAt(Instant.now());
+    		}else {
+    	    entity.setUpdatedAt(Instant.now());
+    		}
     		itemsRepository.saveAndFlush(entity);	
     	}catch(Exception e){
     		return false;

@@ -45,13 +45,13 @@ public class ItemsController {
         return ResponseEntity.ok().body(dto);
     }
     @PutMapping(produces = "application/json")
-	public boolean updateDoc(@RequestBody Items doc) {
+	public ResponseEntity<Boolean> updateDoc(@RequestBody Items doc) {
 	 	try {
-			itemService.modifica(doc);
+	 		return ResponseEntity.ok().body(itemService.modifica(doc));
 			
 			} catch (Exception e) {			
-				return false;	
+				return  ResponseEntity.ok().body(false);	
 			}
-			return true;
+			
 	}
 }
