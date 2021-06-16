@@ -1,6 +1,7 @@
 package its.kennedy.gestione.magazzino.Service;
 
 import its.kennedy.gestione.magazzino.Dao.Items;
+import its.kennedy.gestione.magazzino.Dto.BaseResponsePage;
 import its.kennedy.gestione.magazzino.Dto.ItemsDto;
 import its.kennedy.gestione.magazzino.IService.IItems;
 import its.kennedy.gestione.magazzino.Repository.ItemsRepository;
@@ -35,8 +36,9 @@ public class ItemsService implements IItems {
     	}
         return true;
     }
+    
     @Override
-    public List<ItemsDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean dir) {
+    public BaseResponsePage<ItemsDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean dir) {
         Pageable p;
         if (sortBy.length() <= 0) {
             sortBy = "Id";
@@ -46,13 +48,14 @@ public class ItemsService implements IItems {
         } else {
             p = PageRequest.of(pagina, quantita, Sort.by(sortBy).descending());
         }
-
-
         Page<Items> resP = itemsRepository.findAll(p);
+        BaseResponsePage<ItemsDto> baseResponsePage=new BaseResponsePage<ItemsDto>();
+        baseResponsePage.setPagine(resP.getTotalPages()); 
         ArrayList<ItemsDto> res = new ArrayList<ItemsDto>();
         for (Items d : resP) {
             res.add(modelMapper.map(itemsRepository.getById(d.getId()), ItemsDto.class));
         }
-        return res;
+        baseResponsePage.setList(res);
+        return baseResponsePage;
     }
 }
