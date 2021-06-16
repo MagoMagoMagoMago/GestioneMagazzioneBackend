@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
-import { ErrorPageComponent } from './error-page/error-page.component';
-import { LoginComponent } from './login/login.component';
+import { ErrorPageComponent } from './common/error-page/error-page.component';
+import { LoginComponent } from './common/login/login.component';
 
 const routes: Routes = [
   {
@@ -12,7 +11,9 @@ const routes: Routes = [
       title: 'Login'
     }
   },
-  { path: 'items', loadChildren: () => import('./items/items.module').then(m => m.ItemsModule) },
+  { path: 'items', loadChildren: () => import('./views/items/items.module').then(m => m.ItemsModule) },
+  { path: 'orders', loadChildren: () => import('./views/orders/orders.module').then(m => m.OrdersModule) },
+  { path: 'purchases', loadChildren: () => import('./views/purchases/purchases.module').then(m => m.PurchasesModule) },
   {
     path: "**",
     component: ErrorPageComponent,
