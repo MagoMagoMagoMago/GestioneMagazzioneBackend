@@ -1,13 +1,16 @@
 package its.kennedy.gestione.magazzino.Dao;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.Instant;
 
+@Entity
+@Table(name = "purchases")
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class Purchases implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -110,63 +113,63 @@ public class Purchases implements Serializable {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
-			return true;
-		}
+            return true;
+        }
         if (obj == null) {
-			return false;
-		}
+            return false;
+        }
         if (getClass() != obj.getClass()) {
-			return false;
-		}
+            return false;
+        }
         Purchases other = (Purchases) obj;
         if (createdAt == null) {
             if (other.createdAt != null) {
-				return false;
-			}
+                return false;
+            }
         } else if (!createdAt.equals(other.createdAt)) {
-			return false;
-		}
+            return false;
+        }
         if (date_invoice == null) {
             if (other.date_invoice != null) {
-				return false;
-			}
+                return false;
+            }
         } else if (!date_invoice.equals(other.date_invoice)) {
-			return false;
-		}
+            return false;
+        }
         if (deletedAt == null) {
             if (other.deletedAt != null) {
-				return false;
-			}
+                return false;
+            }
         } else if (!deletedAt.equals(other.deletedAt)) {
-			return false;
-		}
+            return false;
+        }
         if (id == null) {
             if (other.id != null) {
-				return false;
-			}
+                return false;
+            }
         } else if (!id.equals(other.id)) {
-			return false;
-		}
+            return false;
+        }
         if (note == null) {
             if (other.note != null) {
-				return false;
-			}
+                return false;
+            }
         } else if (!note.equals(other.note)) {
-			return false;
-		}
+            return false;
+        }
         if (number_invoice != other.number_invoice) {
-			return false;
-		}
+            return false;
+        }
         if (supplier_id != other.supplier_id) {
-			return false;
-		}
+            return false;
+        }
         if (updatedAt == null) {
             if (other.updatedAt != null) {
-				return false;
-			}
+                return false;
+            }
         } else if (!updatedAt.equals(other.updatedAt)) {
-			return false;
-		}
+            return false;
+        }
         return true;
     }
 

@@ -1,6 +1,6 @@
 package its.kennedy.gestione.magazzino.IService;
 
-import its.kennedy.gestione.magazzino.Dto.OrdersDto;
+import its.kennedy.gestione.magazzino.Dto.OrderItemsDto;
 
 public interface IOrderItems {
 
@@ -8,7 +8,7 @@ public interface IOrderItems {
      * Get orderItem by Id.
      *
      * @param id of orderItem.
-     * @return OrdersDto.
+     * @return OrderItemsDto.
      */
-    OrdersDto getById(Integer id);
+    OrderItemsDto getById(Integer id);
 }
