@@ -13,28 +13,28 @@ export class HeaderComponent implements OnInit {
       title: "Dashboard ",
       icon: "bootstrap-icons.svg#speedometer2",
       hover: false,
-      link: "home",
+      link: "dashboard",
       visible: true
     },
     {
       title: "Ordini",
       icon: "bootstrap-icons.svg#table",
       hover: false,
-      link: "home",
+      link: "orders",
       visible: true
     },
     {
       title: "Articoli",
       icon: "bootstrap-icons.svg#grid",
       hover: false,
-      link: "home",
+      link: "items",
       visible: true
     },
     {
       title: "Acquisti",
       icon: "bootstrap-icons.svg#bag",
       hover:false,
-      link:"home",
+      link:"purchases",
       visible: true
     },
     {

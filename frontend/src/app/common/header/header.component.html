@@ -13,7 +13,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item fs-6 ms-2" *ngFor="let item of navbar">
-          <a class="nav-link text-white text-center" aria-current="page" href="#"
+          <a class="nav-link text-white text-center" aria-current="page" [routerLink]="[item.link]"
             [ngClass]="{'text-white': !item.hover, 'text-warning' : item.hover }" (mouseover)="onHover(item)"
             (mouseleave)="removeHover(item)">
             <svg class="bi d-block mx-auto mb-1" width="24" height="24">

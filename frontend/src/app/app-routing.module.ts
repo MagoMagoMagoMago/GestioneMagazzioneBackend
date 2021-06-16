@@ -14,6 +14,7 @@ const routes: Routes = [
   { path: 'items', loadChildren: () => import('./views/items/items.module').then(m => m.ItemsModule) },
   { path: 'orders', loadChildren: () => import('./views/orders/orders.module').then(m => m.OrdersModule) },
   { path: 'purchases', loadChildren: () => import('./views/purchases/purchases.module').then(m => m.PurchasesModule) },
+  { path: 'dashboard', loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule) },
   {
     path: "**",
     component: ErrorPageComponent,
