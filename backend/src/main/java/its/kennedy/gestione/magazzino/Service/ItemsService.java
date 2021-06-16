@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class ItemsService implements IItems {
     @Override
     public Boolean modifica(Items entity) {
     	try {
+    		entity.setUpdatedAt(Instant.now());
     		itemsRepository.saveAndFlush(entity);	
     	}catch(Exception e){
     		return false;
