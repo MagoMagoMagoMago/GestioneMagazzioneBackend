@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ItemApiService {
 
-  private host = environment.host + "/api/" + environment.endpoint.items;
+  private host = environment.host + "/" + environment.endpoint.items;
 
   constructor(private http: HttpClient) {  }
 
