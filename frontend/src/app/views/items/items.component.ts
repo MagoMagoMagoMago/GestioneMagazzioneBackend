@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ItemApiService } from 'src/app/api/item-api.service';
-import { Item } from './item';
 
 @Component({
   selector: 'app-items',
@@ -13,8 +12,9 @@ export class ItemsComponent implements OnInit {
 
   public colItems!:any[];
   public listaItems!: any[];
+  public selectedItem: any;
   //dettagli paginazione
-  public quantita: number = 8;
+  public quantita: number = 20;
   public pagine: number = 0;
   public ordine: string = "id"
 
@@ -31,7 +31,6 @@ export class ItemsComponent implements OnInit {
 
     this.loadItems(this.ordine, this.pagine, this.quantita);
   }
-
 
   loadItems(ordine: string, pagine: number, quantita: number) {
    this.api.getAll(ordine, pagine, quantita).subscribe((resp) => {
