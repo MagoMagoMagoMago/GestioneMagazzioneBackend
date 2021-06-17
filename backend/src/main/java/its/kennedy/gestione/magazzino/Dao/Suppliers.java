@@ -35,17 +35,12 @@ public class Suppliers implements Serializable {
     private String nazione;
     @Column(name = "note", length = 400)
     private String note;
-
     @NotNull
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
-
-    @NotNull
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updated_at")
     private Instant updatedAt;
-
-    @NotNull
-    @Column(name = "deleted_at", nullable = false)
+    @Column(name = "deleted_at")
     private Instant deletedAt;
 
     public Integer getId() {
