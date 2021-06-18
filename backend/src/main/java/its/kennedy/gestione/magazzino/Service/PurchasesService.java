@@ -25,8 +25,11 @@ public class PurchasesService implements IPurchases{
 
     @Override
     public PurchasesDto getById(Integer id) {
+    	try {
         return modelMapper.map(puchasesRepository.findById(id), PurchasesDto.class);
-    }
+    	}catch(Exception e){}
+		return null;
+    	}
     @Override
     public Boolean modifica(Purchases entity) {
     	try {

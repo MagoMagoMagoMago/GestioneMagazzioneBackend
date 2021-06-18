@@ -30,6 +30,16 @@ public class PurchasesController {
 	        }
 	        return ResponseEntity.ok().body(dto);
 	    }
+	    @GetMapping("{id}")
+	    public ResponseEntity<PurchasesDto> getItemsById(@PathVariable Integer id) {
+	        PurchasesDto dto = null;
+	        try {
+	            dto = supplierservice.getById(id);
+	        } catch (Exception e) {
+	            return ResponseEntity.notFound().build();
+	        }
+	        return ResponseEntity.ok().body(dto);
+	    }
 	    @PutMapping(produces = "application/json")
 		public ResponseEntity<Boolean> updateDoc(@RequestBody Purchases doc) {
 		 	try {
