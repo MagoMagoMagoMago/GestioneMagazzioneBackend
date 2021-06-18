@@ -12,7 +12,7 @@ public interface IOrders {
      * @param id of Order.
      * @return OrdersDto.
      */
-    OrdersDto getById(Integer id);
+    OrdersDto getById(String id);
 
     /**
      * Inserts a list of orders.
@@ -20,7 +20,7 @@ public interface IOrders {
      * @param orders list of orders
      * @return True if the orders were inserted correctly, false otherwise
      */
-    Boolean addOrders(List<OrdersDto> orders);
+    Boolean addOrders(OrdersDto.OrdersDtoList orders);
 
     /**
      * Get a list of paginated orders
@@ -32,4 +32,6 @@ public interface IOrders {
      * @return
      */
     List<OrdersDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean dir);
+
+    List<String> getAllAmazonOrderId();
 }

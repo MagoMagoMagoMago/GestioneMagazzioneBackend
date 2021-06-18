@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 public class OrdersService implements IOrders {
 
@@ -24,21 +25,25 @@ public class OrdersService implements IOrders {
     private ModelMapper modelMapper;
 
     @Override
-    public OrdersDto getById(Integer id) {
+    public OrdersDto getById(String id) {
         return modelMapper.map(ordersRepository.findById(id), OrdersDto.class);
     }
 
     @Override
-    public Boolean addOrders(List<OrdersDto> orders) {
-        List<Orders> ordersDao = new ArrayList<>();
-        orders.forEach(o -> {
-
-            ordersDao.add(modelMapper.map(o, Orders.class));
+    public Boolean addOrders(OrdersDto.OrdersDtoList orders) {
+        List<Orders> newOrders = new ArrayList<>();
+        List<String> myAmazonOrdersIds = ordersRepository.findAllIds();
+        orders.getOrders().forEach(order -> {
+            if (!myAmazonOrdersIds.contains(order.getAmazonOrderId())) {
+                newOrders.add(modelMapper.map(order, Orders.class));
+            }
         });
-        if (ordersRepository.saveAll(ordersDao).size() == orders.size()) {
-            return true;
+        try {
+            ordersRepository.saveAll(newOrders);
+        } catch (Exception e) {
+            return false;
         }
-        return false;
+        return true;
     }
 
     @Override
@@ -53,13 +58,17 @@ public class OrdersService implements IOrders {
             p = PageRequest.of(pagina, quantita, Sort.by(sortBy).descending());
         }
 
-
         Page<Orders> resP = ordersRepository.findAll(p);
         ArrayList<OrdersDto> res = new ArrayList<OrdersDto>();
         for (Orders d : resP) {
             res.add(modelMapper.map(ordersRepository.getById(d.getAmazonOrderId()), OrdersDto.class));
         }
         return res;
+    }
+
+    @Override
+    public List<String> getAllAmazonOrderId() {
+        return ordersRepository.findAllIds();
     }
 
 

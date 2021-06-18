@@ -3,7 +3,10 @@ package its.kennedy.gestione.magazzino.Dao;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
@@ -13,49 +16,23 @@ import java.util.Objects;
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class Orders implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "AmazonOrderId")
-    private Integer amazonOrderId;
+    private String amazonOrderId;
 
-    @Column(name = "BuyerEmail", length = 100)
-    private String buyerEmail;
-
-    @Column(name = "BuyerName", length = 100)
-    private String buyerName;
-
-    @Column(name = "CompanyLegalName", length = 100)
-    private String companyLegalName;
-
-    @Column(name = "EarliestShipDate")
-    private Instant earliestShipDate;
-
-    @Column(name = "FulfillmentChannel", length = 100)
-    private String fulfillmentChannel;
-
-    @Column(name = "IsBusinessOrder")
-    private Boolean isBusinessOrder;
-
-    @Column(name = "IsGlobalExpressEnabled")
-    private Boolean isGlobalExpressEnabled;
-
-    @Column(name = "IsPremiumOrder")
-    private Boolean isPremiumOrder;
-
-    @Column(name = "IsPrime")
-    private Boolean isPrime;
-
-    @Column(name = "IsSoldByAB")
-    private Boolean isSoldByAB;
+    @Column(name = "PurchaseDate")
+    private Instant purchaseDate;
 
     @Column(name = "LastUpdateDate")
     private Instant lastUpdateDate;
 
-    @Column(name = "LatestShipDate")
-    private Instant latestShipDate;
+    @Column(name = "OrderStatus", length = 100)
+    private String orderStatus;
 
-    @Column(name = "MarketplaceId", length = 100)
-    private String marketplaceId;
+    @Column(name = "FulfillmentChannel", length = 100)
+    private String fulfillmentChannel;
 
     @Column(name = "NumberOfItemsShipped")
     private Integer numberOfItemsShipped;
@@ -63,35 +40,62 @@ public class Orders implements Serializable {
     @Column(name = "NumberOfItemsUnshipped")
     private Integer numberOfItemsUnshipped;
 
-    @Column(name = "OrderStatus", length = 100)
-    private String orderStatus;
-
-    @Column(name = "OrderType", length = 100)
-    private String orderType;
-
     @Column(name = "PaymentMethod", length = 100)
     private String paymentMethod;
 
     @Column(name = "PaymentMethodDetails", length = 100)
     private String paymentMethodDetails;
 
-    @Column(name = "PurchaseDate")
-    private Instant PurchaseDate;
-
-    @Column(name = "PurchaseOrderNumber", length = 100)
-    private String purchaseOrderNumber;
+    @Column(name = "MarketplaceId", length = 100)
+    private String marketplaceId;
 
     @Column(name = "ShipmentServiceLevelCategory", length = 100)
     private String shipmentServiceLevelCategory;
 
-    @Column(name = "ShippingAddressCity", length = 100)
-    private String shippingAddressCity;
+    @Column(name = "OrderType", length = 100)
+    private String orderType;
+
+    @Column(name = "EarliestShipDate")
+    private Instant earliestShipDate;
+
+    @Column(name = "LatestShipDate")
+    private Instant latestShipDate;
+
+    @Column(name = "IsBusinessOrder")
+    private Boolean isBusinessOrder;
+
+    @Column(name = "IsPrime")
+    private Boolean isPrime;
+
+    @Column(name = "IsGlobalExpressEnabled")
+    private Boolean isGlobalExpressEnabled;
+
+    @Column(name = "IsPremiumOrder")
+    private Boolean isPremiumOrder;
+
+    @Column(name = "IsSoldByAB")
+    private Boolean isSoldByAB;
+
+    @Column(name = "CompanyLegalName", length = 100)
+    private String companyLegalName;
+
+    @Column(name = "BuyerEmail", length = 100)
+    private String buyerEmail;
+
+    @Column(name = "BuyerName", length = 100)
+    private String buyerName;
+
+    @Column(name = "PurchaseOrderNumber", length = 100)
+    private String purchaseOrderNumber;
+
+    @Column(name = "ShippingAddressName", length = 100)
+    private String shippingAddressName;
 
     @Column(name = "ShippingAddressLine1", length = 100)
     private String shippingAddressLine1;
 
-    @Column(name = "ShippingAddressName", length = 100)
-    private String shippingAddressName;
+    @Column(name = "ShippingAddressCity", length = 100)
+    private String shippingAddressCity;
 
     @Column(name = "ShippingCityStateOrRegion", length = 100)
     private String shippingCityStateOrRegion;
@@ -99,11 +103,11 @@ public class Orders implements Serializable {
     @Column(name = "ShippingStateOrRegionPostalCode", length = 100)
     private String shippingStateOrRegionPostalCode;
 
-    public Integer getAmazonOrderId() {
+    public String getAmazonOrderId() {
         return amazonOrderId;
     }
 
-    public void setAmazonOrderId(Integer amazonOrderId) {
+    public void setAmazonOrderId(String amazonOrderId) {
         this.amazonOrderId = amazonOrderId;
     }
 
@@ -260,11 +264,11 @@ public class Orders implements Serializable {
     }
 
     public Instant getPurchaseDate() {
-        return PurchaseDate;
+        return purchaseDate;
     }
 
     public void setPurchaseDate(Instant purchaseDate) {
-        PurchaseDate = purchaseDate;
+        this.purchaseDate = purchaseDate;
     }
 
     public String getPurchaseOrderNumber() {
@@ -346,7 +350,7 @@ public class Orders implements Serializable {
                 ", orderType='" + orderType + '\'' +
                 ", paymentMethod='" + paymentMethod + '\'' +
                 ", paymentMethodDetails='" + paymentMethodDetails + '\'' +
-                ", PurchaseDate=" + PurchaseDate +
+                ", PurchaseDate=" + purchaseDate + '\'' +
                 ", purchaseOrderNumber='" + purchaseOrderNumber + '\'' +
                 ", shipmentServiceLevelCategory='" + shipmentServiceLevelCategory + '\'' +
                 ", shippingAddressCity='" + shippingAddressCity + '\'' +
