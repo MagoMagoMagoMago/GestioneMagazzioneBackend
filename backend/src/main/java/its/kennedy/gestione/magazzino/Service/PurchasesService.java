@@ -2,7 +2,6 @@ package its.kennedy.gestione.magazzino.Service;
 
 import java.time.Instant;
 import java.util.ArrayList;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,10 +24,7 @@ public class PurchasesService implements IPurchases{
 
     @Override
     public PurchasesDto getById(Integer id) {
-    	try {
         return modelMapper.map(puchasesRepository.findById(id), PurchasesDto.class);
-    	}catch(Exception e){}
-		return null;
     	}
     @Override
     public Boolean modifica(Purchases entity) {
@@ -38,6 +34,17 @@ public class PurchasesService implements IPurchases{
     		}else {
     	    entity.setUpdatedAt(Instant.now());
     		}
+    		puchasesRepository.saveAndFlush(entity);	
+    	}catch(Exception e){
+    		return false;
+    	}
+        return true;
+    }
+    @Override
+    public Boolean elimina(int id) {
+    	try {
+    		Purchases entity=puchasesRepository.findById(id).get();
+    		entity.setDeletedAt(Instant.now());
     		puchasesRepository.saveAndFlush(entity);	
     	}catch(Exception e){
     		return false;
@@ -55,7 +62,7 @@ public class PurchasesService implements IPurchases{
         } else {
             p = PageRequest.of(pagina, quantita, Sort.by(sortBy).descending());
         }
-        Page<Purchases> resP = puchasesRepository.findAll(p);
+        Page<Purchases> resP = puchasesRepository.findAllByDeletedAt(null, p);
         BaseResponsePage<PurchasesDto> baseResponsePage=new BaseResponsePage<PurchasesDto>();
         baseResponsePage.setPagine(resP.getTotalPages()); 
         ArrayList<PurchasesDto> res = new ArrayList<PurchasesDto>();

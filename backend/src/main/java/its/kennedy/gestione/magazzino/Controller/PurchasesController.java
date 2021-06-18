@@ -40,6 +40,16 @@ public class PurchasesController {
 	        }
 	        return ResponseEntity.ok().body(dto);
 	    }
+	    @GetMapping("delete/{id}")
+	    public ResponseEntity<Boolean> eliminaItemsById(@PathVariable Integer id) {
+	        Boolean dto = null;
+	        try {
+	            dto = supplierservice.elimina(id);
+	        } catch (Exception e) {
+	            return ResponseEntity.notFound().build();
+	        }
+	        return ResponseEntity.ok().body(dto);
+	    }
 	    @PutMapping(produces = "application/json")
 		public ResponseEntity<Boolean> updateDoc(@RequestBody Purchases doc) {
 		 	try {

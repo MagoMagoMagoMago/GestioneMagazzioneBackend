@@ -8,4 +8,5 @@ public interface IPurchases {
     PurchasesDto getById(Integer id);
 	BaseResponsePage<PurchasesDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean dir);
 	Boolean modifica(Purchases entity);
+	Boolean elimina(int id);
 }
