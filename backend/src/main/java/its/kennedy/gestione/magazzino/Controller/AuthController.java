@@ -36,7 +36,6 @@ import its.kennedy.gestione.magazzino.Security.TokenRefreshException;
 import its.kennedy.gestione.magazzino.Service.UserDetailsImpl;
 import its.kennedy.gestione.magazzino.Service.RefreshTokenService;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -100,6 +99,15 @@ public class AuthController {
 	  }
 
 
+	@PostMapping("/logout")
+	  public ResponseEntity<?> logout(@Valid @RequestBody TokenRefreshRequest request) {
+	    String requestRefreshToken = request.getRefreshToken();
+	    
+	    refreshTokenService.deleteByToken(requestRefreshToken);
+
+	    return ResponseEntity.ok(refreshTokenService.deleteByToken(requestRefreshToken));
+	  }
+	
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {

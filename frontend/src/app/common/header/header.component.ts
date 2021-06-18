@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../login/login.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../login/auth.service';
 import { Navbar } from './navbar';
 
 @Component({
@@ -47,9 +48,17 @@ export class HeaderComponent implements OnInit {
       visible: true
     }
   ]
-  constructor(public loginService: LoginService) { }
+  constructor(
+    public authService: AuthService,
+    public router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  logout(): void{
+    this.authService.logout().subscribe( () =>{
+      this.router.navigate(['']);
+    });
   }
 
   onHover(item: Navbar): void {

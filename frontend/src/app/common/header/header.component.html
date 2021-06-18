@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-2" *ngIf="loginService._logged">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-2" *ngIf="authService.isLoggedIn()">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
       <svg class="bi me-2" width="100" height="30" role="img" aria-label="Bootstrap">
@@ -33,7 +33,7 @@
             <li><button class="dropdown-item" type="button">Generali</button></li>
             <li><button class="dropdown-item" type="button">Impostazioni</button></li>
             <li><hr class="dropdown-divider"></li>
-            <li><button class="dropdown-item" type="button">Esci</button></li>
+            <li><button class="dropdown-item" type="button" (click)="logout()">Esci</button></li>
           </ul>
         </div>
       </div>

@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { AuthService } from './auth.service';
 import { LoginService } from './login.service';
 
 @Component({
@@ -8,14 +10,20 @@ import { LoginService } from './login.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   submitted = false;
+  subcription!: Subscription | null;
 
   constructor(
     private router: Router,
     private loginService: LoginService,
+    private authService: AuthService,
     public fb: FormBuilder) { }
+
+  ngOnDestroy(): void {
+    this.subcription?.unsubscribe();
+  }
 
   loginForm = this.fb.group({
     username: ['', Validators.required],
@@ -33,17 +41,17 @@ export class LoginComponent implements OnInit {
   login(): void {
     this.submitted = true;
 
-    if (this.loginForm.valid){
-      this.loginService.authenticate(this.loginForm.get("username")?.value, this.loginForm.get("password")?.value).subscribe(
-        res => {
-          console.log('HTTP response', res)
-          this.loginService._logged = true;
-        },
-        err => {
-          console.log('HTTP Error', err);
-        },
-        () => console.log('HTTP request completed.')
-      );
+    if (this.loginForm.valid) {
+      this.subcription = this.authService.login(
+        {
+          username: this.loginForm.get("username")?.value,
+          password: this.loginForm.get("password")?.value
+        }).subscribe((res) => {
+          if (res) {
+            this.router.navigate(['/dashboard']);
+          }
+        });
     }
+
   }
 }
