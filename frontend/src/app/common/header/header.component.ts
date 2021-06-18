@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../login/auth.service';
 import { Navbar } from './navbar';
 
 @Component({
@@ -7,6 +9,7 @@ import { Navbar } from './navbar';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  visible!: boolean;
 
   public navbar: Navbar[] = [
     {
@@ -45,9 +48,17 @@ export class HeaderComponent implements OnInit {
       visible: true
     }
   ]
-  constructor() { }
+  constructor(
+    public authService: AuthService,
+    public router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  logout(): void{
+    this.authService.logout().subscribe( () =>{
+      this.router.navigate(['']);
+    });
   }
 
   onHover(item: Navbar): void {

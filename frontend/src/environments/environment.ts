@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  host: "localhost:8000/",
+  host: "http://localhost:8000/api/",
   endpoint: {
     items: "items",
     orders: "orders",
