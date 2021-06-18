@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from '../login/login.service';
 import { Navbar } from './navbar';
 
 @Component({
@@ -7,6 +8,7 @@ import { Navbar } from './navbar';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  visible!: boolean;
 
   public navbar: Navbar[] = [
     {
@@ -45,7 +47,7 @@ export class HeaderComponent implements OnInit {
       visible: true
     }
   ]
-  constructor() { }
+  constructor(public loginService: LoginService) { }
 
   ngOnInit(): void {
   }
