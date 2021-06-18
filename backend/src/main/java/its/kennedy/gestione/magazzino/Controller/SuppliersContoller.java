@@ -1,9 +1,7 @@
 package its.kennedy.gestione.magazzino.Controller;
 
-import its.kennedy.gestione.magazzino.Dao.Items;
-import its.kennedy.gestione.magazzino.Dto.BaseResponsePage;
-import its.kennedy.gestione.magazzino.Dto.ItemsDto;
-import its.kennedy.gestione.magazzino.Service.ItemsService;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,41 +11,40 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-
+import its.kennedy.gestione.magazzino.Dao.Suppliers;
+import its.kennedy.gestione.magazzino.Dto.SuppliersDto;
+import its.kennedy.gestione.magazzino.Service.SuppliersService;
 @RestController
-@RequestMapping("/api/items")
+@RequestMapping("/api/supplier")
 @Transactional
-public class ItemsController {
+public class SuppliersContoller {
     @Autowired
-    private ItemsService itemService;
-
+	SuppliersService supplierservice;
     @GetMapping("{id}")
-    public ResponseEntity<ItemsDto> getItemsById(@PathVariable Integer id) {
-        ItemsDto dto = null;
+    public ResponseEntity<SuppliersDto> getSuppliersById(@PathVariable Integer id) {
+        SuppliersDto dto = null;
         try {
-            dto = itemService.getById(id);
+            dto = supplierservice.getById(id);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok().body(dto);
     }
 
-    @GetMapping("pagina/{ord}/{p}/{q}")
-    public ResponseEntity<BaseResponsePage<ItemsDto>> selezionapagina(@PathVariable String ord, @PathVariable Integer p, @PathVariable Integer q) {
-        BaseResponsePage<ItemsDto> dto = null;
+    @GetMapping("all")
+    public ResponseEntity<List<SuppliersDto>> selezionapagina() {
+        List<SuppliersDto> dto = null;
         try {
-            dto = itemService.selezionaPagina(p, q, ord, true);
+            dto = supplierservice.getAll();
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok().body(dto);
     }
     @PutMapping(produces = "application/json")
-	public ResponseEntity<Boolean> updateDoc(@RequestBody Items doc) {
+	public ResponseEntity<Boolean> updateDoc(@RequestBody Suppliers doc) {
 	 	try {
-	 		return ResponseEntity.ok().body(itemService.modifica(doc));
+	 		return ResponseEntity.ok().body(supplierservice.modifica(doc));
 			
 			} catch (Exception e) {			
 				return  ResponseEntity.ok().body(false);	
