@@ -7,52 +7,64 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.Objects;
 
 @Entity
 @Table(name = "items")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class Items implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
+
     @NotNull
     @Column(name = "asin", length = 100, nullable = false)
     private String asin;
+
     @NotNull
     @Column(name = "title", length = 100, nullable = false)
     private String title;
 
     @Column(name = "description", length = 400)
     private String description;
+
     @NotNull
     @Column(name = "price", nullable = false)
     private Double price;
+
     @NotNull
     @Column(name = "storage", length = 100, nullable = false)
     private int storage;
+
     @NotNull
     @Column(name = "min_availability", nullable = false)
     private int min_availability;
+
     @NotNull
     @Column(name = "image", length = 400, nullable = false)
     private String image;
+
     @NotNull
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
-
     @Column(name = "updated_at")
     private Instant updatedAt;
 
-
     @Column(name = "deleted_at")
     private Instant deletedAt;
-    @NotNull
-    @Column(name = "category_id", nullable = false)
-    private int category_id;
+
+    @JoinColumn(name = "category_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Categories category;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
     public Integer getId() {
         return id;
@@ -126,7 +138,6 @@ public class Items implements Serializable {
         this.createdAt = createdAt;
     }
 
-
     public Instant getUpdatedAt() {
         return updatedAt;
     }
@@ -143,107 +154,56 @@ public class Items implements Serializable {
         this.deletedAt = deletedAt;
     }
 
-    public int getCategory_id() {
-        return category_id;
+    public Categories getCategory() {
+        return category;
     }
 
-    public void setCategory_id(int category_id) {
-        this.category_id = category_id;
+    public void setCategory(Categories category) {
+        this.category = category;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-			return true;
-		}
-        if (obj == null) {
-			return false;
-		}
-        if (getClass() != obj.getClass()) {
-			return false;
-		}
-        Items other = (Items) obj;
-        if (asin == null) {
-            if (other.asin != null) {
-				return false;
-			}
-        } else if (!asin.equals(other.asin)) {
-			return false;
-		}
-        if (category_id != other.category_id) {
-			return false;
-		}
-        if (createdAt == null) {
-            if (other.createdAt != null) {
-				return false;
-			}
-        } else if (!createdAt.equals(other.createdAt)) {
-			return false;
-		}
-        if (deletedAt == null) {
-            if (other.deletedAt != null) {
-				return false;
-			}
-        } else if (!deletedAt.equals(other.deletedAt)) {
-			return false;
-		}
-        if (description == null) {
-            if (other.description != null) {
-				return false;
-			}
-        } else if (!description.equals(other.description)) {
-			return false;
-		}
-        if (id == null) {
-            if (other.id != null) {
-				return false;
-			}
-        } else if (!id.equals(other.id)) {
-			return false;
-		}
-        if (image == null) {
-            if (other.image != null) {
-				return false;
-			}
-        } else if (!image.equals(other.image)) {
-			return false;
-		}
-        if (min_availability != other.min_availability) {
-			return false;
-		}
-        if (price == null) {
-            if (other.price != null) {
-				return false;
-			}
-        } else if (!price.equals(other.price)) {
-			return false;
-		}
-        if (storage != other.storage) {
-			return false;
-		}
-        if (title == null) {
-            if (other.title != null) {
-				return false;
-			}
-        } else if (!title.equals(other.title)) {
-			return false;
-		}
-        if (updatedAt == null) {
-            if (other.updatedAt != null) {
-				return false;
-			}
-        } else if (!updatedAt.equals(other.updatedAt)) {
-			return false;
-		}
-        return true;
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Items items = (Items) o;
+        return getStorage() == items.getStorage()
+                && getMin_availability() == items.getMin_availability()
+                && getId().equals(items.getId())
+                && getAsin().equals(items.getAsin())
+                && getTitle().equals(items.getTitle())
+                && Objects.equals(getDescription(), items.getDescription())
+                && getPrice().equals(items.getPrice())
+                && getImage().equals(items.getImage())
+                && getCreatedAt().equals(items.getCreatedAt())
+                && Objects.equals(getUpdatedAt(), items.getUpdatedAt())
+                && Objects.equals(getDeletedAt(), items.getDeletedAt());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getAsin(), getTitle(), getDescription(), getPrice(), getStorage(),
+                getMin_availability(), getImage(), getCreatedAt(), getUpdatedAt(), getDeletedAt());
     }
 
     @Override
     public String toString() {
-        return "ItemsDao [id=" + id + ", asin=" + asin + ", title=" + title + ", description=" + description
-                + ", price=" + price + ", storage=" + storage + ", min_availability=" + min_availability + ", image="
-                + image + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", deletedAt=" + deletedAt
-                + ", category_id=" + category_id + "]";
+        return "Items{" +
+                "id=" + id +
+                ", asin='" + asin + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", storage=" + storage +
+                ", min_availability=" + min_availability +
+                ", image='" + image + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", deletedAt=" + deletedAt +
+                '}';
     }
-
 }

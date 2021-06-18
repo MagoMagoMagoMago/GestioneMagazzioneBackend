@@ -27,21 +27,22 @@ public class ItemsService implements IItems {
     public ItemsDto getById(Integer id) {
         return modelMapper.map(itemsRepository.getById(id), ItemsDto.class);
     }
+
     @Override
     public Boolean modifica(Items entity) {
-    	try {
-    		if(entity.getId()==null) {
-    		entity.setCreatedAt(Instant.now());
-    		}else {
-    	    entity.setUpdatedAt(Instant.now());
-    		}
-    		itemsRepository.saveAndFlush(entity);	
-    	}catch(Exception e){
-    		return false;
-    	}
+        try {
+            if (entity.getId() == null) {
+                entity.setCreatedAt(Instant.now());
+            } else {
+                entity.setUpdatedAt(Instant.now());
+            }
+            itemsRepository.saveAndFlush(entity);
+        } catch (Exception e) {
+            return false;
+        }
         return true;
     }
-    
+
     @Override
     public BaseResponsePage<ItemsDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean dir) {
         Pageable p;
@@ -54,11 +55,13 @@ public class ItemsService implements IItems {
             p = PageRequest.of(pagina, quantita, Sort.by(sortBy).descending());
         }
         Page<Items> resP = itemsRepository.findAll(p);
-        BaseResponsePage<ItemsDto> baseResponsePage=new BaseResponsePage<ItemsDto>();
-        baseResponsePage.setPagine(resP.getTotalPages()); 
+        BaseResponsePage<ItemsDto> baseResponsePage = new BaseResponsePage<ItemsDto>();
+        baseResponsePage.setPagine(resP.getTotalPages());
         ArrayList<ItemsDto> res = new ArrayList<ItemsDto>();
         for (Items d : resP) {
-            res.add(modelMapper.map(itemsRepository.getById(d.getId()), ItemsDto.class));
+            ItemsDto item = modelMapper.map(d, ItemsDto.class);
+            item.setCategory(d.getCategory().getName());
+            res.add(item);
         }
         baseResponsePage.setList(res);
         return baseResponsePage;

@@ -14,18 +14,23 @@ import java.time.Instant;
 public class Purchases implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
+
     @NotNull
     @Column(name = "supplier_id", nullable = false)
     private int supplier_id;
+
     @NotNull
     @Column(name = "number_invoice", nullable = false)
     private int number_invoice;
+
     @Column(name = "note", length = 400)
     private String note;
+    
     @NotNull
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;

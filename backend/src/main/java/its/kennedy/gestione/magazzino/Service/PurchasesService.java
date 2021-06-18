@@ -1,5 +1,10 @@
 package its.kennedy.gestione.magazzino.Service;
 
+import its.kennedy.gestione.magazzino.Dao.Purchases;
+import its.kennedy.gestione.magazzino.Dto.BaseResponsePage;
+import its.kennedy.gestione.magazzino.Dto.PurchasesDto;
+import its.kennedy.gestione.magazzino.IService.IPurchases;
+import its.kennedy.gestione.magazzino.Repository.PurchasesRepository;
 import java.time.Instant;
 import java.util.ArrayList;
 import org.modelmapper.ModelMapper;
@@ -9,13 +14,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import its.kennedy.gestione.magazzino.Dao.Purchases;
-import its.kennedy.gestione.magazzino.Dto.BaseResponsePage;
-import its.kennedy.gestione.magazzino.Dto.PurchasesDto;
-import its.kennedy.gestione.magazzino.IService.IPurchases;
-import its.kennedy.gestione.magazzino.Repository.PurchasesRepository;
+
+import java.time.Instant;
+import java.util.ArrayList;
+
 @Service
-public class PurchasesService implements IPurchases{
+public class PurchasesService implements IPurchases {
     @Autowired
     private PurchasesRepository puchasesRepository;
 
@@ -24,22 +28,29 @@ public class PurchasesService implements IPurchases{
 
     @Override
     public PurchasesDto getById(Integer id) {
-        return modelMapper.map(puchasesRepository.findById(id), PurchasesDto.class);
-    	}
+        try {
+            return modelMapper.map(puchasesRepository.findById(id).get(), PurchasesDto.class);
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+
     @Override
     public Boolean modifica(Purchases entity) {
-    	try {
-    		if(entity.getId()==null) {
-    		entity.setCreatedAt(Instant.now());
-    		}else {
-    	    entity.setUpdatedAt(Instant.now());
-    		}
-    		puchasesRepository.saveAndFlush(entity);	
-    	}catch(Exception e){
-    		return false;
-    	}
+        try {
+            if (entity.getId() == null) {
+                entity.setCreatedAt(Instant.now());
+            } else {
+                entity.setUpdatedAt(Instant.now());
+            }
+            puchasesRepository.saveAndFlush(entity);
+        } catch (Exception e) {
+            return false;
+        }
         return true;
     }
+
     @Override
     public Boolean elimina(int id) {
     	try {
@@ -67,7 +78,7 @@ public class PurchasesService implements IPurchases{
         baseResponsePage.setPagine(resP.getTotalPages()); 
         ArrayList<PurchasesDto> res = new ArrayList<PurchasesDto>();
         for (Purchases d : resP) {
-            res.add(modelMapper.map(puchasesRepository.getById(d.getId()), PurchasesDto.class));
+            res.add(modelMapper.map(d, PurchasesDto.class));
         }
         baseResponsePage.setList(res);
         return baseResponsePage;
