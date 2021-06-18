@@ -13,7 +13,12 @@ import java.util.Objects;
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class OrderItems implements Serializable {
 
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "OrderItemId")
     private Integer orderItemId;
