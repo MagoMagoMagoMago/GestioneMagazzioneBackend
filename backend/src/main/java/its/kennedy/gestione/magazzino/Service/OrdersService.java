@@ -1,7 +1,7 @@
 package its.kennedy.gestione.magazzino.Service;
 
 import its.kennedy.gestione.magazzino.Dao.Order;
-import its.kennedy.gestione.magazzino.Dto.OrdersDto;
+import its.kennedy.gestione.magazzino.Dto.OrderDto;
 import its.kennedy.gestione.magazzino.IService.IOrders;
 import its.kennedy.gestione.magazzino.Repository.OrdersRepository;
 import org.modelmapper.ModelMapper;
@@ -25,12 +25,12 @@ public class OrdersService implements IOrders {
     private ModelMapper modelMapper;
 
     @Override
-    public OrdersDto getById(String id) {
-        return modelMapper.map(ordersRepository.findById(id), OrdersDto.class);
+    public OrderDto getById(String id) {
+        return modelMapper.map(ordersRepository.findById(id), OrderDto.class);
     }
 
     @Override
-    public Boolean addOrders(OrdersDto.OrdersDtoList orders) {
+    public Boolean addOrders(OrderDto.OrdersDtoList orders) {
         List<Order> newOrders = new ArrayList<>();
         List<String> myAmazonOrdersIds = ordersRepository.findAllIds();
         orders.getOrders().forEach(order -> {
@@ -47,7 +47,7 @@ public class OrdersService implements IOrders {
     }
 
     @Override
-    public List<OrdersDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean dir) {
+    public List<OrderDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean dir) {
         Pageable p;
         if (sortBy.length() <= 0) {
             sortBy = "Id";
@@ -59,9 +59,9 @@ public class OrdersService implements IOrders {
         }
 
         Page<Order> resP = ordersRepository.findAll(p);
-        ArrayList<OrdersDto> res = new ArrayList<OrdersDto>();
+        ArrayList<OrderDto> res = new ArrayList<OrderDto>();
         for (Order d : resP) {
-            res.add(modelMapper.map(ordersRepository.getById(d.getAmazonOrderId()), OrdersDto.class));
+            res.add(modelMapper.map(ordersRepository.getById(d.getAmazonOrderId()), OrderDto.class));
         }
         return res;
     }

@@ -1,12 +1,9 @@
 package its.kennedy.gestione.magazzino.Dto;
 
-import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
-public class CategoriesDto implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class CategoryDto {
 
     private Integer id;
 
@@ -76,7 +73,7 @@ public class CategoriesDto implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        CategoriesDto that = (CategoriesDto) o;
+        CategoryDto that = (CategoryDto) o;
         return getId().equals(that.getId())
                 && Objects.equals(getName(), that.getName())
                 && getCreatedAt().equals(that.getCreatedAt())
@@ -92,7 +89,7 @@ public class CategoriesDto implements Serializable {
 
     @Override
     public String toString() {
-        return "CategoriesDto{" +
+        return "CategoryDto{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", createdAt=" + createdAt +

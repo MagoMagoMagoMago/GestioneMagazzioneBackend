@@ -1,6 +1,6 @@
 package its.kennedy.gestione.magazzino.IService;
 
-import its.kennedy.gestione.magazzino.Dto.OrdersDto;
+import its.kennedy.gestione.magazzino.Dto.OrderDto;
 
 import java.util.List;
 
@@ -10,9 +10,9 @@ public interface IOrders {
      * Get order by Id.
      *
      * @param id of Order.
-     * @return OrdersDto.
+     * @return OrderDto.
      */
-    OrdersDto getById(String id);
+    OrderDto getById(String id);
 
     /**
      * Inserts a list of orders.
@@ -20,7 +20,7 @@ public interface IOrders {
      * @param orders list of orders
      * @return True if the orders were inserted correctly, false otherwise
      */
-    Boolean addOrders(OrdersDto.OrdersDtoList orders);
+    Boolean addOrders(OrderDto.OrdersDtoList orders);
 
     /**
      * Get a list of paginated order
@@ -31,7 +31,7 @@ public interface IOrders {
      * @param dir
      * @return
      */
-    List<OrdersDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean dir);
+    List<OrderDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean dir);
 
     List<String> getAllAmazonOrderId();
 }

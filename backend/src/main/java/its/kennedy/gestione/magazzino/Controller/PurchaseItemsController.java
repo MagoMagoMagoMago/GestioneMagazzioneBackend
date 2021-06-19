@@ -1,7 +1,7 @@
 package its.kennedy.gestione.magazzino.Controller;
 
 import its.kennedy.gestione.magazzino.Dao.PurchaseItem;
-import its.kennedy.gestione.magazzino.Dto.PurchaseItemsDto;
+import its.kennedy.gestione.magazzino.Dto.PurchaseItemDto;
 import its.kennedy.gestione.magazzino.Service.PurchaseItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,8 +29,8 @@ public class PurchaseItemsController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<PurchaseItemsDto> getItemsById(@PathVariable Integer id) {
-        PurchaseItemsDto dto = null;
+    public ResponseEntity<PurchaseItemDto> getItemsById(@PathVariable Integer id) {
+        PurchaseItemDto dto = null;
         try {
             dto = supplierservice.getById(id);
         } catch (Exception e) {
@@ -40,8 +40,8 @@ public class PurchaseItemsController {
     }
 
     @GetMapping("prucase/{id}")
-    public ResponseEntity<List<PurchaseItemsDto>> getItemsBypurchase(@PathVariable Integer id) {
-        List<PurchaseItemsDto> dto = null;
+    public ResponseEntity<List<PurchaseItemDto>> getItemsBypurchase(@PathVariable Integer id) {
+        List<PurchaseItemDto> dto = null;
         try {
             dto = supplierservice.getByPurchase(id);
         } catch (Exception e) {

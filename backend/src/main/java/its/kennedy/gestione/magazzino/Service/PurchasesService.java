@@ -2,7 +2,7 @@ package its.kennedy.gestione.magazzino.Service;
 
 import its.kennedy.gestione.magazzino.Dao.Purchase;
 import its.kennedy.gestione.magazzino.Dto.BaseResponsePage;
-import its.kennedy.gestione.magazzino.Dto.PurchasesDto;
+import its.kennedy.gestione.magazzino.Dto.PurchaseDto;
 import its.kennedy.gestione.magazzino.IService.IPurchases;
 import its.kennedy.gestione.magazzino.Repository.PurchasesRepository;
 import org.modelmapper.ModelMapper;
@@ -25,9 +25,9 @@ public class PurchasesService implements IPurchases {
     private ModelMapper modelMapper;
 
     @Override
-    public PurchasesDto getById(Integer id) {
+    public PurchaseDto getById(Integer id) {
         try {
-            return modelMapper.map(puchasesRepository.findById(id).get(), PurchasesDto.class);
+            return modelMapper.map(puchasesRepository.findById(id).get(), PurchaseDto.class);
         } catch (Exception e) {
             return null;
         }
@@ -62,7 +62,7 @@ public class PurchasesService implements IPurchases {
     }
 
     @Override
-    public BaseResponsePage<PurchasesDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean dir) {
+    public BaseResponsePage<PurchaseDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean dir) {
         Pageable p;
         if (sortBy.length() <= 0) {
             sortBy = "Id";
@@ -73,11 +73,11 @@ public class PurchasesService implements IPurchases {
             p = PageRequest.of(pagina, quantita, Sort.by(sortBy).descending());
         }
         Page<Purchase> resP = puchasesRepository.findAllByDeletedAt(null, p);
-        BaseResponsePage<PurchasesDto> baseResponsePage = new BaseResponsePage<PurchasesDto>();
+        BaseResponsePage<PurchaseDto> baseResponsePage = new BaseResponsePage<PurchaseDto>();
         baseResponsePage.setPagine(resP.getTotalPages());
-        ArrayList<PurchasesDto> res = new ArrayList<PurchasesDto>();
+        ArrayList<PurchaseDto> res = new ArrayList<PurchaseDto>();
         for (Purchase d : resP) {
-            res.add(modelMapper.map(d, PurchasesDto.class));
+            res.add(modelMapper.map(d, PurchaseDto.class));
         }
         baseResponsePage.setList(res);
         return baseResponsePage;

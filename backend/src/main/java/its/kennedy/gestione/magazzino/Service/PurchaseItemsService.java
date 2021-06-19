@@ -1,7 +1,7 @@
 package its.kennedy.gestione.magazzino.Service;
 
 import its.kennedy.gestione.magazzino.Dao.PurchaseItem;
-import its.kennedy.gestione.magazzino.Dto.PurchaseItemsDto;
+import its.kennedy.gestione.magazzino.Dto.PurchaseItemDto;
 import its.kennedy.gestione.magazzino.IService.IPurchaseItems;
 import its.kennedy.gestione.magazzino.Repository.PurchaseItemsRepository;
 import org.modelmapper.ModelMapper;
@@ -21,17 +21,17 @@ public class PurchaseItemsService implements IPurchaseItems {
     private ModelMapper modelMapper;
 
     @Override
-    public PurchaseItemsDto getById(Integer id) {
-        return modelMapper.map(puchasesRepository.findById(id).get(), PurchaseItemsDto.class);
+    public PurchaseItemDto getById(Integer id) {
+        return modelMapper.map(puchasesRepository.findById(id).get(), PurchaseItemDto.class);
     }
 
     @Override
-    public List<PurchaseItemsDto> getByPurchase(int id) {
+    public List<PurchaseItemDto> getByPurchase(int id) {
 
-        List<PurchaseItemsDto> ritorno = new ArrayList<PurchaseItemsDto>();
+        List<PurchaseItemDto> ritorno = new ArrayList<PurchaseItemDto>();
         List<PurchaseItem> iterable = puchasesRepository.findAllByPurchase_id(id);
         for (PurchaseItem i : iterable) {
-            ritorno.add(modelMapper.map(i, PurchaseItemsDto.class));
+            ritorno.add(modelMapper.map(i, PurchaseItemDto.class));
         }
         return ritorno;
     }

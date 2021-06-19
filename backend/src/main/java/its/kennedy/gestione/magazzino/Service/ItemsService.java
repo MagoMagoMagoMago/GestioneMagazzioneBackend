@@ -2,7 +2,7 @@ package its.kennedy.gestione.magazzino.Service;
 
 import its.kennedy.gestione.magazzino.Dao.Item;
 import its.kennedy.gestione.magazzino.Dto.BaseResponsePage;
-import its.kennedy.gestione.magazzino.Dto.ItemsDto;
+import its.kennedy.gestione.magazzino.Dto.ItemDto;
 import its.kennedy.gestione.magazzino.IService.IItems;
 import its.kennedy.gestione.magazzino.Repository.ItemsRepository;
 import org.modelmapper.ModelMapper;
@@ -24,8 +24,8 @@ public class ItemsService implements IItems {
     private ModelMapper modelMapper;
 
     @Override
-    public ItemsDto getById(Integer id) {
-        return modelMapper.map(itemsRepository.getById(id), ItemsDto.class);
+    public ItemDto getById(Integer id) {
+        return modelMapper.map(itemsRepository.getById(id), ItemDto.class);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class ItemsService implements IItems {
     }
 
     @Override
-    public BaseResponsePage<ItemsDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean dir) {
+    public BaseResponsePage<ItemDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean dir) {
         Pageable p;
         if (sortBy.length() <= 0) {
             sortBy = "Id";
@@ -55,11 +55,11 @@ public class ItemsService implements IItems {
             p = PageRequest.of(pagina, quantita, Sort.by(sortBy).descending());
         }
         Page<Item> resP = itemsRepository.findAll(p);
-        BaseResponsePage<ItemsDto> baseResponsePage = new BaseResponsePage<ItemsDto>();
+        BaseResponsePage<ItemDto> baseResponsePage = new BaseResponsePage<ItemDto>();
         baseResponsePage.setPagine(resP.getTotalPages());
-        ArrayList<ItemsDto> res = new ArrayList<ItemsDto>();
+        ArrayList<ItemDto> res = new ArrayList<ItemDto>();
         for (Item d : resP) {
-            ItemsDto item = modelMapper.map(d, ItemsDto.class);
+            ItemDto item = modelMapper.map(d, ItemDto.class);
             item.setCategory(d.getCategory().getName());
             res.add(item);
         }

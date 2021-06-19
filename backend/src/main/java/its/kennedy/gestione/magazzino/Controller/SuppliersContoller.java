@@ -1,7 +1,7 @@
 package its.kennedy.gestione.magazzino.Controller;
 
 import its.kennedy.gestione.magazzino.Dao.Supplier;
-import its.kennedy.gestione.magazzino.Dto.SuppliersDto;
+import its.kennedy.gestione.magazzino.Dto.SupplierDto;
 import its.kennedy.gestione.magazzino.Service.SuppliersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +18,8 @@ public class SuppliersContoller {
     SuppliersService supplierservice;
 
     @GetMapping("{id}")
-    public ResponseEntity<SuppliersDto> getSuppliersById(@PathVariable Integer id) {
-        SuppliersDto dto = null;
+    public ResponseEntity<SupplierDto> getSuppliersById(@PathVariable Integer id) {
+        SupplierDto dto = null;
         try {
             dto = supplierservice.getById(id);
         } catch (Exception e) {
@@ -29,8 +29,8 @@ public class SuppliersContoller {
     }
 
     @GetMapping("all")
-    public ResponseEntity<List<SuppliersDto>> selezionapagina() {
-        List<SuppliersDto> dto = null;
+    public ResponseEntity<List<SupplierDto>> selezionapagina() {
+        List<SupplierDto> dto = null;
         try {
             dto = supplierservice.getAll();
         } catch (Exception e) {

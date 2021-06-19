@@ -1,6 +1,8 @@
 package its.kennedy.gestione.magazzino.Dto;
 
-public class OrderItemsDto {
+import java.util.Objects;
+
+public class OrderItemDto {
 
     private Integer orderItemId;
 
@@ -144,7 +146,7 @@ public class OrderItemsDto {
 
     @Override
     public String toString() {
-        return "OrderItemsDto{" +
+        return "OrderItemDto{" +
                 "orderItemId=" + orderItemId +
                 ", amazonOrderId='" + amazonOrderId + '\'' +
                 ", asin='" + asin + '\'' +
@@ -160,5 +162,38 @@ public class OrderItemsDto {
                 ", ShippingPriceAmount=" + ShippingPriceAmount +
                 ", promotionIds='" + promotionIds + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        OrderItemDto that = (OrderItemDto) o;
+        return Objects.equals(getOrderItemId(), that.getOrderItemId())
+                && Objects.equals(getAmazonOrderId(), that.getAmazonOrderId())
+                && Objects.equals(getAsin(), that.getAsin())
+                && Objects.equals(getTitle(), that.getTitle())
+                && Objects.equals(getQuantityOrdered(), that.getQuantityOrdered())
+                && Objects.equals(getQuantityShipped(), that.getQuantityShipped())
+                && Objects.equals(getPointsGrantedPointsNumber(), that.getPointsGrantedPointsNumber())
+                && Objects.equals(getPointsGrantedPointsMonetaryValueCurrencyCode(), that.getPointsGrantedPointsMonetaryValueCurrencyCode())
+                && Objects.equals(getPointsGrantedPointsMonetaryValueAmount(), that.getPointsGrantedPointsMonetaryValueAmount())
+                && Objects.equals(getItemPriceCurrencyCode(), that.getItemPriceCurrencyCode())
+                && Objects.equals(getItemPriceAmount(), that.getItemPriceAmount())
+                && Objects.equals(getShippingPriceCurrencyCode(), that.getShippingPriceCurrencyCode())
+                && Objects.equals(getShippingPriceAmount(), that.getShippingPriceAmount())
+                && Objects.equals(getPromotionIds(), that.getPromotionIds());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getOrderItemId(), getAmazonOrderId(), getAsin(), getTitle(), getQuantityOrdered(),
+                getQuantityShipped(), getPointsGrantedPointsNumber(), getPointsGrantedPointsMonetaryValueCurrencyCode(),
+                getPointsGrantedPointsMonetaryValueAmount(), getItemPriceCurrencyCode(), getItemPriceAmount(),
+                getShippingPriceCurrencyCode(), getShippingPriceAmount(), getPromotionIds());
     }
 }

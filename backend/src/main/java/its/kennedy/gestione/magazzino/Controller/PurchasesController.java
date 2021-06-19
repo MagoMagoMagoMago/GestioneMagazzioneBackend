@@ -2,7 +2,7 @@ package its.kennedy.gestione.magazzino.Controller;
 
 import its.kennedy.gestione.magazzino.Dao.Purchase;
 import its.kennedy.gestione.magazzino.Dto.BaseResponsePage;
-import its.kennedy.gestione.magazzino.Dto.PurchasesDto;
+import its.kennedy.gestione.magazzino.Dto.PurchaseDto;
 import its.kennedy.gestione.magazzino.Service.PurchasesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +17,8 @@ public class PurchasesController {
     PurchasesService supplierservice;
 
     @GetMapping("pagina/{ord}/{p}/{q}")
-    public ResponseEntity<BaseResponsePage<PurchasesDto>> selezionapagina(@PathVariable String ord, @PathVariable Integer p, @PathVariable Integer q) {
-        BaseResponsePage<PurchasesDto> dto = null;
+    public ResponseEntity<BaseResponsePage<PurchaseDto>> selezionapagina(@PathVariable String ord, @PathVariable Integer p, @PathVariable Integer q) {
+        BaseResponsePage<PurchaseDto> dto = null;
         try {
             dto = supplierservice.selezionaPagina(p, q, ord, true);
         } catch (Exception e) {
@@ -28,8 +28,8 @@ public class PurchasesController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<PurchasesDto> getItemsById(@PathVariable Integer id) {
-        PurchasesDto dto = null;
+    public ResponseEntity<PurchaseDto> getItemsById(@PathVariable Integer id) {
+        PurchaseDto dto = null;
         try {
             dto = supplierservice.getById(id);
         } catch (Exception e) {

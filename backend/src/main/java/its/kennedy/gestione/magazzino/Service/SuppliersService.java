@@ -1,7 +1,7 @@
 package its.kennedy.gestione.magazzino.Service;
 
 import its.kennedy.gestione.magazzino.Dao.Supplier;
-import its.kennedy.gestione.magazzino.Dto.SuppliersDto;
+import its.kennedy.gestione.magazzino.Dto.SupplierDto;
 import its.kennedy.gestione.magazzino.IService.ISuppliers;
 import its.kennedy.gestione.magazzino.Repository.SuppliersRepository;
 import org.modelmapper.ModelMapper;
@@ -20,8 +20,8 @@ public class SuppliersService implements ISuppliers {
     private ModelMapper modelMapper;
 
     @Override
-    public SuppliersDto getById(Integer id) {
-        return modelMapper.map(suppliersRepository.getById(id), SuppliersDto.class);
+    public SupplierDto getById(Integer id) {
+        return modelMapper.map(suppliersRepository.getById(id), SupplierDto.class);
     }
 
     @Override
@@ -40,12 +40,12 @@ public class SuppliersService implements ISuppliers {
     }
 
     @Override
-    public List<SuppliersDto> getAll() {
+    public List<SupplierDto> getAll() {
 
-        List<SuppliersDto> ritorno = new ArrayList<SuppliersDto>();
+        List<SupplierDto> ritorno = new ArrayList<SupplierDto>();
         List<Supplier> iterable = suppliersRepository.findAll();
         for (Supplier i : iterable) {
-            ritorno.add(modelMapper.map(i, SuppliersDto.class));
+            ritorno.add(modelMapper.map(i, SupplierDto.class));
         }
         return ritorno;
     }

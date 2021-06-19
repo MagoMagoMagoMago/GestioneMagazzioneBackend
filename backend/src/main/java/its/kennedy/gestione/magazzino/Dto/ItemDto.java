@@ -3,7 +3,7 @@ package its.kennedy.gestione.magazzino.Dto;
 import java.time.Instant;
 import java.util.Objects;
 
-public class ItemsDto {
+public class ItemDto {
 
     private Integer id;
 
@@ -133,19 +133,19 @@ public class ItemsDto {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ItemsDto itemsDto = (ItemsDto) o;
-        return getStorage() == itemsDto.getStorage()
-                && getMin_availability() == itemsDto.getMin_availability()
-                && getId().equals(itemsDto.getId())
-                && getAsin().equals(itemsDto.getAsin())
-                && getTitle().equals(itemsDto.getTitle())
-                && Objects.equals(getDescription(), itemsDto.getDescription())
-                && getPrice().equals(itemsDto.getPrice())
-                && getImage().equals(itemsDto.getImage())
-                && getCreatedAt().equals(itemsDto.getCreatedAt())
-                && Objects.equals(getUpdatedAt(), itemsDto.getUpdatedAt())
-                && Objects.equals(getDeletedAt(), itemsDto.getDeletedAt())
-                && getCategory().equals(itemsDto.getCategory());
+        ItemDto itemDto = (ItemDto) o;
+        return getStorage() == itemDto.getStorage()
+                && getMin_availability() == itemDto.getMin_availability()
+                && getId().equals(itemDto.getId())
+                && getAsin().equals(itemDto.getAsin())
+                && getTitle().equals(itemDto.getTitle())
+                && Objects.equals(getDescription(), itemDto.getDescription())
+                && getPrice().equals(itemDto.getPrice())
+                && getImage().equals(itemDto.getImage())
+                && getCreatedAt().equals(itemDto.getCreatedAt())
+                && Objects.equals(getUpdatedAt(), itemDto.getUpdatedAt())
+                && Objects.equals(getDeletedAt(), itemDto.getDeletedAt())
+                && getCategory().equals(itemDto.getCategory());
     }
 
     @Override
@@ -156,7 +156,7 @@ public class ItemsDto {
 
     @Override
     public String toString() {
-        return "ItemsDto{" +
+        return "ItemDto{" +
                 "id=" + id +
                 ", asin='" + asin + '\'' +
                 ", title='" + title + '\'' +

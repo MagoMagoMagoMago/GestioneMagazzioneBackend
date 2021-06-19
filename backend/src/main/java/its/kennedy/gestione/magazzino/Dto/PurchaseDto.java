@@ -3,7 +3,7 @@ package its.kennedy.gestione.magazzino.Dto;
 import java.time.Instant;
 import java.util.Objects;
 
-public class PurchasesDto {
+public class PurchaseDto {
 
     private Integer id;
 
@@ -86,19 +86,41 @@ public class PurchasesDto {
     }
 
     @Override
+    public String toString() {
+        return "PurchaseDto{" +
+                "id=" + id +
+                ", supplier_id=" + supplier_id +
+                ", number_invoice=" + number_invoice +
+                ", note='" + note + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", deletedAt=" + deletedAt +
+                ", date_invoice=" + date_invoice +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
-			return true;
-		}
+            return true;
+        }
         if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-        PurchasesDto that = (PurchasesDto) o;
-        return getSupplier_id() == that.getSupplier_id() && getNumber_invoice() == that.getNumber_invoice() && getId().equals(that.getId()) && Objects.equals(getNote(), that.getNote()) && getCreatedAt().equals(that.getCreatedAt()) && Objects.equals(getUpdatedAt(), that.getUpdatedAt()) && Objects.equals(getDeletedAt(), that.getDeletedAt()) && getDate_invoice().equals(that.getDate_invoice());
+            return false;
+        }
+        PurchaseDto that = (PurchaseDto) o;
+        return getSupplier_id() == that.getSupplier_id()
+                && getNumber_invoice() == that.getNumber_invoice()
+                && getId().equals(that.getId())
+                && Objects.equals(getNote(), that.getNote())
+                && getCreatedAt().equals(that.getCreatedAt())
+                && Objects.equals(getUpdatedAt(), that.getUpdatedAt())
+                && Objects.equals(getDeletedAt(), that.getDeletedAt())
+                && getDate_invoice().equals(that.getDate_invoice());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getSupplier_id(), getNumber_invoice(), getNote(), getCreatedAt(), getUpdatedAt(), getDeletedAt(), getDate_invoice());
+        return Objects.hash(getId(), getSupplier_id(), getNumber_invoice(), getNote(), getCreatedAt(), getUpdatedAt(),
+                getDeletedAt(), getDate_invoice());
     }
 }

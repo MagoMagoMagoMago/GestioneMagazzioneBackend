@@ -2,7 +2,7 @@ package its.kennedy.gestione.magazzino.Controller;
 
 import its.kennedy.gestione.magazzino.Dao.Item;
 import its.kennedy.gestione.magazzino.Dto.BaseResponsePage;
-import its.kennedy.gestione.magazzino.Dto.ItemsDto;
+import its.kennedy.gestione.magazzino.Dto.ItemDto;
 import its.kennedy.gestione.magazzino.Service.ItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +18,8 @@ public class ItemsController {
     private ItemsService itemService;
 
     @GetMapping("{id}")
-    public ResponseEntity<ItemsDto> getItemsById(@PathVariable Integer id) {
-        ItemsDto dto = null;
+    public ResponseEntity<ItemDto> getItemsById(@PathVariable Integer id) {
+        ItemDto dto = null;
         try {
             dto = itemService.getById(id);
         } catch (Exception e) {
@@ -29,8 +29,8 @@ public class ItemsController {
     }
 
     @GetMapping("pagina/{ord}/{p}/{q}")
-    public ResponseEntity<BaseResponsePage<ItemsDto>> selezionapagina(@PathVariable String ord, @PathVariable Integer p, @PathVariable Integer q) {
-        BaseResponsePage<ItemsDto> dto = null;
+    public ResponseEntity<BaseResponsePage<ItemDto>> selezionapagina(@PathVariable String ord, @PathVariable Integer p, @PathVariable Integer q) {
+        BaseResponsePage<ItemDto> dto = null;
         try {
             dto = itemService.selezionaPagina(p, q, ord, true);
         } catch (Exception e) {

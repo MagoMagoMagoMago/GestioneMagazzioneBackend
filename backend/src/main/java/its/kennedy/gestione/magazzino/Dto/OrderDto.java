@@ -7,95 +7,95 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 
-public class OrdersDto {
+public class OrderDto {
 
     @JsonProperty("AmazonOrderId")
-    public String amazonOrderId;
+    private String amazonOrderId;
 
     @JsonProperty("PurchaseDate")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SS", timezone = "UTC")
-    public Instant purchaseDate;
+    private Instant purchaseDate;
 
     @JsonProperty("LastUpdateDate")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SS", timezone = "UTC")
-    public Instant lastUpdateDate;
+    private Instant lastUpdateDate;
 
     @JsonProperty("OrderStatus")
-    public String orderStatus;
+    private String orderStatus;
 
     @JsonProperty("FulfillmentChannel")
-    public String fulfillmentChannel;
+    private String fulfillmentChannel;
 
     @JsonProperty("NumberOfItemsShipped")
-    public int numberOfItemsShipped;
+    private int numberOfItemsShipped;
 
     @JsonProperty("NumberOfItemsUnshipped")
-    public int numberOfItemsUnshipped;
+    private int numberOfItemsUnshipped;
 
     @JsonProperty("PaymentMethod")
-    public String paymentMethod;
+    private String paymentMethod;
 
     @JsonProperty("PaymentMethodDetails")
-    public String paymentMethodDetails;
+    private String paymentMethodDetails;
 
     @JsonProperty("MarketplaceId")
-    public String marketplaceId;
+    private String marketplaceId;
 
     @JsonProperty("ShipmentServiceLevelCategory")
-    public String shipmentServiceLevelCategory;
+    private String shipmentServiceLevelCategory;
 
     @JsonProperty("OrderType")
-    public String orderType;
+    private String orderType;
 
     @JsonProperty("EarliestShipDate")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SS", timezone = "UTC")
-    public Instant earliestShipDate;
+    private Instant earliestShipDate;
 
     @JsonProperty("LatestShipDate")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SS", timezone = "UTC")
-    public Instant latestShipDate;
+    private Instant latestShipDate;
 
     @JsonProperty("IsBusinessOrder")
-    public boolean isBusinessOrder;
+    private boolean isBusinessOrder;
 
     @JsonProperty("IsPrime")
-    public boolean isPrime;
+    private boolean isPrime;
 
     @JsonProperty("IsGlobalExpressEnabled")
-    public boolean isGlobalExpressEnabled;
+    private boolean isGlobalExpressEnabled;
 
     @JsonProperty("IsPremiumOrder")
-    public boolean isPremiumOrder;
+    private boolean isPremiumOrder;
 
     @JsonProperty("IsSoldByAB")
-    public boolean isSoldByAB;
+    private boolean isSoldByAB;
 
     @JsonProperty("CompanyLegalName")
-    public String companyLegalName;
+    private String companyLegalName;
 
     @JsonProperty("BuyerEmail")
-    public String buyerEmail;
+    private String buyerEmail;
 
     @JsonProperty("BuyerName")
-    public String buyerName;
+    private String buyerName;
 
     @JsonProperty("PurchaseOrderNumber")
-    public String purchaseOrderNumber;
+    private String purchaseOrderNumber;
 
     @JsonProperty("ShippingAddressName")
-    public String shippingAddressName;
+    private String shippingAddressName;
 
     @JsonProperty("ShippingAddressLine1")
-    public String shippingAddressLine1;
+    private String shippingAddressLine1;
 
     @JsonProperty("ShippingAddressCity")
-    public String shippingAddressCity;
+    private String shippingAddressCity;
 
     @JsonProperty("ShippingCityStateOrRegion")
-    public String shippingCityStateOrRegion;
+    private String shippingCityStateOrRegion;
 
     @JsonProperty("ShippingStateOrRegionPostalCode")
-    public String shippingStateOrRegionPostalCode;
+    private String shippingStateOrRegionPostalCode;
 
     public String getAmazonOrderId() {
         return amazonOrderId;
@@ -329,35 +329,35 @@ public class OrdersDto {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        OrdersDto ordersDto = (OrdersDto) o;
-        return getNumberOfItemsShipped() == ordersDto.getNumberOfItemsShipped()
-                && getNumberOfItemsUnshipped() == ordersDto.getNumberOfItemsUnshipped()
-                && isBusinessOrder() == ordersDto.isBusinessOrder()
-                && isPrime() == ordersDto.isPrime()
-                && isGlobalExpressEnabled() == ordersDto.isGlobalExpressEnabled()
-                && isPremiumOrder() == ordersDto.isPremiumOrder()
-                && isSoldByAB() == ordersDto.isSoldByAB()
-                && getAmazonOrderId().equals(ordersDto.getAmazonOrderId())
-                && Objects.equals(getPurchaseDate(), ordersDto.getPurchaseDate())
-                && Objects.equals(getLastUpdateDate(), ordersDto.getLastUpdateDate())
-                && Objects.equals(getOrderStatus(), ordersDto.getOrderStatus())
-                && Objects.equals(getFulfillmentChannel(), ordersDto.getFulfillmentChannel())
-                && Objects.equals(getPaymentMethod(), ordersDto.getPaymentMethod())
-                && Objects.equals(getPaymentMethodDetails(), ordersDto.getPaymentMethodDetails())
-                && Objects.equals(getMarketplaceId(), ordersDto.getMarketplaceId())
-                && Objects.equals(getShipmentServiceLevelCategory(), ordersDto.getShipmentServiceLevelCategory())
-                && Objects.equals(getOrderType(), ordersDto.getOrderType())
-                && Objects.equals(getEarliestShipDate(), ordersDto.getEarliestShipDate())
-                && Objects.equals(getLatestShipDate(), ordersDto.getLatestShipDate())
-                && Objects.equals(getCompanyLegalName(), ordersDto.getCompanyLegalName())
-                && Objects.equals(getBuyerEmail(), ordersDto.getBuyerEmail())
-                && Objects.equals(getBuyerName(), ordersDto.getBuyerName())
-                && Objects.equals(getPurchaseOrderNumber(), ordersDto.getPurchaseOrderNumber())
-                && Objects.equals(getShippingAddressName(), ordersDto.getShippingAddressName())
-                && Objects.equals(getShippingAddressLine1(), ordersDto.getShippingAddressLine1())
-                && Objects.equals(getShippingAddressCity(), ordersDto.getShippingAddressCity())
-                && Objects.equals(getShippingCityStateOrRegion(), ordersDto.getShippingCityStateOrRegion())
-                && Objects.equals(getShippingStateOrRegionPostalCode(), ordersDto.getShippingStateOrRegionPostalCode());
+        OrderDto orderDto = (OrderDto) o;
+        return getNumberOfItemsShipped() == orderDto.getNumberOfItemsShipped()
+                && getNumberOfItemsUnshipped() == orderDto.getNumberOfItemsUnshipped()
+                && isBusinessOrder() == orderDto.isBusinessOrder()
+                && isPrime() == orderDto.isPrime()
+                && isGlobalExpressEnabled() == orderDto.isGlobalExpressEnabled()
+                && isPremiumOrder() == orderDto.isPremiumOrder()
+                && isSoldByAB() == orderDto.isSoldByAB()
+                && getAmazonOrderId().equals(orderDto.getAmazonOrderId())
+                && Objects.equals(getPurchaseDate(), orderDto.getPurchaseDate())
+                && Objects.equals(getLastUpdateDate(), orderDto.getLastUpdateDate())
+                && Objects.equals(getOrderStatus(), orderDto.getOrderStatus())
+                && Objects.equals(getFulfillmentChannel(), orderDto.getFulfillmentChannel())
+                && Objects.equals(getPaymentMethod(), orderDto.getPaymentMethod())
+                && Objects.equals(getPaymentMethodDetails(), orderDto.getPaymentMethodDetails())
+                && Objects.equals(getMarketplaceId(), orderDto.getMarketplaceId())
+                && Objects.equals(getShipmentServiceLevelCategory(), orderDto.getShipmentServiceLevelCategory())
+                && Objects.equals(getOrderType(), orderDto.getOrderType())
+                && Objects.equals(getEarliestShipDate(), orderDto.getEarliestShipDate())
+                && Objects.equals(getLatestShipDate(), orderDto.getLatestShipDate())
+                && Objects.equals(getCompanyLegalName(), orderDto.getCompanyLegalName())
+                && Objects.equals(getBuyerEmail(), orderDto.getBuyerEmail())
+                && Objects.equals(getBuyerName(), orderDto.getBuyerName())
+                && Objects.equals(getPurchaseOrderNumber(), orderDto.getPurchaseOrderNumber())
+                && Objects.equals(getShippingAddressName(), orderDto.getShippingAddressName())
+                && Objects.equals(getShippingAddressLine1(), orderDto.getShippingAddressLine1())
+                && Objects.equals(getShippingAddressCity(), orderDto.getShippingAddressCity())
+                && Objects.equals(getShippingCityStateOrRegion(), orderDto.getShippingCityStateOrRegion())
+                && Objects.equals(getShippingStateOrRegionPostalCode(), orderDto.getShippingStateOrRegionPostalCode());
     }
 
     @Override
@@ -374,13 +374,13 @@ public class OrdersDto {
     public static class OrdersDtoList {
 
         @JsonProperty("Orders")
-        List<OrdersDto> orders;
+        private List<OrderDto> orders;
 
-        public List<OrdersDto> getOrders() {
+        public List<OrderDto> getOrders() {
             return orders;
         }
 
-        public void setOrders(List<OrdersDto> orders) {
+        public void setOrders(List<OrderDto> orders) {
             this.orders = orders;
         }
     }

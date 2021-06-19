@@ -2,12 +2,12 @@ package its.kennedy.gestione.magazzino.IService;
 
 import its.kennedy.gestione.magazzino.Dao.Purchase;
 import its.kennedy.gestione.magazzino.Dto.BaseResponsePage;
-import its.kennedy.gestione.magazzino.Dto.PurchasesDto;
+import its.kennedy.gestione.magazzino.Dto.PurchaseDto;
 
 public interface IPurchases {
-    PurchasesDto getById(Integer id);
+    PurchaseDto getById(Integer id);
 
-    BaseResponsePage<PurchasesDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean dir);
+    BaseResponsePage<PurchaseDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean dir);
 
     Boolean modifica(Purchase entity);
 
