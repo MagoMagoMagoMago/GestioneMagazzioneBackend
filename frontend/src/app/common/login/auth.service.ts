@@ -12,7 +12,7 @@ export class AuthService {
 
   private readonly JWT_TOKEN = "JWT_TOKEN";
   private readonly REFRESH_TOKEN = "REFRESH_TOKEN";
-  private readonly url = environment.host;
+  private readonly url = environment.host + "/";
   public loggedUser!: string | null;
 
   constructor(private http: HttpClient) {}
@@ -23,7 +23,6 @@ export class AuthService {
         tap(tokens => this.doLoginUser(user.username, tokens)),
         mapTo(true),
         catchError(error => {
-          alert(error.error);
           return of(false);
         }));
   }
@@ -37,7 +36,6 @@ export class AuthService {
       tap(() => this.doLogoutUser()),
       mapTo(true),
       catchError(error => {
-        alert(error.error);
         return of(false);
       }));
   }

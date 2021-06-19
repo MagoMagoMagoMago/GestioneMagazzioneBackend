@@ -35,6 +35,24 @@ CREATE TABLE items (
 	FOREIGN KEY (category_id) REFERENCES categories(id)
 );
 
+INSERT INTO items
+(asin, title, description, category_id, price, storage, image, min_availability, created_at, updated_at, deleted_at) VALUES
+('B07D9SB7XW', 'Minecraft', 'Giochi', 3, 25.99, 300, '', 10, '2021-12-15', null, null),
+('B07VK4QKBP', 'Set Bilanciere e Dischi', '7Kg, 8 Dischi rivestiti in PVC', 2, 199.95, 20, '', 30, '2021-12-15', null, null),
+('B00DBVGF4L', 'Tavolo Ping Pong', 'Sport super competitivi', 2, 10.50, 2000, '', 10, '2021-12-15', '2021-12-01', null),
+('B08GPCZ4CL', 'Huawei GT', 'Orologio sportivo GPS', 1, 200.50, 500, '', 50, '2021-12-15', '2021-12-01', null),
+('B00J7V47DL', 'Succo alla pesca', 'Bbbono', 4, 30.50, 205, '', 10, '2021-12-15', '2021-12-01', null),
+('B07K495TYT', 'Carne cotta', 'Grigliata', 4, 10.00, 10000, '', 50, '2020-12-10', '2021-01-12', null),
+('B00DBVGF4T', 'Palla da Volleyball', 'Sport', 2, 1.50, 2000, '', 10, '2021-12-15', '2021-12-01', null),
+('B08GPCZ4CT', 'Google Pixel', 'Android', 5, 300.50, 500, '', 50, '2021-12-15', '2021-12-01', null),
+('B00J7V47DT', 'Finestra', 'Vetro', 5, 12.50, 205, '', 10, '2021-12-15', '2021-12-01', null),
+('B07K495TYN', 'Lucina Unicorno', 'Luci Notturne', 5, 20.00, 10000, '', 50, '2020-12-10', '2021-01-12', '2021-02-13'),
+('B00DBVGF4K', 'Moschettone', 'Moschettoni Sport', 2, 10.50, 2000, '', 10, '2021-12-15', '2021-12-01', null),
+('B08GPCZ4C9', 'Coros Pace 2', 'Orologio sportivo GPS', 1, 199.50, 500, '', 50, '2021-12-15', '2021-12-01', null),
+('B00J7V47DE', 'Rinvio Nylon', 'Rinvii per arrampicata', 4, 20.50, 205, '', 10, '2021-12-15', '2021-12-01', null),
+('B08KSS6CLT', 'Tè Nero alla Pesca', '20 filtri, 30 g', 4, 1.85, 170, '', 10, '2020-12-10', '2021-01-12', '2021-02-13'),
+('B08123PCJH', 'Aria Fritta Spray', 'Bomboletta Spray Antisfiga', 5, 12, 100, '', 30, '2021-12-15', null, null);
+
 CREATE TABLE suppliers (
 	id int auto_increment,
 	name varchar(100) not null,
@@ -99,7 +117,7 @@ CREATE TABLE Orders(
   BuyerEmail varchar(100),
   BuyerName varchar(100),
   CompanyLegalName varchar(100),
-  EarliestShipDate date,
+  EarliestShipDate timestamp,
   FulfillmentChannel varchar(100),
   IsBusinessOrder boolean,
   IsGlobalExpressEnabled boolean,
