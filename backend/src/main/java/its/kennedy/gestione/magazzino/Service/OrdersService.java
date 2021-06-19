@@ -1,6 +1,6 @@
 package its.kennedy.gestione.magazzino.Service;
 
-import its.kennedy.gestione.magazzino.Dao.Orders;
+import its.kennedy.gestione.magazzino.Dao.Order;
 import its.kennedy.gestione.magazzino.Dto.OrdersDto;
 import its.kennedy.gestione.magazzino.IService.IOrders;
 import its.kennedy.gestione.magazzino.Repository.OrdersRepository;
@@ -31,11 +31,11 @@ public class OrdersService implements IOrders {
 
     @Override
     public Boolean addOrders(OrdersDto.OrdersDtoList orders) {
-        List<Orders> newOrders = new ArrayList<>();
+        List<Order> newOrders = new ArrayList<>();
         List<String> myAmazonOrdersIds = ordersRepository.findAllIds();
         orders.getOrders().forEach(order -> {
             if (!myAmazonOrdersIds.contains(order.getAmazonOrderId())) {
-                newOrders.add(modelMapper.map(order, Orders.class));
+                newOrders.add(modelMapper.map(order, Order.class));
             }
         });
         try {
@@ -58,9 +58,9 @@ public class OrdersService implements IOrders {
             p = PageRequest.of(pagina, quantita, Sort.by(sortBy).descending());
         }
 
-        Page<Orders> resP = ordersRepository.findAll(p);
+        Page<Order> resP = ordersRepository.findAll(p);
         ArrayList<OrdersDto> res = new ArrayList<OrdersDto>();
-        for (Orders d : resP) {
+        for (Order d : resP) {
             res.add(modelMapper.map(ordersRepository.getById(d.getAmazonOrderId()), OrdersDto.class));
         }
         return res;

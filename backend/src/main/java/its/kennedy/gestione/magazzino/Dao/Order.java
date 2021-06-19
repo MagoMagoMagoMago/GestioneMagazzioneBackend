@@ -14,7 +14,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "Orders")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-public class Orders implements Serializable {
+public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -329,7 +329,7 @@ public class Orders implements Serializable {
 
     @Override
     public String toString() {
-        return "Orders{" +
+        return "Order{" +
                 "amazonOrderId=" + amazonOrderId +
                 ", buyerEmail='" + buyerEmail + '\'' +
                 ", buyerName='" + buyerName + '\'' +
@@ -369,34 +369,34 @@ public class Orders implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Orders orders = (Orders) o;
-        return getAmazonOrderId().equals(orders.getAmazonOrderId())
-                && Objects.equals(getBuyerEmail(), orders.getBuyerEmail())
-                && Objects.equals(getBuyerName(), orders.getBuyerName())
-                && Objects.equals(getCompanyLegalName(), orders.getCompanyLegalName())
-                && Objects.equals(getEarliestShipDate(), orders.getEarliestShipDate())
-                && Objects.equals(getFulfillmentChannel(), orders.getFulfillmentChannel())
-                && Objects.equals(isBusinessOrder, orders.isBusinessOrder)
-                && Objects.equals(isGlobalExpressEnabled, orders.isGlobalExpressEnabled)
-                && Objects.equals(isPremiumOrder, orders.isPremiumOrder)
-                && Objects.equals(isPrime, orders.isPrime)
-                && Objects.equals(isSoldByAB, orders.isSoldByAB)
-                && Objects.equals(getLastUpdateDate(), orders.getLastUpdateDate())
-                && Objects.equals(getLatestShipDate(), orders.getLatestShipDate())
-                && Objects.equals(getMarketplaceId(), orders.getMarketplaceId())
-                && Objects.equals(getNumberOfItemsShipped(), orders.getNumberOfItemsShipped())
-                && Objects.equals(getNumberOfItemsUnshipped(), orders.getNumberOfItemsUnshipped())
-                && Objects.equals(getOrderStatus(), orders.getOrderStatus())
-                && Objects.equals(getOrderType(), orders.getOrderType())
-                && Objects.equals(getPaymentMethod(), orders.getPaymentMethod())
-                && Objects.equals(getPaymentMethodDetails(), orders.getPaymentMethodDetails())
-                && Objects.equals(getPurchaseDate(), orders.getPurchaseDate())
-                && Objects.equals(getPurchaseOrderNumber(), orders.getPurchaseOrderNumber())
-                && Objects.equals(getShipmentServiceLevelCategory(), orders.getShipmentServiceLevelCategory())
-                && Objects.equals(getShippingAddressCity(), orders.getShippingAddressCity())
-                && Objects.equals(getShippingAddressLine1(), orders.getShippingAddressLine1())
-                && Objects.equals(getShippingAddressName(), orders.getShippingAddressName())
-                && Objects.equals(getShippingCityStateOrRegion(), orders.getShippingCityStateOrRegion())
-                && Objects.equals(getShippingStateOrRegionPostalCode(), orders.getShippingStateOrRegionPostalCode());
+        Order order = (Order) o;
+        return getAmazonOrderId().equals(order.getAmazonOrderId())
+                && Objects.equals(getBuyerEmail(), order.getBuyerEmail())
+                && Objects.equals(getBuyerName(), order.getBuyerName())
+                && Objects.equals(getCompanyLegalName(), order.getCompanyLegalName())
+                && Objects.equals(getEarliestShipDate(), order.getEarliestShipDate())
+                && Objects.equals(getFulfillmentChannel(), order.getFulfillmentChannel())
+                && Objects.equals(isBusinessOrder, order.isBusinessOrder)
+                && Objects.equals(isGlobalExpressEnabled, order.isGlobalExpressEnabled)
+                && Objects.equals(isPremiumOrder, order.isPremiumOrder)
+                && Objects.equals(isPrime, order.isPrime)
+                && Objects.equals(isSoldByAB, order.isSoldByAB)
+                && Objects.equals(getLastUpdateDate(), order.getLastUpdateDate())
+                && Objects.equals(getLatestShipDate(), order.getLatestShipDate())
+                && Objects.equals(getMarketplaceId(), order.getMarketplaceId())
+                && Objects.equals(getNumberOfItemsShipped(), order.getNumberOfItemsShipped())
+                && Objects.equals(getNumberOfItemsUnshipped(), order.getNumberOfItemsUnshipped())
+                && Objects.equals(getOrderStatus(), order.getOrderStatus())
+                && Objects.equals(getOrderType(), order.getOrderType())
+                && Objects.equals(getPaymentMethod(), order.getPaymentMethod())
+                && Objects.equals(getPaymentMethodDetails(), order.getPaymentMethodDetails())
+                && Objects.equals(getPurchaseDate(), order.getPurchaseDate())
+                && Objects.equals(getPurchaseOrderNumber(), order.getPurchaseOrderNumber())
+                && Objects.equals(getShipmentServiceLevelCategory(), order.getShipmentServiceLevelCategory())
+                && Objects.equals(getShippingAddressCity(), order.getShippingAddressCity())
+                && Objects.equals(getShippingAddressLine1(), order.getShippingAddressLine1())
+                && Objects.equals(getShippingAddressName(), order.getShippingAddressName())
+                && Objects.equals(getShippingCityStateOrRegion(), order.getShippingCityStateOrRegion())
+                && Objects.equals(getShippingStateOrRegionPostalCode(), order.getShippingStateOrRegionPostalCode());
     }
 }

@@ -12,11 +12,11 @@ import java.util.Objects;
 @Entity
 @Table(name = "purchase_items")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-public class PurchaseItems implements Serializable {
+public class PurchaseItem implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
@@ -133,7 +133,7 @@ public class PurchaseItems implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        PurchaseItems that = (PurchaseItems) o;
+        PurchaseItem that = (PurchaseItem) o;
         return getId().equals(that.getId())
                 && getPurchase_id().equals(that.getPurchase_id())
                 && getItem_id().equals(that.getItem_id())

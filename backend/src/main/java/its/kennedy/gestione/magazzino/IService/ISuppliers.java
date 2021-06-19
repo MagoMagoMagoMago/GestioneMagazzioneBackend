@@ -1,13 +1,15 @@
 package its.kennedy.gestione.magazzino.IService;
 
-import java.util.List;
-
-import its.kennedy.gestione.magazzino.Dao.Suppliers;
+import its.kennedy.gestione.magazzino.Dao.Supplier;
 import its.kennedy.gestione.magazzino.Dto.SuppliersDto;
 
+import java.util.List;
+
 public interface ISuppliers {
-	SuppliersDto getById(Integer id);
-	Boolean modifica(Suppliers entity);
-	List<SuppliersDto> getAll();
+    SuppliersDto getById(Integer id);
+
+    Boolean modifica(Supplier entity);
+
+    List<SuppliersDto> getAll();
 
 }

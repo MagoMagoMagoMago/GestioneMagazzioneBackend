@@ -12,7 +12,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "items")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-public class Items implements Serializable {
+public class Item implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -60,7 +60,7 @@ public class Items implements Serializable {
 
     @JoinColumn(name = "category_id", nullable = false)
     @ManyToOne(fetch = FetchType.EAGER)
-    private Categories category;
+    private Category category;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -154,11 +154,11 @@ public class Items implements Serializable {
         this.deletedAt = deletedAt;
     }
 
-    public Categories getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(Categories category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
@@ -170,18 +170,18 @@ public class Items implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Items items = (Items) o;
-        return getStorage() == items.getStorage()
-                && getMin_availability() == items.getMin_availability()
-                && getId().equals(items.getId())
-                && getAsin().equals(items.getAsin())
-                && getTitle().equals(items.getTitle())
-                && Objects.equals(getDescription(), items.getDescription())
-                && getPrice().equals(items.getPrice())
-                && getImage().equals(items.getImage())
-                && getCreatedAt().equals(items.getCreatedAt())
-                && Objects.equals(getUpdatedAt(), items.getUpdatedAt())
-                && Objects.equals(getDeletedAt(), items.getDeletedAt());
+        Item item = (Item) o;
+        return getStorage() == item.getStorage()
+                && getMin_availability() == item.getMin_availability()
+                && getId().equals(item.getId())
+                && getAsin().equals(item.getAsin())
+                && getTitle().equals(item.getTitle())
+                && Objects.equals(getDescription(), item.getDescription())
+                && getPrice().equals(item.getPrice())
+                && getImage().equals(item.getImage())
+                && getCreatedAt().equals(item.getCreatedAt())
+                && Objects.equals(getUpdatedAt(), item.getUpdatedAt())
+                && Objects.equals(getDeletedAt(), item.getDeletedAt());
     }
 
     @Override
@@ -192,7 +192,7 @@ public class Items implements Serializable {
 
     @Override
     public String toString() {
-        return "Items{" +
+        return "Item{" +
                 "id=" + id +
                 ", asin='" + asin + '\'' +
                 ", title='" + title + '\'' +

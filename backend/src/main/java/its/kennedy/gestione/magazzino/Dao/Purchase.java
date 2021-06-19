@@ -11,7 +11,7 @@ import java.time.Instant;
 @Entity
 @Table(name = "purchases")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-public class Purchases implements Serializable {
+public class Purchase implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -30,7 +30,7 @@ public class Purchases implements Serializable {
 
     @Column(name = "note", length = 400)
     private String note;
-    
+
     @NotNull
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
@@ -126,7 +126,7 @@ public class Purchases implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Purchases other = (Purchases) obj;
+        Purchase other = (Purchase) obj;
         if (createdAt == null) {
             if (other.createdAt != null) {
                 return false;

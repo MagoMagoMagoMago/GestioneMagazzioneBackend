@@ -11,7 +11,7 @@ import java.time.Instant;
 @Entity
 @Table(name = "suppliers")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-public class Suppliers implements Serializable {
+public class Supplier implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -127,85 +127,85 @@ public class Suppliers implements Serializable {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
-			return true;
-		}
+            return true;
+        }
         if (obj == null) {
-			return false;
-		}
+            return false;
+        }
         if (getClass() != obj.getClass()) {
-			return false;
-		}
-        Suppliers other = (Suppliers) obj;
+            return false;
+        }
+        Supplier other = (Supplier) obj;
         if (createdAt == null) {
             if (other.createdAt != null) {
-				return false;
-			}
+                return false;
+            }
         } else if (!createdAt.equals(other.createdAt)) {
-			return false;
-		}
+            return false;
+        }
         if (deletedAt == null) {
             if (other.deletedAt != null) {
-				return false;
-			}
+                return false;
+            }
         } else if (!deletedAt.equals(other.deletedAt)) {
-			return false;
-		}
+            return false;
+        }
         if (id == null) {
             if (other.id != null) {
-				return false;
-			}
+                return false;
+            }
         } else if (!id.equals(other.id)) {
-			return false;
-		}
+            return false;
+        }
         if (indirizzo == null) {
             if (other.indirizzo != null) {
-				return false;
-			}
+                return false;
+            }
         } else if (!indirizzo.equals(other.indirizzo)) {
-			return false;
-		}
+            return false;
+        }
         if (name == null) {
             if (other.name != null) {
-				return false;
-			}
+                return false;
+            }
         } else if (!name.equals(other.name)) {
-			return false;
-		}
+            return false;
+        }
         if (nazione == null) {
             if (other.nazione != null) {
-				return false;
-			}
+                return false;
+            }
         } else if (!nazione.equals(other.nazione)) {
-			return false;
-		}
+            return false;
+        }
         if (note == null) {
             if (other.note != null) {
-				return false;
-			}
+                return false;
+            }
         } else if (!note.equals(other.note)) {
-			return false;
-		}
+            return false;
+        }
         if (rmail == null) {
             if (other.rmail != null) {
-				return false;
-			}
+                return false;
+            }
         } else if (!rmail.equals(other.rmail)) {
-			return false;
-		}
+            return false;
+        }
         if (telefono == null) {
             if (other.telefono != null) {
-				return false;
-			}
+                return false;
+            }
         } else if (!telefono.equals(other.telefono)) {
-			return false;
-		}
+            return false;
+        }
         if (updatedAt == null) {
             if (other.updatedAt != null) {
-				return false;
-			}
+                return false;
+            }
         } else if (!updatedAt.equals(other.updatedAt)) {
-			return false;
-		}
+            return false;
+        }
         return true;
     }
 

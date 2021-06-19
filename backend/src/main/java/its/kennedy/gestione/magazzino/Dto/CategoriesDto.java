@@ -1,8 +1,12 @@
 package its.kennedy.gestione.magazzino.Dto;
 
+import java.io.Serializable;
 import java.time.Instant;
+import java.util.Objects;
 
-public class CategoriesDto {
+public class CategoriesDto implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private Integer id;
 
@@ -62,6 +66,28 @@ public class CategoriesDto {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CategoriesDto that = (CategoriesDto) o;
+        return getId().equals(that.getId())
+                && Objects.equals(getName(), that.getName())
+                && getCreatedAt().equals(that.getCreatedAt())
+                && Objects.equals(getUpdatedAt(), that.getUpdatedAt())
+                && Objects.equals(getDeletedAt(), that.getDeletedAt())
+                && Objects.equals(getDescription(), that.getDescription());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getCreatedAt(), getUpdatedAt(), getDeletedAt(), getDescription());
     }
 
     @Override

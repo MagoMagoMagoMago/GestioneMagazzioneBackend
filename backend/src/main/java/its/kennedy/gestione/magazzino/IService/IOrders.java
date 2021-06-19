@@ -23,7 +23,7 @@ public interface IOrders {
     Boolean addOrders(OrdersDto.OrdersDtoList orders);
 
     /**
-     * Get a list of paginated orders
+     * Get a list of paginated order
      *
      * @param pagina   the number of the page to retrive
      * @param quantita

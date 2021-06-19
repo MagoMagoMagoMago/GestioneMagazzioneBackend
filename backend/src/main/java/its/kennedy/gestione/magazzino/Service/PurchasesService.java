@@ -1,12 +1,10 @@
 package its.kennedy.gestione.magazzino.Service;
 
-import its.kennedy.gestione.magazzino.Dao.Purchases;
+import its.kennedy.gestione.magazzino.Dao.Purchase;
 import its.kennedy.gestione.magazzino.Dto.BaseResponsePage;
 import its.kennedy.gestione.magazzino.Dto.PurchasesDto;
 import its.kennedy.gestione.magazzino.IService.IPurchases;
 import its.kennedy.gestione.magazzino.Repository.PurchasesRepository;
-import java.time.Instant;
-import java.util.ArrayList;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,7 +35,7 @@ public class PurchasesService implements IPurchases {
     }
 
     @Override
-    public Boolean modifica(Purchases entity) {
+    public Boolean modifica(Purchase entity) {
         try {
             if (entity.getId() == null) {
                 entity.setCreatedAt(Instant.now());
@@ -53,15 +51,16 @@ public class PurchasesService implements IPurchases {
 
     @Override
     public Boolean elimina(int id) {
-    	try {
-    		Purchases entity=puchasesRepository.findById(id).get();
-    		entity.setDeletedAt(Instant.now());
-    		puchasesRepository.saveAndFlush(entity);	
-    	}catch(Exception e){
-    		return false;
-    	}
+        try {
+            Purchase entity = puchasesRepository.findById(id).get();
+            entity.setDeletedAt(Instant.now());
+            puchasesRepository.saveAndFlush(entity);
+        } catch (Exception e) {
+            return false;
+        }
         return true;
     }
+
     @Override
     public BaseResponsePage<PurchasesDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean dir) {
         Pageable p;
@@ -73,11 +72,11 @@ public class PurchasesService implements IPurchases {
         } else {
             p = PageRequest.of(pagina, quantita, Sort.by(sortBy).descending());
         }
-        Page<Purchases> resP = puchasesRepository.findAllByDeletedAt(null, p);
-        BaseResponsePage<PurchasesDto> baseResponsePage=new BaseResponsePage<PurchasesDto>();
-        baseResponsePage.setPagine(resP.getTotalPages()); 
+        Page<Purchase> resP = puchasesRepository.findAllByDeletedAt(null, p);
+        BaseResponsePage<PurchasesDto> baseResponsePage = new BaseResponsePage<PurchasesDto>();
+        baseResponsePage.setPagine(resP.getTotalPages());
         ArrayList<PurchasesDto> res = new ArrayList<PurchasesDto>();
-        for (Purchases d : resP) {
+        for (Purchase d : resP) {
             res.add(modelMapper.map(d, PurchasesDto.class));
         }
         baseResponsePage.setList(res);

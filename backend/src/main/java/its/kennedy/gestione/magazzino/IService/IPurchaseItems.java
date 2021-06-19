@@ -1,19 +1,19 @@
 package its.kennedy.gestione.magazzino.IService;
 
-import java.util.List;
-
-import its.kennedy.gestione.magazzino.Dao.PurchaseItems;
+import its.kennedy.gestione.magazzino.Dao.PurchaseItem;
 import its.kennedy.gestione.magazzino.Dto.PurchaseItemsDto;
+
+import java.util.List;
 
 public interface IPurchaseItems {
 
-	PurchaseItemsDto getById(Integer id);
+    PurchaseItemsDto getById(Integer id);
 
-	Boolean modifica(PurchaseItems entity);
+    Boolean modifica(PurchaseItem entity);
 
-	Boolean elimina(int id);
+    Boolean elimina(int id);
 
 
-	List<PurchaseItemsDto> getByPurchase(int id);
+    List<PurchaseItemsDto> getByPurchase(int id);
 
 }
