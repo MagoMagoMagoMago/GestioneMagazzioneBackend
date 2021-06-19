@@ -371,32 +371,43 @@ public class Order implements Serializable {
         }
         Order order = (Order) o;
         return getAmazonOrderId().equals(order.getAmazonOrderId())
-                && Objects.equals(getBuyerEmail(), order.getBuyerEmail())
-                && Objects.equals(getBuyerName(), order.getBuyerName())
-                && Objects.equals(getCompanyLegalName(), order.getCompanyLegalName())
-                && Objects.equals(getEarliestShipDate(), order.getEarliestShipDate())
-                && Objects.equals(getFulfillmentChannel(), order.getFulfillmentChannel())
-                && Objects.equals(isBusinessOrder, order.isBusinessOrder)
-                && Objects.equals(isGlobalExpressEnabled, order.isGlobalExpressEnabled)
-                && Objects.equals(isPremiumOrder, order.isPremiumOrder)
-                && Objects.equals(isPrime, order.isPrime)
-                && Objects.equals(isSoldByAB, order.isSoldByAB)
+                && Objects.equals(getPurchaseDate(), order.getPurchaseDate())
                 && Objects.equals(getLastUpdateDate(), order.getLastUpdateDate())
-                && Objects.equals(getLatestShipDate(), order.getLatestShipDate())
-                && Objects.equals(getMarketplaceId(), order.getMarketplaceId())
+                && Objects.equals(getOrderStatus(), order.getOrderStatus())
+                && Objects.equals(getFulfillmentChannel(), order.getFulfillmentChannel())
                 && Objects.equals(getNumberOfItemsShipped(), order.getNumberOfItemsShipped())
                 && Objects.equals(getNumberOfItemsUnshipped(), order.getNumberOfItemsUnshipped())
-                && Objects.equals(getOrderStatus(), order.getOrderStatus())
-                && Objects.equals(getOrderType(), order.getOrderType())
                 && Objects.equals(getPaymentMethod(), order.getPaymentMethod())
                 && Objects.equals(getPaymentMethodDetails(), order.getPaymentMethodDetails())
-                && Objects.equals(getPurchaseDate(), order.getPurchaseDate())
-                && Objects.equals(getPurchaseOrderNumber(), order.getPurchaseOrderNumber())
+                && Objects.equals(getMarketplaceId(), order.getMarketplaceId())
                 && Objects.equals(getShipmentServiceLevelCategory(), order.getShipmentServiceLevelCategory())
-                && Objects.equals(getShippingAddressCity(), order.getShippingAddressCity())
-                && Objects.equals(getShippingAddressLine1(), order.getShippingAddressLine1())
+                && Objects.equals(getOrderType(), order.getOrderType())
+                && Objects.equals(getEarliestShipDate(), order.getEarliestShipDate())
+                && Objects.equals(getLatestShipDate(), order.getLatestShipDate())
+                && Objects.equals(isBusinessOrder, order.isBusinessOrder)
+                && Objects.equals(isPrime, order.isPrime)
+                && Objects.equals(isGlobalExpressEnabled, order.isGlobalExpressEnabled)
+                && Objects.equals(isPremiumOrder, order.isPremiumOrder)
+                && Objects.equals(isSoldByAB, order.isSoldByAB)
+                && Objects.equals(getCompanyLegalName(), order.getCompanyLegalName())
+                && Objects.equals(getBuyerEmail(), order.getBuyerEmail())
+                && Objects.equals(getBuyerName(), order.getBuyerName())
+                && Objects.equals(getPurchaseOrderNumber(), order.getPurchaseOrderNumber())
                 && Objects.equals(getShippingAddressName(), order.getShippingAddressName())
+                && Objects.equals(getShippingAddressLine1(), order.getShippingAddressLine1())
+                && Objects.equals(getShippingAddressCity(), order.getShippingAddressCity())
                 && Objects.equals(getShippingCityStateOrRegion(), order.getShippingCityStateOrRegion())
                 && Objects.equals(getShippingStateOrRegionPostalCode(), order.getShippingStateOrRegionPostalCode());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getAmazonOrderId(), getPurchaseDate(), getLastUpdateDate(), getOrderStatus(),
+                getFulfillmentChannel(), getNumberOfItemsShipped(), getNumberOfItemsUnshipped(), getPaymentMethod(),
+                getPaymentMethodDetails(), getMarketplaceId(), getShipmentServiceLevelCategory(), getOrderType(),
+                getEarliestShipDate(), getLatestShipDate(), isBusinessOrder, isPrime, isGlobalExpressEnabled,
+                isPremiumOrder, isSoldByAB, getCompanyLegalName(), getBuyerEmail(), getBuyerName(),
+                getPurchaseOrderNumber(), getShippingAddressName(), getShippingAddressLine1(), getShippingAddressCity(),
+                getShippingCityStateOrRegion(), getShippingStateOrRegionPostalCode());
     }
 }

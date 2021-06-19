@@ -144,4 +144,9 @@ public class PurchaseItem implements Serializable {
                 && Objects.equals(getDeleted_at(), that.getDeleted_at());
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getPurchase_id(), getItem_id(), getQuantity(), getUnit_price(), getCreated_at(),
+                getUpdated_at(), getDeleted_at());
+    }
 }

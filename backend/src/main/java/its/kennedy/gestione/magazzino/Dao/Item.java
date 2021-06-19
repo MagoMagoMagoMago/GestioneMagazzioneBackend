@@ -62,10 +62,6 @@ public class Item implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     private Category category;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
     public Integer getId() {
         return id;
     }

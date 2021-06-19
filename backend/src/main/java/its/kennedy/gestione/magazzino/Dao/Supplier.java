@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.Objects;
 
 @Entity
 @Table(name = "suppliers")
@@ -14,32 +15,42 @@ import java.time.Instant;
 public class Supplier implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
+
     @NotNull
     @Column(name = "name", length = 100, nullable = false)
     private String name;
+
     @NotNull
     @Column(name = "indirizzo", length = 100, nullable = false)
     private String indirizzo;
+
     @NotNull
-    @Column(name = "rmail", length = 100, nullable = false)
-    private String rmail;
+    @Column(name = "email", length = 100, nullable = false)
+    private String email;
+
     @NotNull
     @Column(name = "telefono", length = 100, nullable = false)
     private String telefono;
+
     @NotNull
     @Column(name = "nazione", length = 100, nullable = false)
     private String nazione;
+
     @Column(name = "note", length = 400)
     private String note;
+
     @NotNull
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
+
     @Column(name = "updated_at")
     private Instant updatedAt;
+
     @Column(name = "deleted_at")
     private Instant deletedAt;
 
@@ -67,12 +78,12 @@ public class Supplier implements Serializable {
         this.indirizzo = indirizzo;
     }
 
-    public String getRmail() {
-        return rmail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setRmail(String rmail) {
-        this.rmail = rmail;
+    public void setEmail(String email) {
+        email = email;
     }
 
     public String getTelefono() {
@@ -123,90 +134,46 @@ public class Supplier implements Serializable {
         this.deletedAt = deletedAt;
     }
 
-
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Supplier other = (Supplier) obj;
-        if (createdAt == null) {
-            if (other.createdAt != null) {
-                return false;
-            }
-        } else if (!createdAt.equals(other.createdAt)) {
-            return false;
-        }
-        if (deletedAt == null) {
-            if (other.deletedAt != null) {
-                return false;
-            }
-        } else if (!deletedAt.equals(other.deletedAt)) {
-            return false;
-        }
-        if (id == null) {
-            if (other.id != null) {
-                return false;
-            }
-        } else if (!id.equals(other.id)) {
-            return false;
-        }
-        if (indirizzo == null) {
-            if (other.indirizzo != null) {
-                return false;
-            }
-        } else if (!indirizzo.equals(other.indirizzo)) {
-            return false;
-        }
-        if (name == null) {
-            if (other.name != null) {
-                return false;
-            }
-        } else if (!name.equals(other.name)) {
-            return false;
-        }
-        if (nazione == null) {
-            if (other.nazione != null) {
-                return false;
-            }
-        } else if (!nazione.equals(other.nazione)) {
-            return false;
-        }
-        if (note == null) {
-            if (other.note != null) {
-                return false;
-            }
-        } else if (!note.equals(other.note)) {
-            return false;
-        }
-        if (rmail == null) {
-            if (other.rmail != null) {
-                return false;
-            }
-        } else if (!rmail.equals(other.rmail)) {
-            return false;
-        }
-        if (telefono == null) {
-            if (other.telefono != null) {
-                return false;
-            }
-        } else if (!telefono.equals(other.telefono)) {
-            return false;
-        }
-        if (updatedAt == null) {
-            if (other.updatedAt != null) {
-                return false;
-            }
-        } else if (!updatedAt.equals(other.updatedAt)) {
-            return false;
-        }
-        return true;
+    public String toString() {
+        return "Supplier{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", indirizzo='" + indirizzo + '\'' +
+                ", email='" + email + '\'' +
+                ", telefono='" + telefono + '\'' +
+                ", nazione='" + nazione + '\'' +
+                ", note='" + note + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", deletedAt=" + deletedAt +
+                '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Supplier supplier = (Supplier) o;
+        return getId().equals(supplier.getId())
+                && getName().equals(supplier.getName())
+                && getIndirizzo().equals(supplier.getIndirizzo())
+                && getEmail().equals(supplier.getEmail())
+                && getTelefono().equals(supplier.getTelefono())
+                && getNazione().equals(supplier.getNazione())
+                && Objects.equals(getNote(), supplier.getNote())
+                && getCreatedAt().equals(supplier.getCreatedAt())
+                && Objects.equals(getUpdatedAt(), supplier.getUpdatedAt())
+                && Objects.equals(getDeletedAt(), supplier.getDeletedAt());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getIndirizzo(), getEmail(), getTelefono(), getNazione(), getNote(),
+                getCreatedAt(), getUpdatedAt(), getDeletedAt());
+    }
 }

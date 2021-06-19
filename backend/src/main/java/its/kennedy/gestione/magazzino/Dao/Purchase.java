@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.Objects;
 
 @Entity
 @Table(name = "purchases")
@@ -22,11 +23,11 @@ public class Purchase implements Serializable {
 
     @NotNull
     @Column(name = "supplier_id", nullable = false)
-    private int supplier_id;
+    private Integer supplier_id;
 
     @NotNull
     @Column(name = "number_invoice", nullable = false)
-    private int number_invoice;
+    private Integer number_invoice;
 
     @Column(name = "note", length = 400)
     private String note;
@@ -52,19 +53,19 @@ public class Purchase implements Serializable {
         this.id = id;
     }
 
-    public int getSupplier_id() {
+    public Integer getSupplier_id() {
         return supplier_id;
     }
 
-    public void setSupplier_id(int supplier_id) {
+    public void setSupplier_id(Integer supplier_id) {
         this.supplier_id = supplier_id;
     }
 
-    public int getNumber_invoice() {
+    public Integer getNumber_invoice() {
         return number_invoice;
     }
 
-    public void setNumber_invoice(int number_invoice) {
+    public void setNumber_invoice(Integer number_invoice) {
         this.number_invoice = number_invoice;
     }
 
@@ -110,72 +111,40 @@ public class Purchase implements Serializable {
 
     @Override
     public String toString() {
-        return "PurchasesDao [id=" + id + ", supplier_id=" + supplier_id + ", number_invoice=" + number_invoice
-                + ", note=" + note + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", deletedAt="
-                + deletedAt + ", date_invoice=" + date_invoice + "]";
+        return "Purchase{" +
+                "id=" + id +
+                ", supplier_id=" + supplier_id +
+                ", number_invoice=" + number_invoice +
+                ", note='" + note + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", deletedAt=" + deletedAt +
+                ", date_invoice=" + date_invoice +
+                '}';
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
+    public boolean equals(Object o) {
+        if (this == o) {
             return true;
         }
-        if (obj == null) {
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Purchase other = (Purchase) obj;
-        if (createdAt == null) {
-            if (other.createdAt != null) {
-                return false;
-            }
-        } else if (!createdAt.equals(other.createdAt)) {
-            return false;
-        }
-        if (date_invoice == null) {
-            if (other.date_invoice != null) {
-                return false;
-            }
-        } else if (!date_invoice.equals(other.date_invoice)) {
-            return false;
-        }
-        if (deletedAt == null) {
-            if (other.deletedAt != null) {
-                return false;
-            }
-        } else if (!deletedAt.equals(other.deletedAt)) {
-            return false;
-        }
-        if (id == null) {
-            if (other.id != null) {
-                return false;
-            }
-        } else if (!id.equals(other.id)) {
-            return false;
-        }
-        if (note == null) {
-            if (other.note != null) {
-                return false;
-            }
-        } else if (!note.equals(other.note)) {
-            return false;
-        }
-        if (number_invoice != other.number_invoice) {
-            return false;
-        }
-        if (supplier_id != other.supplier_id) {
-            return false;
-        }
-        if (updatedAt == null) {
-            if (other.updatedAt != null) {
-                return false;
-            }
-        } else if (!updatedAt.equals(other.updatedAt)) {
-            return false;
-        }
-        return true;
+        Purchase purchase = (Purchase) o;
+        return getId().equals(purchase.getId())
+                && getSupplier_id().equals(purchase.getSupplier_id())
+                && getNumber_invoice().equals(purchase.getNumber_invoice())
+                && Objects.equals(getNote(), purchase.getNote())
+                && getCreatedAt().equals(purchase.getCreatedAt())
+                && Objects.equals(getUpdatedAt(), purchase.getUpdatedAt())
+                && Objects.equals(getDeletedAt(), purchase.getDeletedAt())
+                && getDate_invoice().equals(purchase.getDate_invoice());
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getSupplier_id(), getNumber_invoice(), getNote(), getCreatedAt(), getUpdatedAt(),
+                getDeletedAt(), getDate_invoice());
+    }
 }
