@@ -65,4 +65,15 @@ public class ItemsService implements IItems {
         baseResponsePage.setList(res);
         return baseResponsePage;
     }
+
+    @Override
+    public Boolean deleteById(Integer id) {
+        try {
+            itemsRepository.deleteById(id);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+
+    }
 }

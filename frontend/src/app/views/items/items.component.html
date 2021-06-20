@@ -10,20 +10,24 @@
 
     <div class="col d-flex align-items-center">
       <select class="form-select shadow-lg" aria-label="Default select example" #itemPerPage (change)="onChangeItemPerPage(itemPerPage.value)">  
-        <option value="5">5 risultati per pagina</option>
-        <option value="10">10 risultati per pagina</option>
-        <option value="20">20 risultati per pagina</option>
+        <option value="5">5 Articoli</option>
+        <option value="10">10 Articoli</option>
+        <option value="20">20 Articoli</option>
       </select>
     </div>
 
-    <div class="col d-flex align-items-center justify-content-end">
-      <a class="btn btn-light shadow-none" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
-        aria-controls="offcanvasExample">
-        <i class="bi bi-gear-wide-connected"></i> Colonne
-      </a>
+    <div class="col d-flex justify-content-center">
+      <button class="btn btn-success shadow-none" role="button">
+        <i class="bi bi-plus"></i>
+      </button>
     </div>
 
-    
+    <div class="col d-flex align-items-center justify-content-end">
+      <button class="btn btn-light shadow-none" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
+        aria-controls="offcanvasExample">
+        <i class="bi bi-gear-wide-connected"></i> Colonne
+      </button>
+    </div>
 
   </div>
 
@@ -63,7 +67,7 @@
           <td class="align-middle" width=10%>
             <button type="button" class="btn btn-secondary btn-sm shadow-none"><i class="bi bi-pencil-fill"></i></button>
             <button type="button" class="btn btn-warning btn-sm shadow-none"><i class="bi bi-cart"></i></button>
-            <button type="button" class="btn btn-danger btn-sm shadow-none"><i class="bi bi-trash"></i></button>
+            <button type="button" class="btn btn-danger btn-sm shadow-none"  data-bs-toggle="modal" data-bs-target="#deleteItems" (click)="openDeleteModal(item)"><i class="bi bi-trash"></i></button>
           </td>
         </tr>
         <tr *ngIf="isListEmpty()">
@@ -120,3 +124,20 @@
 </div>
 
 <!-- DELETE MODAL -->
+<div class="modal fade" id="deleteItems" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Eliminazione</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Sei sicuro di voler eliminare l'articolo '{{itemToDelete.title}}'?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteItems(itemToDelete.id)">Elimina</button>
+      </div>
+    </div>
+  </div>
+</div>

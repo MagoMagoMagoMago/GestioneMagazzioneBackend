@@ -10,4 +10,5 @@ public interface IItems {
     public ItemsDto getById(Integer id);
     public Boolean modifica(Items entity);
     public BaseResponsePage<ItemsDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean dir);
+    public Boolean deleteById(Integer id);
 }

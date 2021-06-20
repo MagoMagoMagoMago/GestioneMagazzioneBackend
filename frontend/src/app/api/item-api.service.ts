@@ -15,4 +15,8 @@ export class ItemApiService {
   public getAll(sortBy: string, orderBy: boolean,  pagine: number, quantita: number ): Observable<any> {
     return this.http.get(this.host + "/pagina/" + sortBy + "/" + orderBy + "/" + pagine + "/" + quantita );
   }
+
+  public deleteById(id: number): Observable<any>{
+    return this.http.delete(this.host + "/" + id);
+  }
 }

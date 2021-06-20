@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ItemApiService } from 'src/app/api/item-api.service';
 import { Column } from 'src/app/models/columns';
 import { Item } from './item';
@@ -11,7 +12,7 @@ import { Item } from './item';
 })
 export class ItemsComponent implements OnInit {
 
-  constructor(private api: ItemApiService, private router: Router) { } 
+  constructor(private api: ItemApiService, private router: Router, private toast: ToastrService) { } 
 
   public colItems: Column[] = [
     { name: "asin", text: "Asin", visible: false },
@@ -23,7 +24,7 @@ export class ItemsComponent implements OnInit {
   ];
 
   public listaItems!: Item[] | null;
-  public selectedItem: any;
+  public itemToDelete: Item = new Item();
 
   //dettagli paginazione
   public quantity: number = 5;
@@ -75,6 +76,20 @@ export class ItemsComponent implements OnInit {
     }
     
     this.loadItems();
+  }
+
+  openDeleteModal(item: Item): void{
+    this.itemToDelete = item;
+  }
+
+  deleteItems(id: number): void{
+    this.api.deleteById(id).subscribe(
+      (success) => { 
+        this.toast.success("Articolo eliminato con successo.", "Eliminazione"); 
+        this.loadItems();
+      },
+      (error) => { this.toast.error("Erorre riscontrato nella eliminazione.", "Eliminazione") }
+    )
   }
 
 }
