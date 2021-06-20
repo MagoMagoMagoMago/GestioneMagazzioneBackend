@@ -34,11 +34,11 @@ public class ItemsController {
         return ResponseEntity.ok().body(dto);
     }
 
-    @GetMapping("pagina/{ord}/{p}/{q}")
-    public ResponseEntity<BaseResponsePage<ItemsDto>> selezionapagina(@PathVariable String ord, @PathVariable Integer p, @PathVariable Integer q) {
+    @GetMapping("pagina/{sort}/{order}/{p}/{q}")
+    public ResponseEntity<BaseResponsePage<ItemsDto>> selezionapagina(@PathVariable String sort, @PathVariable Boolean order, @PathVariable Integer p, @PathVariable Integer q) {
         BaseResponsePage<ItemsDto> dto = null;
         try {
-            dto = itemService.selezionaPagina(p, q, ord, true);
+            dto = itemService.selezionaPagina(p, q, sort, order);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }

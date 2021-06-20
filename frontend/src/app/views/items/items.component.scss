@@ -1,28 +1,20 @@
-.pagination > li > a
-{
-    background-color: hsla(0, 0%, 99%, 0.486);     
-    font-size: large;
+.form-select{
+    width: auto;
 }
 
-.pagination > li > a:focus,
-.pagination > li > a:hover,
-.pagination > li > span:focus,
-.pagination > li > span:hover
-{
-    color: #5a5a5a;
-    background-color: rgba(151, 175, 255, 0.856);
-    border-color: #ddd;
+.page-link{
+    cursor: pointer;
 }
 
-.pagination > .active > a
-{
-    color: white;
-    background-color: #5A4181 !Important;
-    border: solid 1px #5A4181 !Important;
+.th:hover{
+    background-color: #DCDF92;
+    cursor: pointer;
 }
 
-.pagination > .active > a:hover
-{
-    background-color: #5A4181 !Important;
-    border: solid 1px #5A4181;
+img {
+    max-width: 130px;
+}
+
+.image-column{
+    width: 170px;
 }

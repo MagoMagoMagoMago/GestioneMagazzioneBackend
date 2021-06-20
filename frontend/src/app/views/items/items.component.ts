@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ItemApiService } from 'src/app/api/item-api.service';
+import { Column } from 'src/app/models/columns';
 import { Item } from './item';
 
 @Component({
@@ -9,37 +11,70 @@ import { Item } from './item';
 })
 export class ItemsComponent implements OnInit {
 
-  constructor(private api: ItemApiService) { } 
+  constructor(private api: ItemApiService, private router: Router) { } 
 
-  public colItems!:any[];
-  public listaItems!: Item[];
+  public colItems: Column[] = [
+    { name: "asin", text: "Asin", visible: false },
+    { name: "title", text: "Titolo", visible: true },
+    { name: "description", text: "Descrizione", visible: true },
+    { name: "price", text: "Prezzo", visible: true },
+    { name: "storage", text: "Giacenza", visible: true },
+    { name: "minAvailability", text: "Minimo", visible: true }
+  ];
+
+  public listaItems!: Item[] | null;
   public selectedItem: any;
 
   //dettagli paginazione
-  public quantita: number = 20;
-  public pagine: number = 0;
-  public ordine: string = "id"
+  public quantity: number = 5;
+  public page: number = 0;
+  public sort = { name: "title", orderBy: true};
+  public totalPages: number = 0;
 
   ngOnInit(): void {
-
-    this.colItems = [
-      { field: "image", header: "Immagine" },
-      { field: "asin", header: "ASIN" },
-      { field: "title", header: "Titolo" },
-      { field: "description", header: "Descrizione" },
-      { field: "price", header: "Prezzo" },
-      { field: "storage", header: "Giacenza" },
-      { field: "min_availability", header: "Disponibilità Minima" },
-    ];
-    this.loadItems(this.ordine, this.pagine, this.quantita);
+    this.loadItems();
   }
 
-  loadItems(ordine: string, pagine: number, quantita: number) {
-   this.api.getAll(ordine, pagine, quantita).subscribe((resp) => {
+  loadItems() {
+   this.api.getAll(this.sort.name, this.sort.orderBy, this.page, this.quantity).subscribe((resp) => {
      this.listaItems = resp.list;
-     console.log("listaItems", this.listaItems);
+     this.totalPages = resp.pagine;
    })
   }
 
+  isListEmpty(): boolean{
+    if(this.listaItems?.length == 0){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  changeVisibility(column: Column): void{
+    column.visible = !column.visible;
+  }
+
+  onChangeItemPerPage(itemPerPage: string): void{
+    this.quantity = Number(itemPerPage);
+    this.loadItems();
+  }
+
+  changePage(page: number): void{
+    this.page = page;
+    this.loadItems();
+  }
+
+  changeOrderBy(column: Column): void{
+    if (this.sort.name == column.name){
+      this.sort.orderBy = !this.sort.orderBy;
+    } else{
+      this.sort = {
+        name: column.name,
+        orderBy: true
+      };
+    }
+    
+    this.loadItems();
+  }
 
 }

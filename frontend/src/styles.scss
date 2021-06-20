@@ -1,10 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
-html,body{
-    height: 100vh;
-    max-height: 100vh;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-image: linear-gradient(to right top, #a8a8a8, #a6a6b2, #a3a4bc, #9ca3c7, #93a2d2, #9e9ed4, #ab99d3, #b993d0, #d58ab6, #e18696, #de8b78, #cd9462);
+html,
+body {
+  height: 100vh;
+  max-height: 100vh;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-image: linear-gradient(to right top, #3d3d3d, #49484d, #54545e, #5e616f, #676e81, #5f7792, #4d80a1, #2c8bac, #0094a6, #009a8b, #009c5d, #3c9a1c);
+  
 }
 
 .error:focus,

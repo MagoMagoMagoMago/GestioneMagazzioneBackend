@@ -1,60 +1,122 @@
-<div class="container">
-    <div class="animated fadeIn text-center" style="margin-top: 3%">
-        <div style="margin-bottom: 3%;">
-            <h1>Lista Articoli</h1>
-        </div>
-          <div class="table-responsive">
-            <table class="table table-striped" >
-                <thead class="thead-dark header">
-                  <tr>
-                    <th *ngFor="let col of colItems">
-                      {{ col.header }}
-                    </th>
-                    <th>{{ "Categoria" }}</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let item of listaItems">
-                    <td>{{ item.image }}</td>
-                    <td>{{ item.asin }}</td>
-                    <td>{{ item.title }}</td>
-                    <td>{{ item.description }}</td>
-                    <td>{{ item.price }}</td>
-                    <td>{{ item.storage }}</td>
-                    <td>{{ item.min_availability }}</td>
-                    <td></td>
-                    <td>
-                      <button type="button" class="btn btn-success btn-sm" style="margin-right: 10%;"><i class="bi bi-pencil-fill"></i></button>
-                      <button type="button" class="btn btn-warning btn-sm"><i class="bi bi-cart"></i></button>
-                    </td>
-                  </tr>
-                </tbody>
-                <b>Totale Articoli: {{listaItems ? listaItems.length : 0 }}</b>
-            </table>
-          </div>
-       
+<div class="container py-2">
 
-            <div style="margin-top: 2%;" class="d-flex justify-content-center">
-              <nav>
-                  <ul class="pagination">
-                    <li class="page-item">
-                      <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only"></span>
-                      </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                      <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                        <span class="sr-only"></span>
-                      </a>
-                    </li>
-                  </ul>
-              </nav>
-            </div>
+  <div class="row">
+    <div class="col d-flex justify-content-center">
+      <h1 class="display-5 text-white">Lista Articoli</h1>
     </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col d-flex align-items-center">
+      <select class="form-select shadow-lg" aria-label="Default select example" #itemPerPage (change)="onChangeItemPerPage(itemPerPage.value)">  
+        <option value="5">5 risultati per pagina</option>
+        <option value="10">10 risultati per pagina</option>
+        <option value="20">20 risultati per pagina</option>
+      </select>
+    </div>
+
+    <div class="col d-flex align-items-center justify-content-end">
+      <a class="btn btn-light shadow-none" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
+        aria-controls="offcanvasExample">
+        <i class="bi bi-gear-wide-connected"></i> Colonne
+      </a>
+    </div>
+
+    
+
+  </div>
+
+  <div class="table-responsive-xl pt-2">
+    <table class="table table-secondary table-striped">
+
+      <thead class="thead-dark table-warning header sticky-top">
+        <tr>
+          <th class="image-column">
+            Immagini
+          </th>
+          <ng-container *ngFor="let col of colItems">
+            <th class="th" *ngIf="col.visible" (click)="changeOrderBy(col)">
+              {{ col.text }} <i class="bi bi-caret-down-square-fill" *ngIf="col.name === sort.name" [ngClass]="{'bi-caret-down-square-fill': sort.orderBy == true, 'bi-caret-up-square-fill': sort.orderBy == false}"></i>
+            </th>
+          </ng-container>
+          <th>
+            Operazioni
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let item of listaItems">
+          <td class="image-column"><img src="{{item.image}}" class="img-thumbnail" alt="Articolo"></td>
+          <td *ngIf="colItems[0].visible" class="align-middle">{{item.asin}}</td>
+          <td *ngIf="colItems[1].visible" class="align-middle">{{item.title}}</td>
+          <td *ngIf="colItems[2].visible" class="align-middle">{{item.description}}</td>
+          <td *ngIf="colItems[3].visible" class="align-middle">€ {{item.price | number : '1.2-2'}}</td>
+          <td *ngIf="colItems[4].visible" class="align-middle font-weight-bold"
+            [ngClass]="{'text-success': item.storage > item.minAvailability, 'text-danger': item.storage < item.minAvailability}">
+            <i class="bi bi-exclamation-circle-fill" *ngIf="item.storage <= item.minAvailability"></i>
+            <i class="bi bi-check-circle-fill" *ngIf="item.storage > item.minAvailability"></i>
+             {{item.storage}}
+          </td>
+          <td *ngIf="colItems[5].visible" class="align-middle" width=10%>{{item.minAvailability}} pezzi</td>
+          <td class="align-middle" width=10%>
+            <button type="button" class="btn btn-secondary btn-sm shadow-none"><i class="bi bi-pencil-fill"></i></button>
+            <button type="button" class="btn btn-warning btn-sm shadow-none"><i class="bi bi-cart"></i></button>
+            <button type="button" class="btn btn-danger btn-sm shadow-none"><i class="bi bi-trash"></i></button>
+          </td>
+        </tr>
+        <tr *ngIf="isListEmpty()">
+          <td class="text-center align-middle"colspan="100%">
+            Nessun risultato trovato
+          </td>
+        </tr>
+      </tbody>
+      
+    </table>
+  </div>
+
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" [ngClass]="{'disabled': page == 0}">
+        <a class="page-link" (click)="changePage(page - 1)">Previous</a>
+      </li>
+
+      <ng-container *ngFor="let x of [].constructor(totalPages); let i = index">
+        <li class="page-item" [ngClass]="{'active': i == page}" >
+          <a class="page-link" (click)="changePage(i)">{{i + 1}}</a>
+        </li>
+      </ng-container>
+      
+      <li class="page-item" [ngClass]="{'disabled': page == totalPages - 1}">
+        <a class="page-link" (click)="changePage(page + 1)">Next</a>
+      </li>
+    </ul>
+  </nav>
 </div>
+
+
+
+<!-- OFFCANVAS COMPONENT -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Colonne</h5>
+    <button type="button" class="btn-close text-reset shadow-lg" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div>
+      Seleziona le colonne da visualizzare nella tabella degli Articoli
+    </div>
+    <div class="container mt-5">
+      <div class="form-check" *ngFor="let col of colItems">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [checked]="col.visible"
+          (change)="changeVisibility(col)">
+        <label class="form-check-label" for="flexCheckDefault">
+          {{col.text}}
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE MODAL -->

@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -43,12 +44,13 @@ public class ItemsService implements IItems {
     }
     
     @Override
-    public BaseResponsePage<ItemsDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean dir) {
+    @Transactional()
+    public BaseResponsePage<ItemsDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean order) {
         Pageable p;
         if (sortBy.length() <= 0) {
             sortBy = "Id";
         }
-        if (dir == true) {
+        if (order == true) {
             p = PageRequest.of(pagina, quantita, Sort.by(sortBy).ascending());
         } else {
             p = PageRequest.of(pagina, quantita, Sort.by(sortBy).descending());
