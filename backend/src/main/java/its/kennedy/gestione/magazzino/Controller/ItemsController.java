@@ -7,14 +7,7 @@ import its.kennedy.gestione.magazzino.Service.ItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/items")
@@ -34,24 +27,34 @@ public class ItemsController {
         return ResponseEntity.ok().body(dto);
     }
 
-    @GetMapping("pagina/{ord}/{p}/{q}")
-    public ResponseEntity<BaseResponsePage<ItemsDto>> selezionapagina(@PathVariable String ord, @PathVariable Integer p, @PathVariable Integer q) {
+    @GetMapping("pagina/{sort}/{order}/{p}/{q}")
+    public ResponseEntity<BaseResponsePage<ItemsDto>> selezionapagina(@PathVariable String sort, @PathVariable Boolean order, @PathVariable Integer p, @PathVariable Integer q) {
         BaseResponsePage<ItemsDto> dto = null;
         try {
-            dto = itemService.selezionaPagina(p, q, ord, true);
+            dto = itemService.selezionaPagina(p, q, sort, order);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok().body(dto);
     }
+
     @PutMapping(produces = "application/json")
-	public boolean updateDoc(@RequestBody Items doc) {
+	public ResponseEntity<Boolean> updateDoc(@RequestBody Items doc) {
 	 	try {
-			itemService.modifica(doc);
+	 		return ResponseEntity.ok().body(itemService.modifica(doc));
 			
 			} catch (Exception e) {			
-				return false;	
+				return  ResponseEntity.ok().body(false);	
 			}
-			return true;
+			
 	}
+
+	@DeleteMapping("{id}")
+    public ResponseEntity<?> deleteById(@PathVariable Integer id){
+        if (itemService.deleteById(id)){
+            return ResponseEntity.ok().build();
+        } else{
+            return  ResponseEntity.notFound().build();
+        }
+    }
 }

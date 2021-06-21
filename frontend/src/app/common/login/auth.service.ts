@@ -12,7 +12,7 @@ export class AuthService {
 
   private readonly JWT_TOKEN = "JWT_TOKEN";
   private readonly REFRESH_TOKEN = "REFRESH_TOKEN";
-  private readonly url = environment.host;
+  private readonly url = environment.host + "/";
   public loggedUser!: string | null;
 
   constructor(private http: HttpClient) {}
@@ -46,9 +46,10 @@ export class AuthService {
 
   refreshToken() {
     return this.http.post<any>(this.url + "auth/refreshtoken", {
-      'refreshToken': this.getRefreshToken()
-    }).pipe(tap((tokens: Tokens) => {
-      this.storeJwtToken(tokens.token);
+      'refreshToken': this.getRefreshToken(),
+      'expiredToken': this.getJwtToken()
+    }).pipe(tap((tokens: { "accessToken": string, "refreshToken": string, "tokenType": string}) => {
+      this.storeJwtToken(tokens.accessToken);
     }));
   }
 

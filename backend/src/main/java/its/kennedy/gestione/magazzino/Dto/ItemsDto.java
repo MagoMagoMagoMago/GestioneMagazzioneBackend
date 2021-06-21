@@ -9,7 +9,7 @@ public class ItemsDto {
 	private String description;
 	private Double price;
 	private int storage;
-	private int min_availability;
+	private int minAvailability;
 	private String image;
 	private Instant createdAt;
 	private Instant updatedAt;
@@ -51,11 +51,11 @@ public class ItemsDto {
 	public void setStorage(int storage) {
 		this.storage = storage;
 	}
-	public int getMin_availability() {
-		return min_availability;
+	public int getMinAvailability() {
+		return minAvailability;
 	}
-	public void setMin_availability(int min_availability) {
-		this.min_availability = min_availability;
+	public void setMinAvailability(int minAvailability) {
+		this.minAvailability = minAvailability;
 	}
 	public String getImage() {
 		return image;
@@ -90,7 +90,7 @@ public class ItemsDto {
 	@Override
 	public String toString() {
 		return "ItemsDto [id=" + id + ", asin=" + asin + ", title=" + title + ", description=" + description
-				+ ", price=" + price + ", storage=" + storage + ", min_availability=" + min_availability + ", image="
+				+ ", price=" + price + ", storage=" + storage + ", minAvailability=" + minAvailability + ", image="
 				+ image + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", deletedAt=" + deletedAt
 				+ ", category_id=" + category_id + "]";
 	}

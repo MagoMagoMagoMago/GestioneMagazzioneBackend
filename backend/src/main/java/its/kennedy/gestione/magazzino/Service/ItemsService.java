@@ -12,10 +12,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class ItemsService implements IItems {
@@ -31,7 +31,11 @@ public class ItemsService implements IItems {
     @Override
     public Boolean modifica(Items entity) {
     	try {
-    		entity.setUpdatedAt(Instant.now());
+    		if(entity.getId()==null) {
+    		entity.setCreatedAt(Instant.now());
+    		}else {
+    	    entity.setUpdatedAt(Instant.now());
+    		}
     		itemsRepository.saveAndFlush(entity);	
     	}catch(Exception e){
     		return false;
@@ -40,12 +44,13 @@ public class ItemsService implements IItems {
     }
     
     @Override
-    public BaseResponsePage<ItemsDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean dir) {
+    @Transactional()
+    public BaseResponsePage<ItemsDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean order) {
         Pageable p;
         if (sortBy.length() <= 0) {
             sortBy = "Id";
         }
-        if (dir == true) {
+        if (order == true) {
             p = PageRequest.of(pagina, quantita, Sort.by(sortBy).ascending());
         } else {
             p = PageRequest.of(pagina, quantita, Sort.by(sortBy).descending());
@@ -59,5 +64,16 @@ public class ItemsService implements IItems {
         }
         baseResponsePage.setList(res);
         return baseResponsePage;
+    }
+
+    @Override
+    public Boolean deleteById(Integer id) {
+        try {
+            itemsRepository.deleteById(id);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+
     }
 }

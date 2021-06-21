@@ -35,7 +35,7 @@ public class Items implements Serializable {
     private int storage;
     @NotNull
     @Column(name = "min_availability", nullable = false)
-    private int min_availability;
+    private int minAvailability;
     @NotNull
     @Column(name = "image", length = 400, nullable = false)
     private String image;
@@ -102,12 +102,12 @@ public class Items implements Serializable {
         this.storage = storage;
     }
 
-    public int getMin_availability() {
-        return min_availability;
+    public int getMinAvailability() {
+        return minAvailability;
     }
 
-    public void setMin_availability(int min_availability) {
-        this.min_availability = min_availability;
+    public void setMinAvailability(int min_availability) {
+        this.minAvailability = min_availability;
     }
 
     public String getImage() {
@@ -208,7 +208,7 @@ public class Items implements Serializable {
         } else if (!image.equals(other.image)) {
 			return false;
 		}
-        if (min_availability != other.min_availability) {
+        if (minAvailability != other.minAvailability) {
 			return false;
 		}
         if (price == null) {
@@ -241,7 +241,7 @@ public class Items implements Serializable {
     @Override
     public String toString() {
         return "ItemsDao [id=" + id + ", asin=" + asin + ", title=" + title + ", description=" + description
-                + ", price=" + price + ", storage=" + storage + ", min_availability=" + min_availability + ", image="
+                + ", price=" + price + ", storage=" + storage + ", minAvailability=" + minAvailability + ", image="
                 + image + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", deletedAt=" + deletedAt
                 + ", category_id=" + category_id + "]";
     }
