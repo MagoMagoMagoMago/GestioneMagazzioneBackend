@@ -7,11 +7,12 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.Objects;
 
 @Entity
 @Table(name = "categories")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-public class Categories implements Serializable {
+public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -86,8 +87,30 @@ public class Categories implements Serializable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Category that = (Category) o;
+        return getId().equals(that.getId())
+                && Objects.equals(getName(), that.getName())
+                && getCreatedAt().equals(that.getCreatedAt())
+                && Objects.equals(getUpdatedAt(), that.getUpdatedAt())
+                && Objects.equals(getDeletedAt(), that.getDeletedAt())
+                && Objects.equals(getDescription(), that.getDescription());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getCreatedAt(), getUpdatedAt(), getDeletedAt(), getDescription());
+    }
+
+    @Override
     public String toString() {
-        return "CategoriesDao{" +
+        return "Category{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", createdAt=" + createdAt +
@@ -96,62 +119,4 @@ public class Categories implements Serializable {
                 ", description='" + description + '\'' +
                 '}';
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Categories other = (Categories) obj;
-        if (createdAt == null) {
-            if (other.createdAt != null) {
-                return false;
-            }
-        } else if (!createdAt.equals(other.createdAt)) {
-            return false;
-        }
-        if (deletedAt == null) {
-            if (other.deletedAt != null) {
-                return false;
-            }
-        } else if (!deletedAt.equals(other.deletedAt)) {
-            return false;
-        }
-        if (description == null) {
-            if (other.description != null) {
-                return false;
-            }
-        } else if (!description.equals(other.description)) {
-            return false;
-        }
-        if (id == null) {
-            if (other.id != null) {
-                return false;
-            }
-        } else if (!id.equals(other.id)) {
-            return false;
-        }
-        if (name == null) {
-            if (other.name != null) {
-                return false;
-            }
-        } else if (!name.equals(other.name)) {
-            return false;
-        }
-        if (updatedAt == null) {
-            if (other.updatedAt != null) {
-                return false;
-            }
-        } else if (!updatedAt.equals(other.updatedAt)) {
-            return false;
-        }
-        return true;
-    }
-
 }

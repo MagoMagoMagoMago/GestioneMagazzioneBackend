@@ -1,6 +1,6 @@
 package its.kennedy.gestione.magazzino.Service;
 
-import its.kennedy.gestione.magazzino.Dao.Items;
+import its.kennedy.gestione.magazzino.Dao.Item;
 import its.kennedy.gestione.magazzino.Dto.BaseResponsePage;
 import its.kennedy.gestione.magazzino.Dto.ItemsDto;
 import its.kennedy.gestione.magazzino.IService.IItems;
@@ -29,7 +29,7 @@ public class ItemsService implements IItems {
         return modelMapper.map(itemsRepository.getById(id), ItemsDto.class);
     }
     @Override
-    public Boolean modifica(Items entity) {
+    public Boolean modifica(Item entity) {
     	try {
     		if(entity.getId()==null) {
     		entity.setCreatedAt(Instant.now());
@@ -55,11 +55,11 @@ public class ItemsService implements IItems {
         } else {
             p = PageRequest.of(pagina, quantita, Sort.by(sortBy).descending());
         }
-        Page<Items> resP = itemsRepository.findAll(p);
+        Page<Item> resP = itemsRepository.findAll(p);
         BaseResponsePage<ItemsDto> baseResponsePage=new BaseResponsePage<ItemsDto>();
         baseResponsePage.setPagine(resP.getTotalPages()); 
         ArrayList<ItemsDto> res = new ArrayList<ItemsDto>();
-        for (Items d : resP) {
+        for (Item d : resP) {
             res.add(modelMapper.map(itemsRepository.getById(d.getId()), ItemsDto.class));
         }
         baseResponsePage.setList(res);

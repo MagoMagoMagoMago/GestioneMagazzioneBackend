@@ -1,11 +1,10 @@
 package its.kennedy.gestione.magazzino.Repository;
 
-import java.util.Optional;
-
+import its.kennedy.gestione.magazzino.Dao.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import its.kennedy.gestione.magazzino.Dao.User;
+import java.util.Optional;
 
 
 /**
@@ -14,9 +13,27 @@ import its.kennedy.gestione.magazzino.Dao.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-	Optional<User> findByUsername(String username);
+    /**
+     * Finds a User with the given username
+     *
+     * @param username username of the User to look for
+     * @return an Optional of User
+     */
+    Optional<User> findByUsername(String username);
 
-	Boolean existsByUsername(String username);
+    /**
+     * Check if a User exists
+     *
+     * @param username username of the User to look for
+     * @return True if the User exists, false otherwise
+     */
+    Boolean existsByUsername(String username);
 
-	Boolean existsByEmail(String email);
+    /**
+     * Check if a User exists
+     *
+     * @param email email of the User to look for
+     * @return True if the User exists, false otherwise
+     */
+    Boolean existsByEmail(String email);
 }

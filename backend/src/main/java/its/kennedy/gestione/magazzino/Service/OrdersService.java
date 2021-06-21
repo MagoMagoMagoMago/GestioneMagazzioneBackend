@@ -1,7 +1,7 @@
 package its.kennedy.gestione.magazzino.Service;
 
-import its.kennedy.gestione.magazzino.Dao.Orders;
-import its.kennedy.gestione.magazzino.Dto.OrdersDto;
+import its.kennedy.gestione.magazzino.Dao.Order;
+import its.kennedy.gestione.magazzino.Dto.OrderDto;
 import its.kennedy.gestione.magazzino.IService.IOrders;
 import its.kennedy.gestione.magazzino.Repository.OrdersRepository;
 import org.modelmapper.ModelMapper;
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 public class OrdersService implements IOrders {
 
@@ -24,25 +25,29 @@ public class OrdersService implements IOrders {
     private ModelMapper modelMapper;
 
     @Override
-    public OrdersDto getById(Integer id) {
-        return modelMapper.map(ordersRepository.findById(id), OrdersDto.class);
+    public OrderDto getById(String id) {
+        return modelMapper.map(ordersRepository.findById(id), OrderDto.class);
     }
 
     @Override
-    public Boolean addOrders(List<OrdersDto> orders) {
-        List<Orders> ordersDao = new ArrayList<>();
-        orders.forEach(o -> {
-
-            ordersDao.add(modelMapper.map(o, Orders.class));
+    public Boolean addOrders(OrderDto.OrdersDtoList orders) {
+        List<Order> newOrders = new ArrayList<>();
+        List<String> myAmazonOrdersIds = ordersRepository.findAllIds();
+        orders.getOrders().forEach(order -> {
+            if (!myAmazonOrdersIds.contains(order.getAmazonOrderId())) {
+                newOrders.add(modelMapper.map(order, Order.class));
+            }
         });
-        if (ordersRepository.saveAll(ordersDao).size() == orders.size()) {
-            return true;
+        try {
+            ordersRepository.saveAll(newOrders);
+        } catch (Exception e) {
+            return false;
         }
-        return false;
+        return true;
     }
 
     @Override
-    public List<OrdersDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean dir) {
+    public List<OrderDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean dir) {
         Pageable p;
         if (sortBy.length() <= 0) {
             sortBy = "Id";
@@ -53,13 +58,17 @@ public class OrdersService implements IOrders {
             p = PageRequest.of(pagina, quantita, Sort.by(sortBy).descending());
         }
 
-
-        Page<Orders> resP = ordersRepository.findAll(p);
-        ArrayList<OrdersDto> res = new ArrayList<OrdersDto>();
-        for (Orders d : resP) {
-            res.add(modelMapper.map(ordersRepository.getById(d.getAmazonOrderId()), OrdersDto.class));
+        Page<Order> resP = ordersRepository.findAll(p);
+        ArrayList<OrderDto> res = new ArrayList<OrderDto>();
+        for (Order d : resP) {
+            res.add(modelMapper.map(ordersRepository.getById(d.getAmazonOrderId()), OrderDto.class));
         }
         return res;
+    }
+
+    @Override
+    public List<String> getAllAmazonOrderId() {
+        return ordersRepository.findAllIds();
     }
 
 

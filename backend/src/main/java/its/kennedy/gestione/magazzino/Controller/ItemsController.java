@@ -1,6 +1,6 @@
 package its.kennedy.gestione.magazzino.Controller;
 
-import its.kennedy.gestione.magazzino.Dao.Items;
+import its.kennedy.gestione.magazzino.Dao.Item;
 import its.kennedy.gestione.magazzino.Dto.BaseResponsePage;
 import its.kennedy.gestione.magazzino.Dto.ItemsDto;
 import its.kennedy.gestione.magazzino.Service.ItemsService;
@@ -39,7 +39,7 @@ public class ItemsController {
     }
 
     @PutMapping(produces = "application/json")
-	public ResponseEntity<Boolean> updateDoc(@RequestBody Items doc) {
+	public ResponseEntity<Boolean> updateDoc(@RequestBody Item doc) {
 	 	try {
 	 		return ResponseEntity.ok().body(itemService.modifica(doc));
 			

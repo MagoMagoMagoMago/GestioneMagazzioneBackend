@@ -3,7 +3,10 @@ package its.kennedy.gestione.magazzino.Dao;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
@@ -11,51 +14,25 @@ import java.util.Objects;
 @Entity
 @Table(name = "Orders")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-public class Orders implements Serializable {
+public class Order implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "AmazonOrderId")
-    private Integer amazonOrderId;
+    private String amazonOrderId;
 
-    @Column(name = "BuyerEmail", length = 100)
-    private String buyerEmail;
-
-    @Column(name = "BuyerName", length = 100)
-    private String buyerName;
-
-    @Column(name = "CompanyLegalName", length = 100)
-    private String companyLegalName;
-
-    @Column(name = "EarliestShipDate")
-    private Instant earliestShipDate;
-
-    @Column(name = "FulfillmentChannel", length = 100)
-    private String fulfillmentChannel;
-
-    @Column(name = "IsBusinessOrder")
-    private Boolean isBusinessOrder;
-
-    @Column(name = "IsGlobalExpressEnabled")
-    private Boolean isGlobalExpressEnabled;
-
-    @Column(name = "IsPremiumOrder")
-    private Boolean isPremiumOrder;
-
-    @Column(name = "IsPrime")
-    private Boolean isPrime;
-
-    @Column(name = "IsSoldByAB")
-    private Boolean isSoldByAB;
+    @Column(name = "PurchaseDate")
+    private Instant purchaseDate;
 
     @Column(name = "LastUpdateDate")
     private Instant lastUpdateDate;
 
-    @Column(name = "LatestShipDate")
-    private Instant latestShipDate;
+    @Column(name = "OrderStatus", length = 100)
+    private String orderStatus;
 
-    @Column(name = "MarketplaceId", length = 100)
-    private String marketplaceId;
+    @Column(name = "FulfillmentChannel", length = 100)
+    private String fulfillmentChannel;
 
     @Column(name = "NumberOfItemsShipped")
     private Integer numberOfItemsShipped;
@@ -63,35 +40,62 @@ public class Orders implements Serializable {
     @Column(name = "NumberOfItemsUnshipped")
     private Integer numberOfItemsUnshipped;
 
-    @Column(name = "OrderStatus", length = 100)
-    private String orderStatus;
-
-    @Column(name = "OrderType", length = 100)
-    private String orderType;
-
     @Column(name = "PaymentMethod", length = 100)
     private String paymentMethod;
 
     @Column(name = "PaymentMethodDetails", length = 100)
     private String paymentMethodDetails;
 
-    @Column(name = "PurchaseDate")
-    private Instant PurchaseDate;
-
-    @Column(name = "PurchaseOrderNumber", length = 100)
-    private String purchaseOrderNumber;
+    @Column(name = "MarketplaceId", length = 100)
+    private String marketplaceId;
 
     @Column(name = "ShipmentServiceLevelCategory", length = 100)
     private String shipmentServiceLevelCategory;
 
-    @Column(name = "ShippingAddressCity", length = 100)
-    private String shippingAddressCity;
+    @Column(name = "OrderType", length = 100)
+    private String orderType;
+
+    @Column(name = "EarliestShipDate")
+    private Instant earliestShipDate;
+
+    @Column(name = "LatestShipDate")
+    private Instant latestShipDate;
+
+    @Column(name = "IsBusinessOrder")
+    private Boolean isBusinessOrder;
+
+    @Column(name = "IsPrime")
+    private Boolean isPrime;
+
+    @Column(name = "IsGlobalExpressEnabled")
+    private Boolean isGlobalExpressEnabled;
+
+    @Column(name = "IsPremiumOrder")
+    private Boolean isPremiumOrder;
+
+    @Column(name = "IsSoldByAB")
+    private Boolean isSoldByAB;
+
+    @Column(name = "CompanyLegalName", length = 100)
+    private String companyLegalName;
+
+    @Column(name = "BuyerEmail", length = 100)
+    private String buyerEmail;
+
+    @Column(name = "BuyerName", length = 100)
+    private String buyerName;
+
+    @Column(name = "PurchaseOrderNumber", length = 100)
+    private String purchaseOrderNumber;
+
+    @Column(name = "ShippingAddressName", length = 100)
+    private String shippingAddressName;
 
     @Column(name = "ShippingAddressLine1", length = 100)
     private String shippingAddressLine1;
 
-    @Column(name = "ShippingAddressName", length = 100)
-    private String shippingAddressName;
+    @Column(name = "ShippingAddressCity", length = 100)
+    private String shippingAddressCity;
 
     @Column(name = "ShippingCityStateOrRegion", length = 100)
     private String shippingCityStateOrRegion;
@@ -99,11 +103,11 @@ public class Orders implements Serializable {
     @Column(name = "ShippingStateOrRegionPostalCode", length = 100)
     private String shippingStateOrRegionPostalCode;
 
-    public Integer getAmazonOrderId() {
+    public String getAmazonOrderId() {
         return amazonOrderId;
     }
 
-    public void setAmazonOrderId(Integer amazonOrderId) {
+    public void setAmazonOrderId(String amazonOrderId) {
         this.amazonOrderId = amazonOrderId;
     }
 
@@ -260,11 +264,11 @@ public class Orders implements Serializable {
     }
 
     public Instant getPurchaseDate() {
-        return PurchaseDate;
+        return purchaseDate;
     }
 
     public void setPurchaseDate(Instant purchaseDate) {
-        PurchaseDate = purchaseDate;
+        this.purchaseDate = purchaseDate;
     }
 
     public String getPurchaseOrderNumber() {
@@ -325,7 +329,7 @@ public class Orders implements Serializable {
 
     @Override
     public String toString() {
-        return "Orders{" +
+        return "Order{" +
                 "amazonOrderId=" + amazonOrderId +
                 ", buyerEmail='" + buyerEmail + '\'' +
                 ", buyerName='" + buyerName + '\'' +
@@ -346,7 +350,7 @@ public class Orders implements Serializable {
                 ", orderType='" + orderType + '\'' +
                 ", paymentMethod='" + paymentMethod + '\'' +
                 ", paymentMethodDetails='" + paymentMethodDetails + '\'' +
-                ", PurchaseDate=" + PurchaseDate +
+                ", PurchaseDate=" + purchaseDate + '\'' +
                 ", purchaseOrderNumber='" + purchaseOrderNumber + '\'' +
                 ", shipmentServiceLevelCategory='" + shipmentServiceLevelCategory + '\'' +
                 ", shippingAddressCity='" + shippingAddressCity + '\'' +
@@ -365,34 +369,45 @@ public class Orders implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Orders orders = (Orders) o;
-        return getAmazonOrderId().equals(orders.getAmazonOrderId())
-                && Objects.equals(getBuyerEmail(), orders.getBuyerEmail())
-                && Objects.equals(getBuyerName(), orders.getBuyerName())
-                && Objects.equals(getCompanyLegalName(), orders.getCompanyLegalName())
-                && Objects.equals(getEarliestShipDate(), orders.getEarliestShipDate())
-                && Objects.equals(getFulfillmentChannel(), orders.getFulfillmentChannel())
-                && Objects.equals(isBusinessOrder, orders.isBusinessOrder)
-                && Objects.equals(isGlobalExpressEnabled, orders.isGlobalExpressEnabled)
-                && Objects.equals(isPremiumOrder, orders.isPremiumOrder)
-                && Objects.equals(isPrime, orders.isPrime)
-                && Objects.equals(isSoldByAB, orders.isSoldByAB)
-                && Objects.equals(getLastUpdateDate(), orders.getLastUpdateDate())
-                && Objects.equals(getLatestShipDate(), orders.getLatestShipDate())
-                && Objects.equals(getMarketplaceId(), orders.getMarketplaceId())
-                && Objects.equals(getNumberOfItemsShipped(), orders.getNumberOfItemsShipped())
-                && Objects.equals(getNumberOfItemsUnshipped(), orders.getNumberOfItemsUnshipped())
-                && Objects.equals(getOrderStatus(), orders.getOrderStatus())
-                && Objects.equals(getOrderType(), orders.getOrderType())
-                && Objects.equals(getPaymentMethod(), orders.getPaymentMethod())
-                && Objects.equals(getPaymentMethodDetails(), orders.getPaymentMethodDetails())
-                && Objects.equals(getPurchaseDate(), orders.getPurchaseDate())
-                && Objects.equals(getPurchaseOrderNumber(), orders.getPurchaseOrderNumber())
-                && Objects.equals(getShipmentServiceLevelCategory(), orders.getShipmentServiceLevelCategory())
-                && Objects.equals(getShippingAddressCity(), orders.getShippingAddressCity())
-                && Objects.equals(getShippingAddressLine1(), orders.getShippingAddressLine1())
-                && Objects.equals(getShippingAddressName(), orders.getShippingAddressName())
-                && Objects.equals(getShippingCityStateOrRegion(), orders.getShippingCityStateOrRegion())
-                && Objects.equals(getShippingStateOrRegionPostalCode(), orders.getShippingStateOrRegionPostalCode());
+        Order order = (Order) o;
+        return getAmazonOrderId().equals(order.getAmazonOrderId())
+                && Objects.equals(getPurchaseDate(), order.getPurchaseDate())
+                && Objects.equals(getLastUpdateDate(), order.getLastUpdateDate())
+                && Objects.equals(getOrderStatus(), order.getOrderStatus())
+                && Objects.equals(getFulfillmentChannel(), order.getFulfillmentChannel())
+                && Objects.equals(getNumberOfItemsShipped(), order.getNumberOfItemsShipped())
+                && Objects.equals(getNumberOfItemsUnshipped(), order.getNumberOfItemsUnshipped())
+                && Objects.equals(getPaymentMethod(), order.getPaymentMethod())
+                && Objects.equals(getPaymentMethodDetails(), order.getPaymentMethodDetails())
+                && Objects.equals(getMarketplaceId(), order.getMarketplaceId())
+                && Objects.equals(getShipmentServiceLevelCategory(), order.getShipmentServiceLevelCategory())
+                && Objects.equals(getOrderType(), order.getOrderType())
+                && Objects.equals(getEarliestShipDate(), order.getEarliestShipDate())
+                && Objects.equals(getLatestShipDate(), order.getLatestShipDate())
+                && Objects.equals(isBusinessOrder, order.isBusinessOrder)
+                && Objects.equals(isPrime, order.isPrime)
+                && Objects.equals(isGlobalExpressEnabled, order.isGlobalExpressEnabled)
+                && Objects.equals(isPremiumOrder, order.isPremiumOrder)
+                && Objects.equals(isSoldByAB, order.isSoldByAB)
+                && Objects.equals(getCompanyLegalName(), order.getCompanyLegalName())
+                && Objects.equals(getBuyerEmail(), order.getBuyerEmail())
+                && Objects.equals(getBuyerName(), order.getBuyerName())
+                && Objects.equals(getPurchaseOrderNumber(), order.getPurchaseOrderNumber())
+                && Objects.equals(getShippingAddressName(), order.getShippingAddressName())
+                && Objects.equals(getShippingAddressLine1(), order.getShippingAddressLine1())
+                && Objects.equals(getShippingAddressCity(), order.getShippingAddressCity())
+                && Objects.equals(getShippingCityStateOrRegion(), order.getShippingCityStateOrRegion())
+                && Objects.equals(getShippingStateOrRegionPostalCode(), order.getShippingStateOrRegionPostalCode());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getAmazonOrderId(), getPurchaseDate(), getLastUpdateDate(), getOrderStatus(),
+                getFulfillmentChannel(), getNumberOfItemsShipped(), getNumberOfItemsUnshipped(), getPaymentMethod(),
+                getPaymentMethodDetails(), getMarketplaceId(), getShipmentServiceLevelCategory(), getOrderType(),
+                getEarliestShipDate(), getLatestShipDate(), isBusinessOrder, isPrime, isGlobalExpressEnabled,
+                isPremiumOrder, isSoldByAB, getCompanyLegalName(), getBuyerEmail(), getBuyerName(),
+                getPurchaseOrderNumber(), getShippingAddressName(), getShippingAddressLine1(), getShippingAddressCity(),
+                getShippingCityStateOrRegion(), getShippingStateOrRegionPostalCode());
     }
 }

@@ -37,7 +37,7 @@
       <thead class="thead-dark table-warning header sticky-top">
         <tr>
           <th class="image-column">
-            Immagini
+            Immagine
           </th>
           <ng-container *ngFor="let col of colItems">
             <th class="th" *ngIf="col.visible" (click)="changeOrderBy(col)">
@@ -53,10 +53,10 @@
       <tbody>
         <tr *ngFor="let item of listaItems">
           <td class="image-column"><img src="{{item.image}}" class="img-thumbnail" alt="Articolo"></td>
-          <td *ngIf="colItems[0].visible" class="align-middle">{{item.asin}}</td>
-          <td *ngIf="colItems[1].visible" class="align-middle">{{item.title}}</td>
-          <td *ngIf="colItems[2].visible" class="align-middle">{{item.description}}</td>
-          <td *ngIf="colItems[3].visible" class="align-middle">€ {{item.price | number : '1.2-2'}}</td>
+          <td *ngIf="colItems[0].visible" class="align-middle" width=10%>{{item.asin}}</td>
+          <td *ngIf="colItems[1].visible" class="align-middle" width=18%>{{item.title}}</td>
+          <td *ngIf="colItems[2].visible" class="align-middle" width=30%>{{item.description}}</td>
+          <td *ngIf="colItems[3].visible" class="align-middle" width=10%>€ {{item.price | number : '1.2-2'}}</td>
           <td *ngIf="colItems[4].visible" class="align-middle font-weight-bold"
             [ngClass]="{'text-success': item.storage > item.minAvailability, 'text-danger': item.storage < item.minAvailability}">
             <i class="bi bi-exclamation-circle-fill" *ngIf="item.storage <= item.minAvailability"></i>
@@ -65,13 +65,13 @@
           </td>
           <td *ngIf="colItems[5].visible" class="align-middle" width=10%>{{item.minAvailability}} pezzi</td>
           <td class="align-middle" width=10%>
-            <button type="button" class="btn btn-secondary btn-sm shadow-none"><i class="bi bi-pencil-fill"></i></button>
+            <button type="button" class="btn btn-secondary btn-sm shadow-none" data-bs-toggle="modal" data-bs-target="#updateItems"><i class="bi bi-pencil-fill"></i></button>
             <button type="button" class="btn btn-warning btn-sm shadow-none"><i class="bi bi-cart"></i></button>
-            <button type="button" class="btn btn-danger btn-sm shadow-none"  data-bs-toggle="modal" data-bs-target="#deleteItems" (click)="openDeleteModal(item)"><i class="bi bi-trash"></i></button>
+            <button type="button" class="btn btn-danger btn-sm shadow-none" data-bs-toggle="modal" data-bs-target="#deleteItems" (click)="openDeleteModal(item)"><i class="bi bi-trash"></i></button>
           </td>
         </tr>
         <tr *ngIf="isListEmpty()">
-          <td class="text-center align-middle"colspan="100%">
+          <td class="text-center align-middle not-found" colspan="100%">
             Nessun risultato trovato
           </td>
         </tr>
@@ -124,7 +124,7 @@
 </div>
 
 <!-- DELETE MODAL -->
-<div class="modal fade" id="deleteItems" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteItems" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -137,6 +137,66 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteItems(itemToDelete.id)">Elimina</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- UPDATE MODAL -->
+<div class="modal fade" id="updateItems" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modifica Articolo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="row">
+            <div class="col mb-2">
+              <label for="recipient-name" class="col-form-label">Asin:</label>
+              <input type="text" class="form-control" id="recipient-name">
+            </div>
+          </div>
+          <div class="row">
+            <div class=" col mb-2">
+              <label for="recipient-name" class="col-form-label">Titolo:</label>
+              <input type="text" class="form-control" id="recipient-name">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col mb-2">
+              <label for="message-text" class="col-form-label">Descrizione:</label>
+              <textarea class="form-control" id="message-text"></textarea>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col mb-2">
+              <label for="recipient-name" class="col-form-label">Prezzo:</label>
+              <input type="text" class="form-control" id="recipient-name">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col mb-2">
+              <label for="recipient-name" class="col-form-label">Giacenza:</label>
+              <input type="text" class="form-control" id="recipient-name">
+            </div>
+            <div class="col mb-2">
+              <label for="recipient-name" class="col-form-label">Disponibilità Minima:</label>
+              <input type="text" class="form-control" id="recipient-name">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col mb-2">
+              <label for="recipient-name" class="col-form-label">Immagine:</label>
+              <input type="text" class="form-control" id="recipient-name">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Salva</button>
       </div>
     </div>
   </div>

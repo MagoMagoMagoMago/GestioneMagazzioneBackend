@@ -1,10 +1,12 @@
 package its.kennedy.gestione.magazzino.Repository;
 
-
-import its.kennedy.gestione.magazzino.Dao.Items;
+import its.kennedy.gestione.magazzino.Dao.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ItemsRepository extends JpaRepository<Items, Integer> {
-
-
+/**
+ * Spring Data repository for the Item entity.
+ */
+@Repository
+public interface ItemsRepository extends JpaRepository<Item, Integer> {
 }

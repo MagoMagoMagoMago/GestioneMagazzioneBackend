@@ -1,48 +1,24 @@
-package its.kennedy.gestione.magazzino.Dao;
+package its.kennedy.gestione.magazzino.Dto;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
-@Entity
-@Table(name = "purchase_items")
-@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-public class PurchaseItems implements Serializable {
+public class PurchaseItemDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Integer id;
 
-    @NotNull
-    @Column(name = "purchase_id", nullable = false)
     private Integer purchase_id;
 
-    @NotNull
-    @Column(name = "item_id", nullable = false)
     private Integer item_id;
 
-    @NotNull
-    @Column(name = "quantity", nullable = false)
     private Integer quantity;
 
-    @NotNull
-    @Column(name = "unit_price", nullable = false)
     private Double unit_price;
 
-    @NotNull
-    @Column(name = "created_at", nullable = false)
     private Instant created_at;
 
-    @Column(name = "updated_at")
     private Instant updated_at;
 
-    @Column(name = "deleted_at")
     private Instant deleted_at;
 
     public Integer getId() {
@@ -111,7 +87,7 @@ public class PurchaseItems implements Serializable {
 
     @Override
     public String toString() {
-        return "PurchaseItemsDao{" +
+        return "PurchaseItemDto{" +
                 "id=" + id +
                 ", purchase_id=" + purchase_id +
                 ", item_id=" + item_id +
@@ -131,15 +107,20 @@ public class PurchaseItems implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        PurchaseItems that = (PurchaseItems) o;
-        return getId().equals(that.getId())
-                && getPurchase_id().equals(that.getPurchase_id())
-                && getItem_id().equals(that.getItem_id())
-                && getQuantity().equals(that.getQuantity())
-                && getUnit_price().equals(that.getUnit_price())
-                && getCreated_at().equals(that.getCreated_at())
+        PurchaseItemDto that = (PurchaseItemDto) o;
+        return Objects.equals(getId(), that.getId())
+                && Objects.equals(getPurchase_id(), that.getPurchase_id())
+                && Objects.equals(getItem_id(), that.getItem_id())
+                && Objects.equals(getQuantity(), that.getQuantity())
+                && Objects.equals(getUnit_price(), that.getUnit_price())
+                && Objects.equals(getCreated_at(), that.getCreated_at())
                 && Objects.equals(getUpdated_at(), that.getUpdated_at())
                 && Objects.equals(getDeleted_at(), that.getDeleted_at());
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getPurchase_id(), getItem_id(), getQuantity(), getUnit_price(), getCreated_at(),
+                getUpdated_at(), getDeleted_at());
+    }
 }

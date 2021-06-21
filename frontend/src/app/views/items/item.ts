@@ -1,3 +1,5 @@
+import { Moment } from "moment";
+
 export class Item {
     id!: number;
     asin!: string;
@@ -5,6 +7,10 @@ export class Item {
     description!: string;
     price!: number;
     storage!:number;
-    image!: string;
     minAvailability!: number;
+    image!: string;
+    createdAt!: Moment;
+    updatedAt!: Moment;
+    deletedAt!: Moment;
+    categoryId!: number;
 }
