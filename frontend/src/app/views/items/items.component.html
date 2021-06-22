@@ -132,11 +132,11 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Sei sicuro di voler eliminare l'articolo '{{itemToDelete.title}}'?
+        Sei sicuro di voler eliminare l'articolo '{{itemSelected.title}}'?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteItems(itemToDelete.id)">Elimina</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteItems(itemSelected.id)">Elimina</button>
       </div>
     </div>
   </div>
@@ -150,54 +150,55 @@
         <h5 class="modal-title" id="exampleModalLabel">Modifica Articolo</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
       <div class="modal-body">
-        <form>
           <div class="row">
             <div class="col mb-2">
-              <label for="recipient-name" class="col-form-label">Asin:</label>
-              <input type="text" class="form-control" id="recipient-name">
+              <label for="asin" class="col-form-label">Asin:</label>
+              <input type="text" class="form-control" id="asin" formControlName="asin">
             </div>
           </div>
           <div class="row">
             <div class=" col mb-2">
-              <label for="recipient-name" class="col-form-label">Titolo:</label>
-              <input type="text" class="form-control" id="recipient-name">
+              <label for="title" class="col-form-label">Titolo:</label>
+              <input type="text" class="form-control" id="title" formControlName="title">
             </div>
           </div>
           <div class="row">
             <div class="col mb-2">
-              <label for="message-text" class="col-form-label">Descrizione:</label>
-              <textarea class="form-control" id="message-text"></textarea>
+              <label for="description" class="col-form-label">Descrizione:</label>
+              <textarea class="form-control" id="description" formControlName="description"></textarea>
             </div>
           </div>
           <div class="row">
             <div class="col mb-2">
-              <label for="recipient-name" class="col-form-label">Prezzo:</label>
-              <input type="text" class="form-control" id="recipient-name">
+              <label for="price" class="col-form-label">Prezzo:</label>
+              <input type="number" class="form-control" id="price" formControlName="price">
             </div>
           </div>
           <div class="row">
             <div class="col mb-2">
-              <label for="recipient-name" class="col-form-label">Giacenza:</label>
-              <input type="text" class="form-control" id="recipient-name">
+              <label for="storage" class="col-form-label">Giacenza:</label>
+              <input type="text" class="form-control" id="storage" formControlName="storage">
             </div>
             <div class="col mb-2">
-              <label for="recipient-name" class="col-form-label">Disponibilità Minima:</label>
-              <input type="text" class="form-control" id="recipient-name">
+              <label for="minAvailability" class="col-form-label">Disponibilità Minima:</label>
+              <input type="text" class="form-control" id="minAvailability" formControlName="minAvailability">
             </div>
           </div>
           <div class="row">
             <div class="col mb-2">
-              <label for="recipient-name" class="col-form-label">Immagine:</label>
-              <input type="text" class="form-control" id="recipient-name">
+              <label for="image" class="col-form-label">Immagine:</label>
+              <input type="url" class="form-control" id="image" formControlName="image">
             </div>
           </div>
-        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Salva</button>
+        <button type="submit" class="btn btn-primary">Salva</button>
       </div>
+      
+    </form>
     </div>
   </div>
 </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ItemApiService } from 'src/app/api/item-api.service';
@@ -12,7 +13,12 @@ import { Item } from './item';
 })
 export class ItemsComponent implements OnInit {
 
-  constructor(private api: ItemApiService, private router: Router, private toast: ToastrService) { } 
+  constructor(
+    private api: ItemApiService, 
+    private router: Router, 
+    private toast: ToastrService,
+    public fb: FormBuilder
+    ) { } 
 
   public colItems: Column[] = [
     { name: "asin", text: "Asin", visible: false },
@@ -23,14 +29,25 @@ export class ItemsComponent implements OnInit {
     { name: "minAvailability", text: "Minimo", visible: true }
   ];
 
+  submitted: boolean = false;
   public listaItems!: Item[] | null;
-  public itemToDelete: Item = new Item();
+  public itemSelected: Item = new Item();
 
   //dettagli paginazione
   public quantity: number = 5;
   public page: number = 0;
   public sort = { name: "title", orderBy: true};
   public totalPages: number = 0;
+
+  updateForm = this.fb.group({
+    asin : [null, [Validators.required, Validators.minLength(10)]],
+    title : [null, Validators.required],
+    description : [null],
+    price : [null, [Validators.required, Validators.pattern("^\\d+\\.\\d{0,2}$")]],
+    storage : [null, Validators.required],
+    minAvailability : [null, Validators.required],
+    image : [null, Validators.required]
+  })
 
   ngOnInit(): void {
     this.loadItems();
@@ -79,7 +96,7 @@ export class ItemsComponent implements OnInit {
   }
 
   openDeleteModal(item: Item): void{
-    this.itemToDelete = item;
+    this.itemSelected = item;
   }
 
   deleteItems(id: number): void{
@@ -90,6 +107,10 @@ export class ItemsComponent implements OnInit {
       },
       (error) => { this.toast.error("Erorre riscontrato nella eliminazione.", "Eliminazione") }
     )
+  }
+
+  onSubmit(): void{
+    console.log(this.updateForm.value);
   }
 
 }
