@@ -4,7 +4,6 @@ import java.time.Instant;
 import java.util.Objects;
 
 public class ItemDto {
-
     private Integer id;
 
     private String asin;
@@ -171,4 +170,5 @@ public class ItemDto {
                 ", category=" + category +
                 '}';
     }
+
 }

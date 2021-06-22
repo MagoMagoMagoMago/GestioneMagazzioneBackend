@@ -2,7 +2,7 @@ package its.kennedy.gestione.magazzino.Controller;
 
 import its.kennedy.gestione.magazzino.Dao.Item;
 import its.kennedy.gestione.magazzino.Dto.BaseResponsePage;
-import its.kennedy.gestione.magazzino.Dto.ItemsDto;
+import its.kennedy.gestione.magazzino.Dto.ItemDto;
 import its.kennedy.gestione.magazzino.Service.ItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +17,8 @@ public class ItemsController {
     private ItemsService itemService;
 
     @GetMapping("{id}")
-    public ResponseEntity<ItemsDto> getItemsById(@PathVariable Integer id) {
-        ItemsDto dto = null;
+    public ResponseEntity<ItemDto> getItemsById(@PathVariable Integer id) {
+        ItemDto dto = null;
         try {
             dto = itemService.getById(id);
         } catch (Exception e) {
@@ -28,8 +28,8 @@ public class ItemsController {
     }
 
     @GetMapping("pagina/{sort}/{order}/{p}/{q}")
-    public ResponseEntity<BaseResponsePage<ItemsDto>> selezionapagina(@PathVariable String sort, @PathVariable Boolean order, @PathVariable Integer p, @PathVariable Integer q) {
-        BaseResponsePage<ItemsDto> dto = null;
+    public ResponseEntity<BaseResponsePage<ItemDto>> selezionapagina(@PathVariable String sort, @PathVariable Boolean order, @PathVariable Integer p, @PathVariable Integer q) {
+        BaseResponsePage<ItemDto> dto = null;
         try {
             dto = itemService.selezionaPagina(p, q, sort, order);
         } catch (Exception e) {
@@ -39,22 +39,21 @@ public class ItemsController {
     }
 
     @PutMapping(produces = "application/json")
-	public ResponseEntity<Boolean> updateDoc(@RequestBody Item doc) {
-	 	try {
-	 		return ResponseEntity.ok().body(itemService.modifica(doc));
-			
-			} catch (Exception e) {			
-				return  ResponseEntity.ok().body(false);	
-			}
-			
-	}
+    public ResponseEntity<Boolean> updateDoc(@RequestBody Item doc) {
+        try {
+            return ResponseEntity.ok().body(itemService.addOrUpdate(doc));
 
-	@DeleteMapping("{id}")
-    public ResponseEntity<?> deleteById(@PathVariable Integer id){
-        if (itemService.deleteById(id)){
+        } catch (Exception e) {
+            return ResponseEntity.ok().body(false);
+        }
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> deleteById(@PathVariable Integer id) {
+        if (itemService.deleteById(id)) {
             return ResponseEntity.ok().build();
-        } else{
-            return  ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 }
