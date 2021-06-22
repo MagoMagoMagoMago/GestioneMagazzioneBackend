@@ -11,7 +11,7 @@ import java.time.Instant;
 @Entity
 @Table(name = "items")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-public class Items implements Serializable {
+public class Item implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -35,7 +35,7 @@ public class Items implements Serializable {
     private int storage;
     @NotNull
     @Column(name = "min_availability", nullable = false)
-    private int min_availability;
+    private int minAvailability;
     @NotNull
     @Column(name = "image", length = 400, nullable = false)
     private String image;
@@ -52,7 +52,7 @@ public class Items implements Serializable {
     private Instant deletedAt;
     @NotNull
     @Column(name = "category_id", nullable = false)
-    private int category_id;
+    private int categoryId;
 
     public Integer getId() {
         return id;
@@ -102,12 +102,12 @@ public class Items implements Serializable {
         this.storage = storage;
     }
 
-    public int getMin_availability() {
-        return min_availability;
+    public int getMinAvailability() {
+        return minAvailability;
     }
 
-    public void setMin_availability(int min_availability) {
-        this.min_availability = min_availability;
+    public void setMinAvailability(int min_availability) {
+        this.minAvailability = min_availability;
     }
 
     public String getImage() {
@@ -143,12 +143,12 @@ public class Items implements Serializable {
         this.deletedAt = deletedAt;
     }
 
-    public int getCategory_id() {
-        return category_id;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory_id(int category_id) {
-        this.category_id = category_id;
+    public void setCategoryId(int category_id) {
+        this.categoryId = category_id;
     }
 
     @Override
@@ -162,7 +162,7 @@ public class Items implements Serializable {
         if (getClass() != obj.getClass()) {
 			return false;
 		}
-        Items other = (Items) obj;
+        Item other = (Item) obj;
         if (asin == null) {
             if (other.asin != null) {
 				return false;
@@ -170,7 +170,7 @@ public class Items implements Serializable {
         } else if (!asin.equals(other.asin)) {
 			return false;
 		}
-        if (category_id != other.category_id) {
+        if (categoryId != other.categoryId) {
 			return false;
 		}
         if (createdAt == null) {
@@ -208,7 +208,7 @@ public class Items implements Serializable {
         } else if (!image.equals(other.image)) {
 			return false;
 		}
-        if (min_availability != other.min_availability) {
+        if (minAvailability != other.minAvailability) {
 			return false;
 		}
         if (price == null) {
@@ -241,9 +241,9 @@ public class Items implements Serializable {
     @Override
     public String toString() {
         return "ItemsDao [id=" + id + ", asin=" + asin + ", title=" + title + ", description=" + description
-                + ", price=" + price + ", storage=" + storage + ", min_availability=" + min_availability + ", image="
+                + ", price=" + price + ", storage=" + storage + ", minAvailability=" + minAvailability + ", image="
                 + image + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", deletedAt=" + deletedAt
-                + ", category_id=" + category_id + "]";
+                + ", category_id=" + categoryId + "]";
     }
 
 }

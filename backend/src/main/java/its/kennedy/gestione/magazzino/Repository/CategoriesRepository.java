@@ -1,10 +1,12 @@
 package its.kennedy.gestione.magazzino.Repository;
 
+import its.kennedy.gestione.magazzino.Dao.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import its.kennedy.gestione.magazzino.Dao.Categories;
-
-
-public interface CategoriesRepository extends JpaRepository<Categories,Integer>{
-
+/**
+ * Spring Data repository for the Category entity.
+ */
+@Repository
+public interface CategoriesRepository extends JpaRepository<Category, Integer> {
 }

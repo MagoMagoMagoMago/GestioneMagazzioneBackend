@@ -11,7 +11,9 @@ import java.util.Objects;
 @Entity
 @Table(name = "OrderItems")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-public class OrderItems implements Serializable {
+public class OrderItem implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -190,20 +192,28 @@ public class OrderItems implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        OrderItems that = (OrderItems) o;
-        return getOrderItemId().equals(that.getOrderItemId())
-                && Objects.equals(getAmazonOrderId(), that.getAmazonOrderId())
-                && getAsin().equals(that.getAsin())
-                && Objects.equals(getTitle(), that.getTitle())
-                && Objects.equals(getQuantityOrdered(), that.getQuantityOrdered())
-                && Objects.equals(getQuantityShipped(), that.getQuantityShipped())
-                && Objects.equals(getPointsGrantedPointsNumber(), that.getPointsGrantedPointsNumber())
-                && Objects.equals(getAmazonOrderId(), that.getAmazonOrderId())
-                && Objects.equals(getPointsGrantedPointsMonetaryValueAmount(), that.getPointsGrantedPointsMonetaryValueAmount())
-                && Objects.equals(getItemPriceCurrencyCode(), that.getItemPriceCurrencyCode())
-                && Objects.equals(getItemPriceAmount(), that.getItemPriceAmount())
-                && Objects.equals(getShippingPriceCurrencyCode(), that.getShippingPriceCurrencyCode())
-                && Objects.equals(getShippingPriceAmount(), that.getShippingPriceAmount())
-                && Objects.equals(getPromotionIds(), that.getPromotionIds());
+        OrderItem orderItem = (OrderItem) o;
+        return getOrderItemId().equals(orderItem.getOrderItemId())
+                && Objects.equals(getAmazonOrderId(), orderItem.getAmazonOrderId())
+                && getAsin().equals(orderItem.getAsin())
+                && Objects.equals(getTitle(), orderItem.getTitle())
+                && Objects.equals(getQuantityOrdered(), orderItem.getQuantityOrdered())
+                && Objects.equals(getQuantityShipped(), orderItem.getQuantityShipped())
+                && Objects.equals(getPointsGrantedPointsNumber(), orderItem.getPointsGrantedPointsNumber())
+                && Objects.equals(pointsGrantedPointsMonetaryValueCurrencyCode, orderItem.pointsGrantedPointsMonetaryValueCurrencyCode)
+                && Objects.equals(getPointsGrantedPointsMonetaryValueAmount(), orderItem.getPointsGrantedPointsMonetaryValueAmount())
+                && Objects.equals(getItemPriceCurrencyCode(), orderItem.getItemPriceCurrencyCode())
+                && Objects.equals(getItemPriceAmount(), orderItem.getItemPriceAmount())
+                && Objects.equals(getShippingPriceCurrencyCode(), orderItem.getShippingPriceCurrencyCode())
+                && Objects.equals(getShippingPriceAmount(), orderItem.getShippingPriceAmount())
+                && Objects.equals(getPromotionIds(), orderItem.getPromotionIds());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getOrderItemId(), getAmazonOrderId(), getAsin(), getTitle(), getQuantityOrdered(),
+                getQuantityShipped(), getPointsGrantedPointsNumber(), pointsGrantedPointsMonetaryValueCurrencyCode,
+                getPointsGrantedPointsMonetaryValueAmount(), getItemPriceCurrencyCode(), getItemPriceAmount(),
+                getShippingPriceCurrencyCode(), getShippingPriceAmount(), getPromotionIds());
     }
 }

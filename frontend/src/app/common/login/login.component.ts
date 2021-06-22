@@ -3,7 +3,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from './auth.service';
-import { LoginService } from './login.service';
 
 @Component({
   selector: 'app-login',
@@ -12,12 +11,12 @@ import { LoginService } from './login.service';
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
-  submitted = false;
+  submitted: boolean = false;
+  errorLogin: boolean = false;
   subcription!: Subscription | null;
 
   constructor(
     private router: Router,
-    private loginService: LoginService,
     private authService: AuthService,
     public fb: FormBuilder) { }
 
@@ -46,11 +45,15 @@ export class LoginComponent implements OnInit, OnDestroy {
         {
           username: this.loginForm.get("username")?.value,
           password: this.loginForm.get("password")?.value
-        }).subscribe((res) => {
-          if (res) {
-            this.router.navigate(['/dashboard']);
-          }
-        });
+        }).subscribe(
+          res => {
+            if (res) {
+              this.errorLogin = false;
+              this.router.navigate(['/dashboard']);
+            } else {
+              this.errorLogin = true;
+            }
+          });
     }
 
   }
