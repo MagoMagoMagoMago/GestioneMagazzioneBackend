@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 @Service
 public class ItemsService implements IItems {
+    
     @Autowired
     private ItemsRepository itemsRepository;
     @Autowired
@@ -29,14 +30,14 @@ public class ItemsService implements IItems {
     }
 
     @Override
-    public Boolean modifica(Item entity) {
+    public Boolean addOrUpdate(Item item) {
         try {
-            if (entity.getId() == null) {
-                entity.setCreatedAt(Instant.now());
+            if (item.getId() == null) {
+                item.setCreatedAt(Instant.now());
             } else {
-                entity.setUpdatedAt(Instant.now());
+                item.setUpdatedAt(Instant.now());
             }
-            itemsRepository.saveAndFlush(entity);
+            itemsRepository.saveAndFlush(item);
         } catch (Exception e) {
             return false;
         }
@@ -49,7 +50,7 @@ public class ItemsService implements IItems {
         if (sortBy.length() <= 0) {
             sortBy = "Id";
         }
-        if (dir == true) {
+        if (dir) {
             p = PageRequest.of(pagina, quantita, Sort.by(sortBy).ascending());
         } else {
             p = PageRequest.of(pagina, quantita, Sort.by(sortBy).descending());
