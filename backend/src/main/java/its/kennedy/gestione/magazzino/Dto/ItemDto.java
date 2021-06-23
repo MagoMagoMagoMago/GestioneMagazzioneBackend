@@ -16,7 +16,7 @@ public class ItemDto {
 
     private int storage;
 
-    private int min_availability;
+    private int minAvailability;
 
     private String image;
 
@@ -76,12 +76,12 @@ public class ItemDto {
         this.storage = storage;
     }
 
-    public int getMin_availability() {
-        return min_availability;
+    public int getMinAvailability() {
+        return minAvailability;
     }
 
-    public void setMin_availability(int min_availability) {
-        this.min_availability = min_availability;
+    public void setMinAvailability(int minAvailability) {
+        this.minAvailability = minAvailability;
     }
 
     public String getImage() {
@@ -134,7 +134,7 @@ public class ItemDto {
         }
         ItemDto itemDto = (ItemDto) o;
         return getStorage() == itemDto.getStorage()
-                && getMin_availability() == itemDto.getMin_availability()
+                && getMinAvailability() == itemDto.getMinAvailability()
                 && getId().equals(itemDto.getId())
                 && getAsin().equals(itemDto.getAsin())
                 && getTitle().equals(itemDto.getTitle())
@@ -150,7 +150,7 @@ public class ItemDto {
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getAsin(), getTitle(), getDescription(), getPrice(), getStorage(),
-                getMin_availability(), getImage(), getCreatedAt(), getUpdatedAt(), getDeletedAt(), getCategory());
+                getMinAvailability(), getImage(), getCreatedAt(), getUpdatedAt(), getDeletedAt(), getCategory());
     }
 
     @Override
@@ -162,7 +162,7 @@ public class ItemDto {
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", storage=" + storage +
-                ", min_availability=" + min_availability +
+                ", min_availability=" + minAvailability +
                 ", image='" + image + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +

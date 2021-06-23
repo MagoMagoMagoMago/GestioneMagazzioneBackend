@@ -27,7 +27,10 @@ public class ItemsService implements IItems {
 
     @Override
     public ItemDto getById(Integer id) {
-        return modelMapper.map(itemsRepository.getById(id), ItemDto.class);
+        Item item = itemsRepository.getById(id);
+        ItemDto itemDto = modelMapper.map(item, ItemDto.class);
+        itemDto.setCategory(item.getCategory().getName());
+        return itemDto;
     }
 
     @Override
