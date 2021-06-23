@@ -172,7 +172,11 @@ export class ItemsComponent implements OnInit {
         this.loadItems();
         this.modalClose.nativeElement.click();
       },
-      (error) => { this.toast.error("Erorre riscontrato nella modifica.", "Eliminazione") }
+      (error) => { 
+        console.log(error);
+        this.updateForm.controls['category'].setValue(this.categories?.find((x)=> x.id == this.updateForm.get("category")?.value.id)?.id);
+        this.toast.error("Erorre riscontrato nella modifica.", "Modiica") 
+      }
     );
   }
 
