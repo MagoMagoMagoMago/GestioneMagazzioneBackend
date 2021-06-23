@@ -1,0 +1,68 @@
+<div class="container py-2">
+
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+            <h1 class="display-5 text-white">Lista Fornitori</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <!--
+        <div class="col d-flex justify-content-center">
+            <button class="btn btn-success shadow-none" role="button">
+                <i class="bi bi-plus"></i>
+            </button>
+        </div>
+
+        <div class="col d-flex align-items-center justify-content-end">
+            <button class="btn btn-light shadow-none" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
+                aria-controls="offcanvasExample">
+                <i class="bi bi-gear-wide-connected"></i> Colonne
+            </button>
+        </div>
+        -->
+    </div>
+
+
+    <div class="table-responsive-xl pt-2">
+        <table class="table table-secondary table-striped">
+    
+          <thead class="thead-dark table-warning header sticky-top">
+            <tr>
+              <ng-container *ngFor="let col of columns">
+                <th class="th" *ngIf="col.visible" >
+                  {{ col.text }}
+                </th>
+              </ng-container>
+              <th>
+                Operazioni
+              </th>
+            </tr>
+          </thead>
+    
+          <tbody>
+            <tr *ngFor="let x of listaSuppliers">
+              <td class="align-middle">{{x.name}}</td>
+              <td class="align-middle">{{x.indirizzo}}</td>
+              <td class="align-middle">{{x.email}}</td>
+              <td class="align-middle">{{x.telefono}}</td>
+              <td class="align-middle">{{x.nazione}}</td>
+              <td class="align-middle">{{x.note}}</td>
+              
+              <td class="align-middle" width=10%>
+                <button type="button" class="btn btn-secondary btn-sm shadow-none"><i class="bi bi-pencil-fill"></i></button>
+                <button type="button" class="btn btn-warning btn-sm shadow-none"><i class="bi bi-cart"></i></button>
+                <button type="button" class="btn btn-danger btn-sm shadow-none"><i class="bi bi-trash"></i></button>
+              </td>
+            </tr>
+            <tr *ngIf="isListEmpty()">
+              <td class="text-center align-middle not-found" colspan="100%">
+                Nessun risultato trovato
+              </td>
+            </tr>
+          </tbody>
+          
+        </table>
+      </div>
+
+</div>
