@@ -1,7 +1,10 @@
 package its.kennedy.gestione.magazzino.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import its.kennedy.gestione.magazzino.Dao.Order;
+import its.kennedy.gestione.magazzino.Dto.BaseResponsePage;
 import its.kennedy.gestione.magazzino.Dto.OrderDto;
+import its.kennedy.gestione.magazzino.Dto.OrderItemDto;
 import its.kennedy.gestione.magazzino.IService.IOrders;
 import its.kennedy.gestione.magazzino.Repository.OrdersRepository;
 import org.modelmapper.ModelMapper;
@@ -12,6 +15,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,23 +55,25 @@ public class OrdersService implements IOrders {
     }
 
     @Override
-    public List<OrderDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean dir) {
+    public BaseResponsePage<OrderDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean order) {
         Pageable p;
         if (sortBy.length() <= 0) {
             sortBy = "Id";
         }
-        if (dir == true) {
+        if (order) {
             p = PageRequest.of(pagina, quantita, Sort.by(sortBy).ascending());
         } else {
             p = PageRequest.of(pagina, quantita, Sort.by(sortBy).descending());
         }
-
         Page<Order> resP = ordersRepository.findAll(p);
+        BaseResponsePage<OrderDto> baseResponsePage = new BaseResponsePage<>();
+        baseResponsePage.setPagine(resP.getTotalPages());
         ArrayList<OrderDto> res = new ArrayList<OrderDto>();
-        for (Order d : resP) {
-            res.add(modelMapper.map(ordersRepository.getById(d.getAmazonOrderId()), OrderDto.class));
+        for (Order orderObject : resP) {
+            res.add(modelMapper.map(orderObject, OrderDto.class));
         }
-        return res;
+        baseResponsePage.setList(res);
+        return baseResponsePage;
     }
 
     @Override
