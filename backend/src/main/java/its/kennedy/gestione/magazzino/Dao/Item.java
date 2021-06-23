@@ -13,7 +13,6 @@ import java.util.Objects;
 @Table(name = "items")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class Item implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -42,12 +41,12 @@ public class Item implements Serializable {
 
     @NotNull
     @Column(name = "min_availability", nullable = false)
-    private int min_availability;
+    private int minAvailability;
 
     @NotNull
     @Column(name = "image", length = 400, nullable = false)
     private String image;
-
+    
     @NotNull
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
@@ -110,12 +109,12 @@ public class Item implements Serializable {
         this.storage = storage;
     }
 
-    public int getMin_availability() {
-        return min_availability;
+    public int getMinAvailability() {
+        return minAvailability;
     }
 
-    public void setMin_availability(int min_availability) {
-        this.min_availability = min_availability;
+    public void setMinAvailability(int minAvailability) {
+        this.minAvailability = minAvailability;
     }
 
     public String getImage() {
@@ -168,7 +167,7 @@ public class Item implements Serializable {
         }
         Item item = (Item) o;
         return getStorage() == item.getStorage()
-                && getMin_availability() == item.getMin_availability()
+                && getMinAvailability() == item.getMinAvailability()
                 && getId().equals(item.getId())
                 && getAsin().equals(item.getAsin())
                 && getTitle().equals(item.getTitle())
@@ -177,13 +176,14 @@ public class Item implements Serializable {
                 && getImage().equals(item.getImage())
                 && getCreatedAt().equals(item.getCreatedAt())
                 && Objects.equals(getUpdatedAt(), item.getUpdatedAt())
-                && Objects.equals(getDeletedAt(), item.getDeletedAt());
+                && Objects.equals(getDeletedAt(), item.getDeletedAt())
+                && getCategory().equals(item.getCategory());
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getAsin(), getTitle(), getDescription(), getPrice(), getStorage(),
-                getMin_availability(), getImage(), getCreatedAt(), getUpdatedAt(), getDeletedAt());
+                getMinAvailability(), getImage(), getCreatedAt(), getUpdatedAt(), getDeletedAt(), getCategory());
     }
 
     @Override
@@ -195,11 +195,12 @@ public class Item implements Serializable {
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", storage=" + storage +
-                ", min_availability=" + min_availability +
+                ", minAvailability=" + minAvailability +
                 ", image='" + image + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 ", deletedAt=" + deletedAt +
+                ", category=" + category +
                 '}';
     }
 }

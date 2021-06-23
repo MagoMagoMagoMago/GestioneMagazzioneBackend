@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
 @RequestMapping("/api/items")
 @Transactional
@@ -28,11 +27,11 @@ public class ItemsController {
         return ResponseEntity.ok().body(dto);
     }
 
-    @GetMapping("pagina/{ord}/{p}/{q}")
-    public ResponseEntity<BaseResponsePage<ItemDto>> selezionapagina(@PathVariable String ord, @PathVariable Integer p, @PathVariable Integer q) {
+    @GetMapping("pagina/{sort}/{order}/{p}/{q}")
+    public ResponseEntity<BaseResponsePage<ItemDto>> selezionapagina(@PathVariable String sort, @PathVariable Boolean order, @PathVariable Integer p, @PathVariable Integer q) {
         BaseResponsePage<ItemDto> dto = null;
         try {
-            dto = itemService.selezionaPagina(p, q, ord, true);
+            dto = itemService.selezionaPagina(p, q, sort, order);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
@@ -47,6 +46,14 @@ public class ItemsController {
         } catch (Exception e) {
             return ResponseEntity.ok().body(false);
         }
+    }
 
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> deleteById(@PathVariable Integer id) {
+        if (itemService.deleteById(id)) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

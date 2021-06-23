@@ -30,4 +30,6 @@ public interface IItems {
      * @return
      */
     public BaseResponsePage<ItemDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean dir);
+
+    public Boolean deleteById(Integer id);
 }
