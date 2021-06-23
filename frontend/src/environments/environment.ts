@@ -9,6 +9,7 @@ export const environment = {
     items: "items",
     orders: "orders",
     purchases: "purchases",
+    suppliers: "supplier",
     login: "login"
   }
 };
