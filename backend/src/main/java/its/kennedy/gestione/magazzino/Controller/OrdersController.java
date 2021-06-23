@@ -1,5 +1,6 @@
 package its.kennedy.gestione.magazzino.Controller;
 
+import its.kennedy.gestione.magazzino.Dto.BaseResponsePage;
 import its.kennedy.gestione.magazzino.Dto.OrderDto;
 import its.kennedy.gestione.magazzino.Service.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,8 @@ public class OrdersController {
     }
 
     @GetMapping("pagina/{sort}/{ord}/{p}/{q}")
-    public ResponseEntity<List<OrderDto>> selezionapagina(@PathVariable String sort, @PathVariable Boolean ord, @PathVariable Integer p, @PathVariable Integer q) {
-        List<OrderDto> dto = null;
+    public ResponseEntity<BaseResponsePage<OrderDto>> selezionapagina(@PathVariable String sort, @PathVariable Boolean ord, @PathVariable Integer p, @PathVariable Integer q) {
+        BaseResponsePage<OrderDto> dto = null;
         try {
             dto = ordersService.selezionaPagina(p, q, sort, ord);
         } catch (Exception e) {
