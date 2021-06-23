@@ -6,7 +6,7 @@ export class Order {
     CompanyLegalName!:string;
     PaymentMethod!:string;
     ShippingAddressCity!: string;
-    ShippingAddressName!: string;
+    ShippingAddressLine1!: string;
     ShippingCityStateOrRegion!:string;
     ShippingStateOrRegionPostalCode!:string;
     
