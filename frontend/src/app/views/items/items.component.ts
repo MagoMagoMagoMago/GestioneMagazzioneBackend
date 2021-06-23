@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { CategoryApiService } from 'src/app/api/category-api.service';
 import { ItemApiService } from 'src/app/api/item-api.service';
+import { Category } from 'src/app/models/category';
 import { Column } from 'src/app/models/columns';
 import { Item } from './item';
+
 
 @Component({
   selector: 'app-items',
@@ -13,17 +16,21 @@ import { Item } from './item';
 })
 export class ItemsComponent implements OnInit {
 
+  @ViewChild('myModalClose') modalClose: any;
+
   constructor(
-    private api: ItemApiService, 
+    private itemService: ItemApiService, 
     private router: Router, 
     private toast: ToastrService,
-    public fb: FormBuilder
+    public fb: FormBuilder,
+    private categoriyService: CategoryApiService
     ) { } 
 
   public colItems: Column[] = [
     { name: "asin", text: "Asin", visible: false },
     { name: "title", text: "Titolo", visible: true },
     { name: "description", text: "Descrizione", visible: true },
+    { name: "categoryId", text: "Categoria", visible: true },
     { name: "price", text: "Prezzo", visible: true },
     { name: "storage", text: "Giacenza", visible: true },
     { name: "minAvailability", text: "Minimo", visible: true }
@@ -32,6 +39,7 @@ export class ItemsComponent implements OnInit {
   submitted: boolean = false;
   public listaItems!: Item[] | null;
   public itemSelected: Item = new Item();
+  public categories!: Category[] | null;
 
   //dettagli paginazione
   public quantity: number = 5;
@@ -40,13 +48,18 @@ export class ItemsComponent implements OnInit {
   public totalPages: number = 0;
 
   updateForm = this.fb.group({
+    id : [null, Validators.required],
     asin : [null, [Validators.required, Validators.minLength(10)]],
     title : [null, Validators.required],
     description : [null],
     price : [null, [Validators.required, Validators.pattern("^\\d+\\.\\d{0,2}$")]],
     storage : [null, Validators.required],
     minAvailability : [null, Validators.required],
-    image : [null, Validators.required]
+    image : [null, Validators.required],
+    createdAt: [null, Validators.required],
+    updatedAt: [null],
+    deletedAt: [null],
+    category: [null, Validators.required],
   })
 
   ngOnInit(): void {
@@ -54,7 +67,7 @@ export class ItemsComponent implements OnInit {
   }
 
   loadItems() {
-   this.api.getAll(this.sort.name, this.sort.orderBy, this.page, this.quantity).subscribe((resp) => {
+   this.itemService.getAll(this.sort.name, this.sort.orderBy, this.page, this.quantity).subscribe((resp) => {
      this.listaItems = resp.list;
      this.totalPages = resp.pagine;
    })
@@ -100,7 +113,7 @@ export class ItemsComponent implements OnInit {
   }
 
   deleteItems(id: number): void{
-    this.api.deleteById(id).subscribe(
+    this.itemService.deleteById(id).subscribe(
       (success) => { 
         this.toast.success("Articolo eliminato con successo.", "Eliminazione"); 
         this.loadItems();
@@ -109,8 +122,58 @@ export class ItemsComponent implements OnInit {
     )
   }
 
-  onSubmit(): void{
-    console.log(this.updateForm.value);
+  onUpdateButtonClick(item: Item): void{
+    if(this.categories){
+      this.updateForm.patchValue(
+        {
+          id: item.id,
+          asin: item.asin,
+          title: item.title,
+          description: item.description,
+          price: item.price,
+          storage: item.storage,
+          minAvailability: item.minAvailability,
+          image: item.image,
+          createdAt: item.createdAt,
+          updatedAt: item.updatedAt,
+          deletedAt: item.deletedAt,
+          category: this.categories?.filter(x => x.name == item.category)[0].id
+        }
+      );
+    }else{
+      this.categoriyService.getAll().subscribe((resp: Category[])=>{
+        this.categories = resp;
+        this.updateForm.patchValue(
+          {
+            id: item.id,
+            asin: item.asin,
+            title: item.title,
+            description: item.description,
+            price: item.price,
+            storage: item.storage,
+            minAvailability: item.minAvailability,
+            image: item.image,
+            createdAt: item.createdAt,
+            updatedAt: item.updatedAt,
+            deletedAt: item.deletedAt,
+            category: resp?.filter(x => x.name == item.category)[0].id
+          }
+        );
+      });
+    }
+    
+  }
+
+  onSubmitUpdate(): void{
+    this.updateForm.controls['category'].setValue({id: this.updateForm.get("category")?.value});
+    this.itemService.update(this.updateForm.value).subscribe(
+      (success) => { 
+        this.toast.success("Articolo modificato con successo.", "Modifica"); 
+        this.loadItems();
+        this.modalClose.nativeElement.click();
+      },
+      (error) => { this.toast.error("Erorre riscontrato nella modifica.", "Eliminazione") }
+    );
   }
 
 }

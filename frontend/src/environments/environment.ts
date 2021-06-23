@@ -10,7 +10,8 @@ export const environment = {
     orders: "orders",
     purchases: "purchases",
     suppliers: "supplier",
-    login: "login"
+    login: "login",
+    categories: "categories"
   }
 };
 
