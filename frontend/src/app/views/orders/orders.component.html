@@ -1,1 +1,56 @@
-<p>orders works!</p>
+<div class="container py-2">
+
+  <div class="row">
+    <div class="col d-flex justify-content-center">
+      <h1 class="display-5 text-white">Lista Ordini</h1>
+    </div>
+  </div>
+
+  <div class="table-responsive-xl pt-2">
+    <table class="table table-light table-striped">
+      <thead class="thead-dark table header sticky-top">
+        <tr>
+          <ng-container *ngFor="let col of colOrders">
+            <th class="th" *ngIf="col.visible" (click)="changeOrderBy(col)">
+              {{ col.text }} <i class="bi bi-caret-down-square-fill" *ngIf="col.name === sort.name" [ngClass]="{'bi-caret-down-square-fill': sort.orderBy == true, 'bi-caret-up-square-fill': sort.orderBy == false}"></i></th>
+          </ng-container>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of listaOrders">
+          <td *ngIf="colOrders[0].visible" class="align-middle" width=10%>{{order.OrderStatus}}</td>  
+          <td *ngIf="colOrders[3].visible" class="align-middle" width=20%>{{order.BuyerName}}</td>
+          <td *ngIf="colOrders[14].visible" class="align-middle" width=20%>{{order.PaymentMethod}}</td>
+          <td *ngIf="colOrders[19].visible" class="align-middle" width=20%>{{order.ShippingAddressLine1}}</td>
+          <td *ngIf="colOrders[22].visible" class="align-middle" width=10%>{{order.ShippingAddressCity}}</td>
+          
+          <td *ngIf="colOrders[21].visible" class="align-middle" width=10%>{{order.ShippingCityStateOrRegion}}</td>
+          <td *ngIf="colOrders[22].visible" class="align-middle" width=20%>{{order.ShippingStateOrRegionPostalCode}}</td>
+        </tr>
+        <tr *ngIf="isListEmpty()">
+          <td class="text-center align-middle not-found" colspan="100%">
+            Nessun risultato trovato
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" [ngClass]="{'disabled': page == 0}">
+        <a class="page-link" (click)="changePage(page - 1)">Previous</a>
+      </li>
+
+      <ng-container *ngFor="let x of [].constructor(totalPages); let i = index">
+        <li class="page-item" [ngClass]="{'active': i == page}" >
+          <a class="page-link" (click)="changePage(i)">{{i + 1}}</a>
+        </li>
+      </ng-container>
+      
+      <li class="page-item" [ngClass]="{'disabled': page == totalPages - 1}">
+        <a class="page-link" (click)="changePage(page + 1)">Next</a>
+      </li>
+    </ul>
+  </nav>
+</div>
