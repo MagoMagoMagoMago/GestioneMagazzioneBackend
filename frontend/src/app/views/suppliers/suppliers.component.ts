@@ -21,20 +21,47 @@ export class SuppliersComponent implements OnInit {
     { name: "note", text: "Note", visible: true }
   ];
 
-  public listaSuppliers!: Supplier[] | null; 
-  
+  public listaSuppliers!: Supplier[] | null;
+  public sort = { name: "title", orderBy: true};
+
+
   ngOnInit(): void {
-    this.supplierService.getAll().subscribe((resp: Supplier[])=>{
+    this.loadAllSuppliers();
+  }
+
+  loadAllSuppliers(): void{
+    this.supplierService.getAll().subscribe((resp: Supplier[]) => {
       this.listaSuppliers = resp;
     })
   }
 
-  isListEmpty(): boolean{
-    if(this.listaSuppliers?.length == 0){
+  isListEmpty(): boolean {
+    if (this.listaSuppliers?.length == 0) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
+
+  changeVisibility(column: Column): void {
+    column.visible = !column.visible;
+  }
+
+  changeOrderBy(column: Column): void {
+    if (this.sort.name == column.name){
+      this.sort.orderBy = !this.sort.orderBy;
+    } else{
+      this.sort = {
+        name: column.name,
+        orderBy: true
+      };
+    }
+    
+    this.loadAllSuppliers();
+
+  }
+
+  
+
 
 }
