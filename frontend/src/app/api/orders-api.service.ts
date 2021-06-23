@@ -12,7 +12,8 @@ export class OrdersApiService {
 
   constructor(private http: HttpClient) { }
 
-  public getAll(ordinamento: string, pagine: number, quantita: number ): Observable<any> {
-    return this.http.get(this.host + "/pagina/" + ordinamento + "/" + pagine + "/" + quantita );
-    
-  }}
+  public getAll(sortBy: string, orderBy: boolean,  pagine: number, quantita: number ): Observable<any> {
+    return this.http.get(this.host + "/pagina/" + sortBy + "/" + orderBy + "/" + pagine + "/" + quantita );
+  }
+
+}
