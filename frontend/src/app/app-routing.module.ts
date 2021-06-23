@@ -15,29 +15,33 @@ const routes: Routes = [
     },
     canActivate: [AuthGuard]
   },
-  { 
-    path: 'items', 
+  {
+    path: 'items',
     loadChildren: () => import('./views/items/items.module').then(m => m.ItemsModule),
     canActivate: [ActivatedGuard],
-    canLoad: [ActivatedGuard] 
+    canLoad: [ActivatedGuard]
   },
-  { 
-    path: 'orders', 
+  {
+    path: 'orders',
     loadChildren: () => import('./views/orders/orders.module').then(m => m.OrdersModule),
     canActivate: [ActivatedGuard],
-    canLoad: [ActivatedGuard] 
+    canLoad: [ActivatedGuard]
   },
-  { 
-    path: 'purchases', 
+  {
+    path: 'purchases',
     loadChildren: () => import('./views/purchases/purchases.module').then(m => m.PurchasesModule),
     canActivate: [ActivatedGuard],
     canLoad: [ActivatedGuard]
   },
-  { 
-    path: 'dashboard', 
+  {
+    path: 'dashboard',
     loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule),
     canActivate: [ActivatedGuard],
     canLoad: [ActivatedGuard]
+  },
+  {
+    path: 'suppliers',
+    loadChildren: () => import('./views/suppliers/suppliers.module').then(m => m.SuppliersModule)
   },
   {
     path: "**",
