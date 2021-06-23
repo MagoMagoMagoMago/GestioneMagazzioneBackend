@@ -1,10 +1,8 @@
 package its.kennedy.gestione.magazzino.Service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import its.kennedy.gestione.magazzino.Dao.Order;
 import its.kennedy.gestione.magazzino.Dto.BaseResponsePage;
 import its.kennedy.gestione.magazzino.Dto.OrderDto;
-import its.kennedy.gestione.magazzino.Dto.OrderItemDto;
 import its.kennedy.gestione.magazzino.IService.IOrders;
 import its.kennedy.gestione.magazzino.Repository.OrdersRepository;
 import org.modelmapper.ModelMapper;
@@ -15,11 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
