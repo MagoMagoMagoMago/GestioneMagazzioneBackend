@@ -62,12 +62,12 @@ public class PurchasesService implements IPurchases {
     }
 
     @Override
-    public BaseResponsePage<PurchaseDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean dir) {
+    public BaseResponsePage<PurchaseDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean order) {
         Pageable p;
         if (sortBy.length() <= 0) {
             sortBy = "Id";
         }
-        if (dir == true) {
+        if (order) {
             p = PageRequest.of(pagina, quantita, Sort.by(sortBy).ascending());
         } else {
             p = PageRequest.of(pagina, quantita, Sort.by(sortBy).descending());
@@ -76,8 +76,8 @@ public class PurchasesService implements IPurchases {
         BaseResponsePage<PurchaseDto> baseResponsePage = new BaseResponsePage<PurchaseDto>();
         baseResponsePage.setPagine(resP.getTotalPages());
         ArrayList<PurchaseDto> res = new ArrayList<PurchaseDto>();
-        for (Purchase d : resP) {
-            res.add(modelMapper.map(d, PurchaseDto.class));
+        for (Purchase purchase : resP) {
+            res.add(modelMapper.map(purchase, PurchaseDto.class));
         }
         baseResponsePage.setList(res);
         return baseResponsePage;
