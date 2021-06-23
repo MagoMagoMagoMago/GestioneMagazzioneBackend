@@ -41,7 +41,7 @@ export class OrdersComponent implements OnInit {
 
   public listaOrders!: Order[];
   //dettagli paginazione
-  public quantity: number = 5;
+  public quantity: number = 10;
   public page: number = 0;
   public sort = { name: "AmazonOrderId", orderBy: true};
   public totalPages: number = 0;
@@ -52,9 +52,8 @@ export class OrdersComponent implements OnInit {
 
   loadOrders() {
     this.api.getAll(this.sort.name, this.sort.orderBy, this.page, this.quantity).subscribe((resp) => {
-      this.listaOrders = resp;
+      this.listaOrders = resp.list;
       this.totalPages = resp.pagine;
-      console.log("res", resp)
     })
    }
 
