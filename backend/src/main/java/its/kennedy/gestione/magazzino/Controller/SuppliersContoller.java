@@ -29,7 +29,7 @@ public class SuppliersContoller {
     }
 
     @GetMapping("all")
-    public ResponseEntity<List<SupplierDto>> selezionapagina() {
+    public ResponseEntity<List<SupplierDto>> getAll() {
         List<SupplierDto> dto = null;
         try {
             dto = supplierservice.getAll();

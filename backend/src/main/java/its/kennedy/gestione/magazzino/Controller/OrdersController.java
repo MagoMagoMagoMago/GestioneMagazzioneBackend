@@ -30,11 +30,11 @@ public class OrdersController {
         return ResponseEntity.ok().body(dto);
     }
 
-    @GetMapping("pagina/{ord}/{p}/{q}")
-    public ResponseEntity<List<OrderDto>> selezionapagina(@PathVariable String ord, @PathVariable Integer p, @PathVariable Integer q) {
+    @GetMapping("pagina/{sort}/{ord}/{p}/{q}")
+    public ResponseEntity<List<OrderDto>> selezionapagina(@PathVariable String sort, @PathVariable Boolean ord, @PathVariable Integer p, @PathVariable Integer q) {
         List<OrderDto> dto = null;
         try {
-            dto = ordersService.selezionaPagina(p, q, ord, true);
+            dto = ordersService.selezionaPagina(p, q, sort, ord);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }

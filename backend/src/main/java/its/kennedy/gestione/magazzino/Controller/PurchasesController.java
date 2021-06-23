@@ -16,11 +16,11 @@ public class PurchasesController {
     @Autowired
     PurchasesService supplierservice;
 
-    @GetMapping("pagina/{ord}/{p}/{q}")
-    public ResponseEntity<BaseResponsePage<PurchaseDto>> selezionapagina(@PathVariable String ord, @PathVariable Integer p, @PathVariable Integer q) {
+    @GetMapping("pagina/{sort}/{ord}/{p}/{q}")
+    public ResponseEntity<BaseResponsePage<PurchaseDto>> selezionapagina(@PathVariable String sort, @PathVariable Boolean ord, @PathVariable Integer p, @PathVariable Integer q) {
         BaseResponsePage<PurchaseDto> dto = null;
         try {
-            dto = supplierservice.selezionaPagina(p, q, ord, true);
+            dto = supplierservice.selezionaPagina(p, q, sort, ord);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
