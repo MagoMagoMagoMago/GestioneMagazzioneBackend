@@ -18,12 +18,16 @@
       </thead>
       <tbody>
         <tr *ngFor="let order of listaOrders">
-          <td *ngIf="colOrders[0].visible" class="align-middle" width=10%>{{order.OrderStatus}}</td>  
+          <td *ngIf="colOrders[0].visible" class="align-middle" width=10%
+          [ngClass]="{'text-success': order.OrderStatus == 'Shipped', 'text-danger': order.OrderStatus != 'Shipped'}">
+          <i class="bi bi-exclamation-circle-fill" *ngIf="order.OrderStatus != 'Shipped'"></i>
+          <i class="bi bi-check-circle-fill" *ngIf="order.OrderStatus == 'Shipped'"></i>
+          {{order.OrderStatus}}</td>  
           <td *ngIf="colOrders[3].visible" class="align-middle" width=20%>{{order.BuyerName}}</td>
           <td *ngIf="colOrders[14].visible" class="align-middle" width=20%>{{order.PaymentMethod}}</td>
+          <td *ngIf="colOrders[17].visible" class="align-middle" width=20%>{{order.PurchaseDate}}</td>
           <td *ngIf="colOrders[19].visible" class="align-middle" width=20%>{{order.ShippingAddressLine1}}</td>
           <td *ngIf="colOrders[22].visible" class="align-middle" width=10%>{{order.ShippingAddressCity}}</td>
-          
           <td *ngIf="colOrders[21].visible" class="align-middle" width=10%>{{order.ShippingCityStateOrRegion}}</td>
           <td *ngIf="colOrders[22].visible" class="align-middle" width=20%>{{order.ShippingStateOrRegionPostalCode}}</td>
         </tr>
