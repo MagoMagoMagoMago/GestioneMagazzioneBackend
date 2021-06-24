@@ -56,7 +56,7 @@ export class SuppliersComponent implements OnInit {
   }
 
   isListEmpty(): boolean {
-    if (this.listaSuppliers?.length == 0) {
+    if (this.listaSuppliers?.length == 0 || this.listaSuppliers == null) {
       return true;
     } else {
       return false;
