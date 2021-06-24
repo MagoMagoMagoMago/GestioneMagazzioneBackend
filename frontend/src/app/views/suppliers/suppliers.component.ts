@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { SupplierApiService } from 'src/app/api/supplier-api.service';
 import { Column } from 'src/app/models/columns';
 import { Supplier } from 'src/app/models/supplier';
@@ -10,7 +11,10 @@ import { Supplier } from 'src/app/models/supplier';
 })
 export class SuppliersComponent implements OnInit {
 
-  constructor(private supplierService: SupplierApiService) { }
+  constructor(
+    private supplierService: SupplierApiService,
+    public fb: FormBuilder,
+    ) { }
 
   public columns: Column[] = [
     { name: "name", text: "Nome", visible: true },
@@ -23,6 +27,22 @@ export class SuppliersComponent implements OnInit {
 
   public listaSuppliers!: Supplier[] | null;
   public sort = { name: "title", orderBy: true};
+
+  public new!: boolean | null;
+  public selectedSupplier!: Supplier | null;
+
+  formNewEditSupplier = this.fb.group({
+    id: [null, Validators.required],
+    name: [null, Validators.required],
+    indirizzo: [null, Validators.required],
+    telefono: [null, Validators.required],
+    email: [null, Validators.required],
+    nazione: [null, Validators.required],
+    note: [null],
+    createdAt: [null, Validators.required],
+    updatedAt: [null],
+    deletedAt: [null],
+  });
 
 
   ngOnInit(): void {
@@ -59,6 +79,40 @@ export class SuppliersComponent implements OnInit {
     
     this.loadAllSuppliers();
 
+  }
+
+  typeForm(type: string, supplier: Supplier | null): void{
+    if(type == "new"){
+      this.new = true;
+      this.formNewEditSupplier.reset();
+    }else{
+      this.new = false;
+      this.selectedSupplier = supplier;
+      this.formNewEditSupplier.patchValue({
+        id: this.selectedSupplier?.id,
+        name: this.selectedSupplier?.name,
+        indirizzo: this.selectedSupplier?.indirizzo,
+        telefono: this.selectedSupplier?.telefono,
+        email: this.selectedSupplier?.email,
+        nazione: this.selectedSupplier?.nazione,
+        note: this.selectedSupplier?.note,
+        createdAt: this.selectedSupplier?.createAt,
+        updatedAt: this.selectedSupplier?.updateAt,
+        deletedAt: this.selectedSupplier?.deletedAt,
+      })
+    }
+  }
+
+  createorupdate(): void{
+    console.log(this.formNewEditSupplier.value);
+  }
+
+  openDeleteModal(supplier: Supplier):void{
+    this.selectedSupplier = supplier;
+  }
+
+  deleteSupplier(id: number): void{
+    console.log(id);
   }
 
   
