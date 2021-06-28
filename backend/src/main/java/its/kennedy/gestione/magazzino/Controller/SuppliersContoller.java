@@ -27,12 +27,21 @@ public class SuppliersContoller {
         }
         return ResponseEntity.ok().body(dto);
     }
-
-    @GetMapping("all")
-    public ResponseEntity<List<SupplierDto>> getAll() {
+    @GetMapping("delete/{id}")
+    public ResponseEntity<Boolean> eliminaItemsById(@PathVariable Integer id) {
+        Boolean dto = null;
+        try {
+            dto = supplierservice.elimina(id);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(dto);
+    }
+    @GetMapping("all/{or}")
+    public ResponseEntity<List<SupplierDto>> getAll(@PathVariable String or) {
         List<SupplierDto> dto = null;
         try {
-            dto = supplierservice.getAll();
+            dto = supplierservice.getAll(or);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
