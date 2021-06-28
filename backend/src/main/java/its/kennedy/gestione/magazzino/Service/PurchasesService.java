@@ -40,6 +40,9 @@ public class PurchasesService implements IPurchases {
             if (entity.getId() == null) {
                 entity.setCreatedAt(Instant.now());
             } else {
+                if(puchasesRepository.getById(entity.getId()).getCreatedAt().plusMillis(864000000).isBefore(Instant.now())) {
+                	return false;
+                }
                 entity.setUpdatedAt(Instant.now());
             }
             puchasesRepository.saveAndFlush(entity);
@@ -53,6 +56,9 @@ public class PurchasesService implements IPurchases {
     public Boolean elimina(int id) {
         try {
             Purchase entity = puchasesRepository.findById(id).get();
+            if(entity.getCreatedAt().plusMillis(864000000).isBefore(Instant.now())) {
+            	return false;
+            }
             entity.setDeletedAt(Instant.now());
             puchasesRepository.saveAndFlush(entity);
         } catch (Exception e) {
