@@ -1,67 +1,67 @@
 <div class="container py-2">
 
-    <div class="row">
-        <div class="col d-flex justify-content-center">
-            <h1 class="display-5 text-white">Lista Fornitori</h1>
-        </div>
+  <div class="row">
+    <div class="col d-flex justify-content-center">
+      <h1 class="display-5 text-white">Lista Fornitori</h1>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col d-flex align-items-center">
+      <button class="btn btn-light shadow-none" role="button" data-bs-toggle="modal" data-bs-target="#configModal">
+        <i class="bi bi-gear-wide-connected"></i> Impostazioni
+      </button>
     </div>
 
-    <div class="row">
-
-      <div class="col d-flex align-items-center">
-        <button class="btn btn-light shadow-none" role="button" data-bs-toggle="modal" data-bs-target="#configModal">
-          <i class="bi bi-gear-wide-connected"></i> Impostazioni
-        </button>
-      </div>
-  
-      <div class="col d-flex align-items-center justify-content-end">
-        <button class="btn btn-success shadow-none" data-bs-toggle="modal" data-bs-target="#newSupplierModal">
-          <i class="bi bi-plus-circle"></i> Nuovo
-        </button>
-      </div>
-  
+    <div class="col d-flex align-items-center justify-content-end">
+      <button class="btn btn-success shadow-none" data-bs-toggle="modal" data-bs-target="#newEditSupplierModal" (click)="typeForm('new', null)">
+        <i class="bi bi-plus-circle"></i> Nuovo
+      </button>
     </div>
 
+  </div>
 
-    <div class="table-responsive-xl pt-2">
-        <table class="table table-secondary table-striped">
-    
-          <thead class="thead-dark table-warning header sticky-top">
-            <tr>
-              <ng-container *ngFor="let col of columns">
-                <th class="th" *ngIf="col.visible" (click)="changeOrderBy(col)">
-                  {{ col.text }}
-                </th>
-              </ng-container>
-              <th>
-                Operazioni
-              </th>
-            </tr>
-          </thead>
-    
-          <tbody>
-            <tr *ngFor="let x of listaSuppliers">
-              <td class="align-middle" *ngIf="columns[0].visible">{{x.name}}</td>
-              <td class="align-middle" *ngIf="columns[1].visible">{{x.indirizzo}}</td>
-              <td class="align-middle" *ngIf="columns[2].visible">{{x.email}}</td>
-              <td class="align-middle" *ngIf="columns[3].visible">{{x.telefono}}</td>
-              <td class="align-middle" *ngIf="columns[4].visible">{{x.nazione}}</td>
-              <td class="align-middle" *ngIf="columns[5].visible">{{x.note}}</td>
-              
-              <td class="align-middle" width=10%>
-                <button type="button" class="btn btn-secondary btn-sm shadow-none"><i class="bi bi-pencil-fill"></i></button>
-                <button type="button" class="btn btn-danger btn-sm shadow-none ms-3"><i class="bi bi-trash"></i></button>
-              </td>
-            </tr>
-            <tr *ngIf="isListEmpty()">
-              <td class="text-center align-middle not-found" colspan="100%">
-                Nessun risultato trovato
-              </td>
-            </tr>
-          </tbody>
-          
-        </table>
-      </div>
+
+  <div class="table-responsive-xl pt-2">
+    <table class="table table-secondary table-striped">
+
+      <thead class="thead-dark table-warning header sticky-top">
+        <tr>
+          <ng-container *ngFor="let col of columns">
+            <th class="th" *ngIf="col.visible" (click)="changeOrderBy(col)">
+              {{ col.text }}
+            </th>
+          </ng-container>
+          <th>
+            Operazioni
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let x of listaSuppliers">
+          <td class="align-middle" *ngIf="columns[0].visible">{{x.name}}</td>
+          <td class="align-middle" *ngIf="columns[1].visible">{{x.indirizzo}}</td>
+          <td class="align-middle" *ngIf="columns[2].visible">{{x.email}}</td>
+          <td class="align-middle" *ngIf="columns[3].visible">{{x.telefono}}</td>
+          <td class="align-middle" *ngIf="columns[4].visible">{{x.nazione}}</td>
+          <td class="align-middle" *ngIf="columns[5].visible">{{x.note}}</td>
+
+          <td class="align-middle" width=10%>
+            <button type="button" class="btn btn-secondary btn-sm shadow-none" data-bs-toggle="modal" data-bs-target="#newEditSupplierModal" (click)="typeForm('edit', x)"><i class="bi bi-pencil-fill"></i></button>
+            <button type="button" class="btn btn-danger btn-sm shadow-none ms-3" data-bs-toggle="modal" data-bs-target="#deleteSupplier" (click)="openDeleteModal(x)" ><i class="bi bi-trash"></i></button>
+          </td>
+        </tr>
+        <tr *ngIf="isListEmpty()">
+          <td class="text-center align-middle not-found" colspan="100%">
+            Nessun risultato trovato
+          </td>
+        </tr>
+      </tbody>
+
+    </table>
+  </div>
 
 </div>
 
@@ -70,7 +70,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Impostazioni Tabell</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -97,57 +97,77 @@
   </div>
 </div>
 
-<!-- AGGIUNTA FORNITORE MODALE -->
-<div class="modal fade" id="newSupplierModal" tabindex="-1" aria-labelledby="newSupplierModalLabel" aria-hidden="true">
+<!-- AGGIUNTA MODIFICA FORNITORE MODALE -->
+<div class="modal fade" id="newEditSupplierModal" tabindex="-1" aria-labelledby="newEditSupplierModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Nuovo Fornitore</h5>
+        <h5 class="modal-title" id="exampleModalLabel">{{ new ? 'Nuovo' : 'Modifica'}}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <form>
+      <form [formGroup]="formNewEditSupplier" (ngSubmit)="createorupdate()">
+        <div class="modal-body">
+
           <div class="row">
             <div class="col">
               <label for="nome" class="col-form-label">Nome:</label>
-              <input type="text" class="form-control" id="nome">
+              <input type="text" class="form-control" formControlName="name" id="nome">
             </div>
           </div>
           <div class="row">
             <div class="col">
               <label for="indirizzo" class="col-form-label">Indirizzo:</label>
-              <input type="text" class="form-control" id="indirizzo">
+              <input type="text" class="form-control" formControlName="indirizzo" id="indirizzo">
             </div>
           </div>
           <div class="row">
             <div class="col">
               <label for="telefono" class="col-form-label">Telefono:</label>
-              <input type="text" class="form-control" id="telefono">
+              <input type="text" class="form-control" formControlName="telefono" id="telefono">
             </div>
           </div>
           <div class="row">
             <div class="col">
               <label for="email" class="col-form-label">Email:</label>
-              <input type="text" class="form-control" id="email">
+              <input type="text" class="form-control" formControlName="email" id="email">
             </div>
           </div>
           <div class="row">
             <div class="col">
               <label for="nazione" class="col-form-label">Nazione:</label>
-              <input type="text" class="form-control" id="nazione">
+              <input type="text" class="form-control" formControlName="nazione" id="nazione">
             </div>
           </div>
           <div class="row">
             <div class="col">
               <label for="note" class="col-form-label">Note:</label>
-              <textarea class="form-control" id="note"></textarea>
+              <textarea class="form-control" formControlName="note" id="note"></textarea>
             </div>
           </div>
-        </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+          <button type="submit" class="btn btn-primary">Inserisci</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE MODAL -->
+<div class="modal fade" id="deleteSupplier" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Eliminazione</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Sei sicuro di voler eliminare l'articolo '{{selectedSupplier?.name}}'?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-        <button type="button" class="btn btn-primary">Inserisci</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteSupplier(selectedSupplier!.id)">Elimina</button>
       </div>
     </div>
   </div>
