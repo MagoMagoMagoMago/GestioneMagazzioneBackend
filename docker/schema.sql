@@ -141,6 +141,7 @@ CREATE TABLE Orders(
   ShippingAddressName varchar(100),
   ShippingCityStateOrRegion varchar(100),
   ShippingStateOrRegionPostalCode varchar(100),
+  orderSuccess tinyint(1),
   PRIMARY KEY (AmazonOrderId)
 );
 
@@ -148,7 +149,7 @@ CREATE TABLE OrderItems(
 	OrderItemId int auto_increment,
 	AmazonOrderId varchar(19),
 	ASIN char(10) NOT NULL,
-	Title varchar(100),
+	Title varchar(500),
 	QuantityOrdered int,
 	QuantityShipped int,
 	PointsGrantedPointsNumber int,
@@ -159,6 +160,7 @@ CREATE TABLE OrderItems(
 	ShippingPriceCurrencyCode varchar(100),
 	ShippingPriceAmount int,
 	PromotionIds varchar(100),
+	orderSuccess tinyint(1),
 	PRIMARY KEY (OrderItemId),
 	FOREIGN KEY (AmazonOrderId) REFERENCES Orders(AmazonOrderId),
 	FOREIGN KEY (ASIN) REFERENCES items(asin)

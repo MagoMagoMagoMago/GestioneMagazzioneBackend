@@ -27,7 +27,7 @@ public class OrderItem implements Serializable {
     @Column(name = "ASIN", length = 10, nullable = false)
     private String asin;
 
-    @Column(name = "Title", length = 100)
+    @Column(name = "Title", length = 500)
     private String title;
 
     @Column(name = "QuantityOrdered")
@@ -59,6 +59,9 @@ public class OrderItem implements Serializable {
 
     @Column(name = "PromotionIds", length = 100)
     private String promotionIds;
+
+    @Column(name = "orderSuccess")
+    private Boolean orderSuccess;
 
     public void setOrderItemId(Integer orderItemId) {
         this.orderItemId = orderItemId;
@@ -162,6 +165,22 @@ public class OrderItem implements Serializable {
 
     public Integer getPointsGrantedPointsNumber() {
         return pointsGrantedPointsNumber;
+    }
+
+    public String getPointsGrantedPointsMonetaryValueCurrencyCode() {
+        return pointsGrantedPointsMonetaryValueCurrencyCode;
+    }
+
+    public void setPointsGrantedPointsMonetaryValueCurrencyCode(String pointsGrantedPointsMonetaryValueCurrencyCode) {
+        this.pointsGrantedPointsMonetaryValueCurrencyCode = pointsGrantedPointsMonetaryValueCurrencyCode;
+    }
+
+    public Boolean getOrderSuccess() {
+        return orderSuccess;
+    }
+
+    public void setOrderSuccess(Boolean orderSuccess) {
+        this.orderSuccess = orderSuccess;
     }
 
     @Override
