@@ -1,7 +1,6 @@
 package its.kennedy.gestione.magazzino.Service;
 
 import its.kennedy.gestione.magazzino.Dao.Item;
-import its.kennedy.gestione.magazzino.Dao.PurchaseItem;
 import its.kennedy.gestione.magazzino.Dto.BaseResponsePage;
 import its.kennedy.gestione.magazzino.Dto.ItemDto;
 import its.kennedy.gestione.magazzino.IService.IItems;
@@ -61,7 +60,7 @@ public class ItemsService implements IItems {
         } else {
             p = PageRequest.of(pagina, quantita, Sort.by(sortBy).descending());
         }
-        Page<Item> resP = itemsRepository.findAllByDeletedAt(null,p);
+        Page<Item> resP = itemsRepository.findAllByDeletedAt(null, p);
         BaseResponsePage<ItemDto> baseResponsePage = new BaseResponsePage<ItemDto>();
         baseResponsePage.setPagine(resP.getTotalPages());
         ArrayList<ItemDto> res = new ArrayList<ItemDto>();
@@ -85,5 +84,10 @@ public class ItemsService implements IItems {
         }
         return true;
 
+    }
+
+    @Override
+    public Item getByAsin(String asin) {
+        return itemsRepository.getByAsin(asin);
     }
 }
