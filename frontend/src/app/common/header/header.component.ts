@@ -44,7 +44,7 @@ export class HeaderComponent implements OnInit {
       title: "Fornitori",
       icon: "bootstrap-icons.svg#people",
       hover:false,
-      link:"home",
+      link:"suppliers",
       visible: true
     }
   ]

@@ -12,5 +12,5 @@ export class Item {
     createdAt!: Moment;
     updatedAt!: Moment;
     deletedAt!: Moment;
-    categoryId!: number;
+    category!: string;
 }

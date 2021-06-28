@@ -57,7 +57,7 @@ CREATE TABLE suppliers (
 	id int auto_increment,
 	name varchar(100) not null,
 	indirizzo varchar(100) not null,
-	rmail varchar(100) not null,
+	email varchar(100) not null,
 	telefono varchar(100) not null,
 	nazione varchar(100) not null,
 	note varchar(400),
