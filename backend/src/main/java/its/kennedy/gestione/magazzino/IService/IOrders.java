@@ -1,5 +1,6 @@
 package its.kennedy.gestione.magazzino.IService;
 
+import its.kennedy.gestione.magazzino.Dto.BaseResponsePage;
 import its.kennedy.gestione.magazzino.Dto.OrderDto;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public interface IOrders {
      * @param dir
      * @return
      */
-    List<OrderDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean dir);
+    BaseResponsePage<OrderDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean dir);
 
     List<String> getAllAmazonOrderId();
 }
