@@ -97,6 +97,8 @@ public class OrderDto {
     @JsonProperty("ShippingStateOrRegionPostalCode")
     private String shippingStateOrRegionPostalCode;
 
+    private Boolean orderSuccess;
+
     public String getAmazonOrderId() {
         return amazonOrderId;
     }
@@ -319,6 +321,14 @@ public class OrderDto {
 
     public void setShippingStateOrRegionPostalCode(String shippingStateOrRegionPostalCode) {
         this.shippingStateOrRegionPostalCode = shippingStateOrRegionPostalCode;
+    }
+
+    public Boolean getOrderSuccess() {
+        return orderSuccess;
+    }
+
+    public void setOrderSuccess(Boolean orderSuccess) {
+        this.orderSuccess = orderSuccess;
     }
 
     @Override

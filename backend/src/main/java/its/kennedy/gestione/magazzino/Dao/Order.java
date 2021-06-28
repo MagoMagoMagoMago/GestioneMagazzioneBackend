@@ -103,6 +103,9 @@ public class Order implements Serializable {
     @Column(name = "ShippingStateOrRegionPostalCode", length = 100)
     private String shippingStateOrRegionPostalCode;
 
+    @Column(name = "orderSuccess")
+    private Boolean orderSuccess;
+
     public String getAmazonOrderId() {
         return amazonOrderId;
     }
@@ -325,6 +328,14 @@ public class Order implements Serializable {
 
     public void setShippingStateOrRegionPostalCode(String shippingStateOrRegionPostalCode) {
         this.shippingStateOrRegionPostalCode = shippingStateOrRegionPostalCode;
+    }
+
+    public Boolean getOrderSuccess() {
+        return orderSuccess;
+    }
+
+    public void setOrderSuccess(Boolean orderSuccess) {
+        this.orderSuccess = orderSuccess;
     }
 
     @Override

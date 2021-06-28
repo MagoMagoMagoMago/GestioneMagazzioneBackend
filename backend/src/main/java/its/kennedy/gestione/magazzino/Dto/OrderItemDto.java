@@ -1,36 +1,55 @@
 package its.kennedy.gestione.magazzino.Dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.List;
 import java.util.Objects;
 
 public class OrderItemDto {
 
+    @JsonProperty("OrderItemId")
     private Integer orderItemId;
 
+    @JsonProperty("AmazonOrderId")
     private String amazonOrderId;
 
+    @JsonProperty("ASIN")
     private String asin;
 
+    @JsonProperty("Title")
     private String title;
 
+    @JsonProperty("QuantityOrdered")
     private Integer quantityOrdered;
 
+    @JsonProperty("QuantityShipped")
     private Integer QuantityShipped;
 
+    @JsonProperty("PointsGrantedPointsNumber")
     private Integer pointsGrantedPointsNumber;
 
+    @JsonProperty("PointsGrantedPointsMonetaryValueCurrencyCode")
     private String pointsGrantedPointsMonetaryValueCurrencyCode;
 
+    @JsonProperty("PointsGrantedPointsMonetaryValueAmount")
     private Integer pointsGrantedPointsMonetaryValueAmount;
 
+    @JsonProperty("ItemPriceCurrencyCode")
     private String itemPriceCurrencyCode;
 
+    @JsonProperty("ItemPriceAmount")
     private Double itemPriceAmount;
 
+    @JsonProperty("ShippingPriceCurrencyCode")
     private String shippingPriceCurrencyCode;
 
+    @JsonProperty("ShippingPriceAmount")
     private Integer ShippingPriceAmount;
 
+    @JsonProperty("PromotionIds")
     private String promotionIds;
+
+    private Boolean orderSuccess;
 
     public Integer getOrderItemId() {
         return orderItemId;
@@ -144,6 +163,14 @@ public class OrderItemDto {
         this.promotionIds = promotionIds;
     }
 
+    public Boolean getOrderSuccess() {
+        return orderSuccess;
+    }
+
+    public void setOrderSuccess(Boolean orderSuccess) {
+        this.orderSuccess = orderSuccess;
+    }
+
     @Override
     public String toString() {
         return "OrderItemDto{" +
@@ -195,5 +222,19 @@ public class OrderItemDto {
                 getQuantityShipped(), getPointsGrantedPointsNumber(), getPointsGrantedPointsMonetaryValueCurrencyCode(),
                 getPointsGrantedPointsMonetaryValueAmount(), getItemPriceCurrencyCode(), getItemPriceAmount(),
                 getShippingPriceCurrencyCode(), getShippingPriceAmount(), getPromotionIds());
+    }
+
+    public static class OrderItemDtoList {
+
+        @JsonProperty("OrderItems")
+        private List<OrderItemDto> orderItems;
+
+        public List<OrderItemDto> getOrderItems() {
+            return orderItems;
+        }
+
+        public void setOrderItems(List<OrderItemDto> orderItems) {
+            this.orderItems = orderItems;
+        }
     }
 }
