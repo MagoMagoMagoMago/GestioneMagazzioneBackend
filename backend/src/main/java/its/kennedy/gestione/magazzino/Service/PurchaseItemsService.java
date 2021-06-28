@@ -46,17 +46,12 @@ public class PurchaseItemsService implements IPurchaseItems {
                 int modicag = purchaseItem.getQuantity();
                 if (purchaseItem.getId() == null) {
                     purchaseItem.setCreated_at(Instant.now());
-                } else {
-                    if (puchasesRepository.getById(purchaseItem.getId()).getCreated_at().plusMillis(864000000).isBefore(Instant.now())) {
-                        return false;
-                    }
-                    purchaseItem.setUpdated_at(Instant.now());
-                    modicag -= puchasesRepository.getById(purchaseItem.getId()).getQuantity();
+
+                    puchasesRepository.saveAndFlush(purchaseItem);
+                    Item n = itemsRepository.getById(purchaseItem.getItem_id());
+                    n.setStorage(n.getStorage() + modicag);
+                    itemsRepository.saveAndFlush(n);
                 }
-                puchasesRepository.saveAndFlush(purchaseItem);
-                Item n = itemsRepository.getById(purchaseItem.getItem_id());
-                n.setStorage(n.getStorage() + modicag);
-                itemsRepository.saveAndFlush(n);
             } catch (Exception e) {
                 return false;
             }
