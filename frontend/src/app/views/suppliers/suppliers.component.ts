@@ -16,14 +16,7 @@ export class SuppliersComponent implements OnInit {
     public fb: FormBuilder,
     ) { }
 
-  public columns: Column[] = [
-    { name: "name", text: "Nome", visible: true },
-    { name: "indirizzo", text: "Indirizzo", visible: true },
-    { name: "email", text: "Email", visible: true },
-    { name: "telefono", text: "Telefono", visible: true },
-    { name: "nazione", text: "Nazione", visible: true },
-    { name: "note", text: "Note", visible: true }
-  ];
+  public columns!: Column[];
 
   public listaSuppliers!: Supplier[] | null;
   public sort = { name: "title", orderBy: true};
@@ -46,6 +39,20 @@ export class SuppliersComponent implements OnInit {
 
 
   ngOnInit(): void {
+    if (localStorage.getItem("table_supplier") != null){
+      this.columns = JSON.parse(localStorage.getItem("table_supplier")!) as Column[];
+    }else{
+      this.columns = [
+        { name: "name", text: "Nome", visible: true },
+        { name: "indirizzo", text: "Indirizzo", visible: true },
+        { name: "email", text: "Email", visible: true },
+        { name: "telefono", text: "Telefono", visible: true },
+        { name: "nazione", text: "Nazione", visible: true },
+        { name: "note", text: "Note", visible: true }
+      ];
+      localStorage.setItem("table_supplier", JSON.stringify(this.columns));
+    }
+    
     this.loadAllSuppliers();
   }
 
@@ -65,6 +72,7 @@ export class SuppliersComponent implements OnInit {
 
   changeVisibility(column: Column): void {
     column.visible = !column.visible;
+    localStorage.setItem("table_supplier", JSON.stringify(this.columns));
   }
 
   changeOrderBy(column: Column): void {
