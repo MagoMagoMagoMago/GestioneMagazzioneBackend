@@ -12,7 +12,7 @@ export class SupplierApiService {
 
   constructor(private http: HttpClient) {  }
 
-  public getAll(): Observable<any> {
-    return this.http.get(this.url + "/all");
+  public getAll(orderBy: string): Observable<any> {
+    return this.http.get(this.url + "/all/" + orderBy);
   }
 }

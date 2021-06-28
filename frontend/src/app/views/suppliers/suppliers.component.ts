@@ -19,7 +19,9 @@ export class SuppliersComponent implements OnInit {
   public columns!: Column[];
 
   public listaSuppliers!: Supplier[] | null;
+  //paginazione
   public sort = { name: "title", orderBy: true};
+  public order = "name";
 
   public new!: boolean | null;
   public selectedSupplier!: Supplier | null;
@@ -57,7 +59,7 @@ export class SuppliersComponent implements OnInit {
   }
 
   loadAllSuppliers(): void{
-    this.supplierService.getAll().subscribe((resp: Supplier[]) => {
+    this.supplierService.getAll(this.order).subscribe((resp: Supplier[]) => {
       this.listaSuppliers = resp;
     })
   }
