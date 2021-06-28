@@ -58,6 +58,14 @@ public class PurchaseItemsController {
         } catch (Exception e) {
             return ResponseEntity.ok().body(false);
         }
+    }
 
+    @PostMapping(produces = "application/json")
+    public ResponseEntity<Boolean> insertPurchaseItems(@RequestBody List<PurchaseItem> purchaseItems) {
+        try {
+            return ResponseEntity.ok().body(supplierservice.addPurchases(purchaseItems));
+        } catch (Exception e) {
+            return ResponseEntity.ok().body(false);
+        }
     }
 }

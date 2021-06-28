@@ -40,21 +40,46 @@ public class PurchaseItemsService implements IPurchaseItems {
     }
 
     @Override
+    public Boolean addPurchases(List<PurchaseItem> purchaseItems) {
+        for (PurchaseItem purchaseItem : purchaseItems) {
+            try {
+                int modicag = purchaseItem.getQuantity();
+                if (purchaseItem.getId() == null) {
+                    purchaseItem.setCreated_at(Instant.now());
+                } else {
+                    if (puchasesRepository.getById(purchaseItem.getId()).getCreated_at().plusMillis(864000000).isBefore(Instant.now())) {
+                        return false;
+                    }
+                    purchaseItem.setUpdated_at(Instant.now());
+                    modicag -= puchasesRepository.getById(purchaseItem.getId()).getQuantity();
+                }
+                puchasesRepository.saveAndFlush(purchaseItem);
+                Item n = itemsRepository.getById(purchaseItem.getItem_id());
+                n.setStorage(n.getStorage() + modicag);
+                itemsRepository.saveAndFlush(n);
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
     public Boolean modifica(PurchaseItem entity) {
         try {
-        	int modicag=entity.getQuantity();
+            int modicag = entity.getQuantity();
             if (entity.getId() == null) {
                 entity.setCreated_at(Instant.now());
             } else {
-            	  if(puchasesRepository.getById(entity.getId()).getCreated_at().plusMillis(864000000).isBefore(Instant.now())) {
-                  	return false;
-                  }
+                if (puchasesRepository.getById(entity.getId()).getCreated_at().plusMillis(864000000).isBefore(Instant.now())) {
+                    return false;
+                }
                 entity.setUpdated_at(Instant.now());
-                modicag-=puchasesRepository.getById(entity.getId()).getQuantity();
+                modicag -= puchasesRepository.getById(entity.getId()).getQuantity();
             }
             puchasesRepository.saveAndFlush(entity);
-            Item n=itemsRepository.getById(entity.getItem_id());
-            n.setStorage(n.getStorage()+modicag);
+            Item n = itemsRepository.getById(entity.getItem_id());
+            n.setStorage(n.getStorage() + modicag);
             itemsRepository.saveAndFlush(n);
         } catch (Exception e) {
             return false;
@@ -66,8 +91,8 @@ public class PurchaseItemsService implements IPurchaseItems {
     public Boolean elimina(int id) {
         try {
             PurchaseItem entity = puchasesRepository.findById(id).get();
-            if(entity.getCreated_at().plusMillis(864000000).isBefore(Instant.now())) {
-            	return false;
+            if (entity.getCreated_at().plusMillis(864000000).isBefore(Instant.now())) {
+                return false;
             }
             entity.setDeleted_at(Instant.now());
             puchasesRepository.saveAndFlush(entity);
