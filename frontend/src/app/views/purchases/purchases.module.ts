@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { PurchasesRoutingModule } from './purchases-routing.module';
 import { PurchasesComponent } from './purchases.component';
 
@@ -11,7 +11,9 @@ import { PurchasesComponent } from './purchases.component';
   ],
   imports: [
     CommonModule,
-    PurchasesRoutingModule
+    PurchasesRoutingModule,
+    FormsModule, 
+    ReactiveFormsModule
   ]
 })
 export class PurchasesModule { }

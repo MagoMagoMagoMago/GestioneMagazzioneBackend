@@ -22,6 +22,9 @@
             <th class="th" *ngIf="col.visible" (click)="changeOrderBy(col)">
               {{ col.text }} <i class="bi bi-caret-down-square-fill" *ngIf="col.name === sort.name" [ngClass]="{'bi-caret-down-square-fill': sort.orderBy == true, 'bi-caret-up-square-fill': sort.orderBy == false}"></i></th>
           </ng-container>
+          <th>
+            Operazioni
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -35,7 +38,7 @@
           <td *ngIf="colOrders[2].visible" class="align-middle" width=20%>{{order.AmazonOrderId}}</td>
           <td *ngIf="colOrders[3].visible" class="align-middle" width=20%>{{order.BuyerName}}</td>
           <td *ngIf="colOrders[4].visible" class="align-middle" width=20%>{{order.BuyerEmail}}</td>
-          <td *ngIf="colOrders[5].visible" class="align-middle" width=20%>{{order.EarliestShipDate}}</td>
+          <td *ngIf="colOrders[5].visible" class="align-middle" width=20%>{{order.EarliestShipDate | date: 'dd/MM/yyyy'}}</td>
           <td *ngIf="colOrders[6].visible" class="align-middle" width=20%>{{order.FulfillmentChannel}}</td>
           <td *ngIf="colOrders[7].visible" class="align-middle" width=20%>{{order.IsBusinessOrder}}</td>
           <td *ngIf="colOrders[8].visible" class="align-middle" width=20%>{{order.IsPremiumOrder}}</td>
@@ -47,12 +50,15 @@
           <td *ngIf="colOrders[14].visible" class="align-middle" width=20%>{{order.PaymentMethod}}</td>
           <td *ngIf="colOrders[15].visible" class="align-middle" width=20%>{{order.PaymentMethodDetails}}</td>
           <td *ngIf="colOrders[16].visible" class="align-middle" width=20%>{{order.PurchaseOrderNumber}}</td>
-          <td *ngIf="colOrders[17].visible" class="align-middle" width=20%>{{order.PurchaseDate}}</td>
+          <td *ngIf="colOrders[17].visible" class="align-middle" width=20%>{{order.PurchaseDate  | date: 'dd/MM/yyyy'}}</td>
           <td *ngIf="colOrders[18].visible" class="align-middle" width=20%>{{order.ShipmentServiceLevelCategory}}</td>
           <td *ngIf="colOrders[19].visible" class="align-middle" width=20%>{{order.ShippingAddressLine1}}</td>
           <td *ngIf="colOrders[20].visible" class="align-middle" width=20%>{{order.ShippingCityStateOrRegion}}</td>
           <td *ngIf="colOrders[21].visible" class="align-middle" width=10%>{{order.ShippingAddressCity}}</td>
           <td *ngIf="colOrders[22].visible" class="align-middle" width=10%>{{order.ShippingStateOrRegionPostalCode}}</td>
+          <td>
+            <button type="button" class="btn btn-primary btn-sm shadow-none" data-bs-toggle="modal" data-bs-target="#dettagli" style="margin-left: 25%;"><i class="bi bi-search"></i></button>
+          </td>
         </tr>
         <tr *ngIf="isListEmpty()">
           <td class="text-center align-middle not-found" colspan="100%">
@@ -121,7 +127,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
       </div>
     </div>
   </div>
