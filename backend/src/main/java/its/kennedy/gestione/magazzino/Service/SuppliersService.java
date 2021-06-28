@@ -7,6 +7,7 @@ import its.kennedy.gestione.magazzino.Repository.SuppliersRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -53,7 +54,7 @@ public class SuppliersService implements ISuppliers {
     @Override
     public List<SupplierDto> getAll(String ord) {
         List<SupplierDto> ritorno = new ArrayList<SupplierDto>();
-        List<Supplier> iterable = suppliersRepository.findByDeleteAtOrderBy(null,ord);
+        List<Supplier> iterable = suppliersRepository.findByDeletedAt(Sort.by(Sort.Direction.ASC,ord));
         for (Supplier i : iterable) {
             ritorno.add(modelMapper.map(i, SupplierDto.class));
         }
