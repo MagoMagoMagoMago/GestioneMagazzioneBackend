@@ -13,7 +13,7 @@ export class OrdersComponent implements OnInit {
   constructor(private api: OrdersApiService) { }
 
   public colOrders: Column[] = [
-    { name: "OrderStatus", text: "Stato", visible: true}, 
+    { name: "OrderStatus", text: "Ordine", visible: true}, 
     { name: "OrderType", text: "Tipo",  visible: false }, 
     { name: "AmazonOrderId", text: "ID Amazon", visible: false},
     { name: "BuyerName", text: "Acquirente",  visible: true },
@@ -30,12 +30,12 @@ export class OrdersComponent implements OnInit {
     { name: "PaymentMethod", text: "Metodo di Pagamento",  visible: true }, //14
     { name: "PaymentMethodDetails", text: "Dettagli Pagamento",  visible: false },
     { name: "PurchaseOrderNumber", text: "Numero Acquisto",  visible: false },
-    { name: "PurchaseDate", text: "Data Acquisto",  visible: true },
+    { name: "PurchaseDate", text: "Data Acquisto",  visible: true },//17
     { name: "ShipmentServiceLevelCategory", text: "Categoria Spedizione",  visible: false },
     { name: "ShippingAddressLine1", text: "Indirizzo",  visible: true },
     { name: "ShippingCityStateOrRegion", text: "Stato",  visible: true },
-    { name: "ShippingAddressCity", text: "Città",  visible: true },//22
-    { name: "ShippingStateOrRegionPostalCode", text: "CAP",  visible: true },
+    { name: "ShippingAddressCity", text: "Città",  visible: true },
+    { name: "ShippingStateOrRegionPostalCode", text: "CAP",  visible: true },//22
   
   ];
 
@@ -74,6 +74,12 @@ export class OrdersComponent implements OnInit {
       return false;
     }
   } 
+
+  
+  changeVisibility(column: Column): void{
+    column.visible = !column.visible;
+  }
+
   changeOrderBy(column: Column): void{
     if (this.sort.name == column.name){
       this.sort.orderBy = !this.sort.orderBy;
