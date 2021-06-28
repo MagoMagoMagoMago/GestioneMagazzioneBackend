@@ -10,6 +10,8 @@ public interface ISuppliers {
 
     Boolean modifica(Supplier entity);
 
-    List<SupplierDto> getAll();
+	Boolean elimina(int id);
+
+	List<SupplierDto> getAll(String ord);
 
 }
