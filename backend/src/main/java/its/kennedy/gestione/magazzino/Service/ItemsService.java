@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ItemsService implements IItems {
@@ -89,5 +90,17 @@ public class ItemsService implements IItems {
     @Override
     public Item getByAsin(String asin) {
         return itemsRepository.getByAsin(asin);
+    }
+    
+    @Override
+    public List<ItemDto> getBygiacenzainferiore() {
+        ArrayList<ItemDto> res = new ArrayList<ItemDto>();
+        List<Item> resP=itemsRepository.getBygiacenzainferiore();
+        for (Item d : resP) {
+            ItemDto itemDto = modelMapper.map(d, ItemDto.class);
+            itemDto.setCategory(d.getCategory().getName());
+            res.add(itemDto);
+        }
+        return res;
     }
 }
