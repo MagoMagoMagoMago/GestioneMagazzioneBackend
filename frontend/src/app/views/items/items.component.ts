@@ -34,7 +34,7 @@ export class ItemsComponent implements OnInit {
   public categories!: Category[] | null;
 
   //dettagli paginazione
-  public quantity: number = 5;
+  public quantity!: number;
   public page: number = 0;
   public sort = { name: "title", orderBy: true};
   public totalPages: number = 0;
@@ -70,6 +70,13 @@ export class ItemsComponent implements OnInit {
       ];
       localStorage.setItem(this.nameOnStorage, JSON.stringify(this.colItems));
     }
+    if (localStorage.getItem(this.nameOnStorage + "_itemPerPage") !=  null) {
+      this.quantity = Number(localStorage.getItem(this.nameOnStorage + "_itemPerPage"));
+    }else{
+      this.quantity = 5;
+      localStorage.setItem(this.nameOnStorage + "_itemPerPage", this.quantity.toString());
+    }
+
     this.loadItems();
   }
 
@@ -95,6 +102,7 @@ export class ItemsComponent implements OnInit {
 
   onChangeItemPerPage(itemPerPage: string): void{
     this.quantity = Number(itemPerPage);
+    localStorage.setItem(this.nameOnStorage + "_itemPerPage", this.quantity.toString());
     this.loadItems();
   }
 

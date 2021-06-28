@@ -9,14 +9,14 @@
   <div class="row">
     <div class="col d-flex align-items-center">
       <button class="btn btn-light shadow-none" role="button" data-bs-toggle="modal" data-bs-target="#configModal">
-        <i class="bi bi-gear-wide-connected"></i> Impostazioni Tabella
+        <i class="bi bi-gear-wide-connected"></i> Impostazioni
       </button>
     </div>
   </div>
 
   <div class="table-responsive-xl pt-2">
     <table class="table table-light table-striped">
-      <thead class="thead-dark table header sticky-top">
+      <thead class="thead-dark table-warning header sticky-top">
         <tr>
           <ng-container *ngFor="let col of colOrders">
             <th class="th" *ngIf="col.visible" (click)="changeOrderBy(col)">
