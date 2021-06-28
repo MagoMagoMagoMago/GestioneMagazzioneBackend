@@ -10,7 +10,7 @@
 
     <div class="col d-flex align-items-center">
       <button class="btn btn-light shadow-none" role="button" data-bs-toggle="modal" data-bs-target="#configModal">
-        <i class="bi bi-gear-wide-connected"></i> Impostazioni Tabella
+        <i class="bi bi-gear-wide-connected"></i> Impostazioni
       </button>
     </div>
 
@@ -60,7 +60,7 @@
           <td *ngIf="colItems[6].visible" class="align-middle" width=10%>{{item.minAvailability}} pezzi</td>
           <td class="align-middle" width=10%>
             <button type="button" class="btn btn-secondary btn-sm shadow-none" data-bs-toggle="modal" data-bs-target="#updateItems" (click)="onUpdateButtonClick(item)"><i class="bi bi-pencil-fill"></i></button>
-            <button type="button" class="btn btn-warning btn-sm shadow-none"><i class="bi bi-cart"></i></button>
+            <button type="button" class="btn btn-warning btn-sm shadow-none "><i class="bi bi-cart"></i></button>
             <button type="button" class="btn btn-danger btn-sm shadow-none" data-bs-toggle="modal" data-bs-target="#deleteItems" (click)="openDeleteModal(item)"><i class="bi bi-trash"></i></button>
           </td>
         </tr>
@@ -99,7 +99,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Impostazioni Tabella</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -132,7 +132,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
       </div>
     </div>
   </div>

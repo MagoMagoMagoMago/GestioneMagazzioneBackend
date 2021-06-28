@@ -24,19 +24,11 @@ export class ItemsComponent implements OnInit {
     private toast: ToastrService,
     public fb: FormBuilder,
     private categoriyService: CategoryApiService
-    ) { } 
-
-  public colItems: Column[] = [
-    { name: "asin", text: "Asin", visible: false },
-    { name: "title", text: "Titolo", visible: true },
-    { name: "description", text: "Descrizione", visible: true },
-    { name: "categoryId", text: "Categoria", visible: true },
-    { name: "price", text: "Prezzo", visible: true },
-    { name: "storage", text: "Giacenza", visible: true },
-    { name: "minAvailability", text: "Minimo", visible: true }
-  ];
+    ) { }
+  public colItems!: Column[];
 
   submitted: boolean = false;
+  readonly nameOnStorage = "table_items";
   public listaItems!: Item[] | null;
   public itemSelected: Item = new Item();
   public categories!: Category[] | null;
@@ -63,6 +55,21 @@ export class ItemsComponent implements OnInit {
   })
 
   ngOnInit(): void {
+    
+    if(localStorage.getItem(this.nameOnStorage) != null){
+      this.colItems = JSON.parse(localStorage.getItem(this.nameOnStorage)!) as Column[];
+    }else{
+      this.colItems = [
+        { name: "asin", text: "Asin", visible: false },
+        { name: "title", text: "Titolo", visible: true },
+        { name: "description", text: "Descrizione", visible: true },
+        { name: "categoryId", text: "Categoria", visible: true },
+        { name: "price", text: "Prezzo", visible: true },
+        { name: "storage", text: "Giacenza", visible: true },
+        { name: "minAvailability", text: "Minimo", visible: true }
+      ];
+      localStorage.setItem(this.nameOnStorage, JSON.stringify(this.colItems));
+    }
     this.loadItems();
   }
 
@@ -83,6 +90,7 @@ export class ItemsComponent implements OnInit {
 
   changeVisibility(column: Column): void{
     column.visible = !column.visible;
+    localStorage.setItem(this.nameOnStorage, JSON.stringify(this.colItems));
   }
 
   onChangeItemPerPage(itemPerPage: string): void{
@@ -172,7 +180,11 @@ export class ItemsComponent implements OnInit {
         this.loadItems();
         this.modalClose.nativeElement.click();
       },
-      (error) => { this.toast.error("Erorre riscontrato nella modifica.", "Eliminazione") }
+      (error) => { 
+        console.log(error);
+        this.updateForm.controls['category'].setValue(this.categories?.find((x)=> x.id == this.updateForm.get("category")?.value.id)?.id);
+        this.toast.error("Erorre riscontrato nella modifica.", "Modiica") 
+      }
     );
   }
 
