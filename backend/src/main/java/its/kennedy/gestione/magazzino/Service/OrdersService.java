@@ -101,14 +101,7 @@ public class OrdersService implements IOrders {
 		return baseResponsePage;
 	}
 
-	public ArrayList<OrderItemDto> getDateBetween(Instant inizio, Instant fine) {
-		List<OrderItem> t = orderItemsRepository.getDateBetween(inizio, fine);
-		ArrayList<OrderItemDto> res = new ArrayList<OrderItemDto>();
-		 for (OrderItem orderObject : t) {
-				res.add(modelMapper.map(orderObject, OrderItemDto.class));
-	        }
-		return res;
-	}
+
 
 	@Override
 	public List<String> getAllAmazonOrderId() {
