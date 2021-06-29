@@ -59,4 +59,15 @@ public class PurchasesController {
         }
 
     }
+    
+    @PutMapping(value="/insert", produces = "application/json")
+    public ResponseEntity<Integer> inser(@RequestBody Purchase doc) {
+        try {
+            return ResponseEntity.ok().body(purchaseService.insert(doc));
+
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+
+    }
 }
