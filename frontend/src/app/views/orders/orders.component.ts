@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { OrderItemsApiService } from 'src/app/api/order-items-api.service';
 import { OrdersApiService } from 'src/app/api/orders-api.service';
 import { Column } from 'src/app/models/columns';
 import { Item } from 'src/app/models/item';
@@ -14,7 +15,7 @@ export class OrdersComponent implements OnInit {
 
   @ViewChild('myModalClose') modalClose: any;
 
-  constructor(private api: OrdersApiService) { }
+  constructor(private orderApi: OrdersApiService, private orderItemsApi: OrderItemsApiService) { }
 
   public colOrders!: Column[];
   public orderSelected: Order = new Order();
@@ -71,7 +72,7 @@ export class OrdersComponent implements OnInit {
   }
 
   loadOrders() {
-    this.api.getAll(this.sort.name, this.sort.orderBy, this.page, this.quantity).subscribe((resp) => {
+    this.orderApi.getAll(this.sort.name, this.sort.orderBy, this.page, this.quantity).subscribe((resp) => {
       this.listaOrders = resp.list;
       this.totalPages = resp.pagine;
     })
@@ -117,7 +118,10 @@ export class OrdersComponent implements OnInit {
   //MODALE DETTAGLI ORDINE
   openDetailsModal(order: Order): void{
     this.orderSelected = order;
-    console.log("orderSe", this.orderSelected);
-  }
+    this.orderItemsApi.getAll(this.orderSelected.AmazonOrderId).subscribe((resp) => {
+      this.listaOrderItems = resp;
+    console.log("listaOrder", this.listaOrderItems)
 
+    })
+  }
 }

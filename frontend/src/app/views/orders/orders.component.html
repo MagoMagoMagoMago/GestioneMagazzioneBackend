@@ -145,40 +145,24 @@
       <div class="modal-body">
         <!-- lista articoli -->
         <div class="list-group">
-          <a class="list-group-item list-group-item-action flex-column align-items-start">
-            <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">Title</h5>
-              <small>ID Amazon  {{ orderSelected.AmazonOrderId }} </small>
+          <ng-container *ngFor="let orderItem of listaOrderItems">
+            <div class="list-group-item list-group-item-warning flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">
+                  <i class="bi bi-check-circle-fill" *ngIf="orderItem.orderSuccess == 1" [ngClass]="{'text-success': orderItem.orderSuccess == 1}" style="margin-right: 5px;"></i>
+                  <i class="bi bi-x-circle-fill" *ngIf="orderItem.orderSuccess != 1" [ngClass]="{'text-danger': orderItem.orderSuccess != 1}" style="margin-right: 5px;"></i>
+                  {{orderItem.Title}}</h5>
+                <small>{{orderItem.ASIN }}</small>
+              </div>
+              <p class="mb-1"><small>Amazon ID: {{ orderSelected.AmazonOrderId }} </small></p>
+              <p class="mb-1">Prezzo Articolo: <b>{{orderItem.ItemPriceAmount}} €</b></p>
+              <p class="mb-1">Quantità: {{orderItem.QuantityOrdered}} </p>
+              <p class="mb-1" *ngIf="orderItem.ShippingPriceAmount > 0">Costo Spedizione: {{orderItem.ShippingPriceAmount}} €</p>
+              <p class="mb-1" *ngIf="orderItem.PromotionIds != '-'">Codice Promo: {{orderItem.PromotionIds}}</p>
+              <p class="mb-1" *ngIf="orderItem.PointsGrantedPointsNumber != 0 ">Punti Guadagnati: {{orderItem.PointsGrantedPointsNumber}}</p>
             </div>
-            <p class="mb-1">ABGDKS9HK12</p>
-            <small>Prezzo €</small>
-          </a>
-          <a class="list-group-item list-group-item-action flex-column align-items-start">
-            <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">Carne Cotta</h5>
-              <small>Decisamente Scaduta</small>
-            </div>
-            <p class="mb-1">ABGDKS980HK</p>
-            <small>Prezzo</small>
-          </a>
-          <a class="list-group-item list-group-item-action flex-column align-items-start">
-            <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">Bottiglietta d'Acqua</h5>
-              <small>5 days ago</small>
-            </div>
-            <p class="mb-1">FDISDO65JSD</p>
-            <small>Prezzo</small>
-          </a>
-          <a class="list-group-item list-group-item-action flex-column align-items-start">
-            <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">Idk</h5>
-              <small>5 days ago</small>
-            </div>
-            <p class="mb-1">FDISDO65JSD</p>
-            <small>Prezzo</small>
-          </a>
-        </div>
-      </div>
+          </ng-container>
+        </div> 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" #myModalClose data-bs-dismiss="modal">Chiudi</button>
       </div>
