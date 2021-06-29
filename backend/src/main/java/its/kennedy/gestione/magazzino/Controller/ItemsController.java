@@ -4,6 +4,9 @@ import its.kennedy.gestione.magazzino.Dao.Item;
 import its.kennedy.gestione.magazzino.Dto.BaseResponsePage;
 import its.kennedy.gestione.magazzino.Dto.ItemDto;
 import its.kennedy.gestione.magazzino.Service.ItemsService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,6 +49,16 @@ public class ItemsController {
         } catch (Exception e) {
             return ResponseEntity.ok().body(false);
         }
+    }
+    @GetMapping("/graph4")
+    public ResponseEntity<List<ItemDto>> getItemsgicenza() {
+        List<ItemDto> dto = null;
+        try {
+            dto = itemService.getBygiacenzainferiore();
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(dto);
     }
 
     @DeleteMapping("{id}")

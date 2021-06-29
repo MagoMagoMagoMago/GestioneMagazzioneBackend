@@ -67,7 +67,7 @@ public class OrdersService implements IOrders {
                         ordersRepository.save(modelMapper.map(order, Order.class));
                         orderItemsRepository.save(modelMapper.map(orderItemDto, OrderItem.class));
                     } catch (Exception e) {
-                        return false;
+                        //return false;
                     }
                 }
             }

@@ -1,5 +1,7 @@
 package its.kennedy.gestione.magazzino.IService;
 
+import java.util.List;
+
 import its.kennedy.gestione.magazzino.Dao.Item;
 import its.kennedy.gestione.magazzino.Dto.BaseResponsePage;
 import its.kennedy.gestione.magazzino.Dto.ItemDto;
@@ -34,4 +36,6 @@ public interface IItems {
     public Boolean deleteById(Integer id);
 
     public Item getByAsin(String asin);
+
+	List<ItemDto> getBygiacenzainferiore();
 }
