@@ -39,7 +39,7 @@ public class PurchaseItemsController {
         return ResponseEntity.ok().body(dto);
     }
 
-    @GetMapping("prucase/{id}")
+    @GetMapping("purchase/{id}")
     public ResponseEntity<List<PurchaseItemDto>> getItemsBypurchase(@PathVariable Integer id) {
         List<PurchaseItemDto> dto = null;
         try {
