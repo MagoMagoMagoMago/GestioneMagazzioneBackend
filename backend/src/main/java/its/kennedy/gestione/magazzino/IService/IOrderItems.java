@@ -2,6 +2,8 @@ package its.kennedy.gestione.magazzino.IService;
 
 import its.kennedy.gestione.magazzino.Dto.OrderItemDto;
 
+import java.util.List;
+
 public interface IOrderItems {
 
     /**
@@ -11,4 +13,6 @@ public interface IOrderItems {
      * @return OrderItemDto.
      */
     OrderItemDto getById(Integer id);
+
+    List<OrderItemDto> getAllByAmazonOrderId(String amazonOrderId);
 }

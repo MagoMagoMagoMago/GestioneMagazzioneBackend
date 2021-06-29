@@ -7,9 +7,7 @@ public class PurchaseDto {
 
     private Integer id;
 
-    private int supplier_id;
-
-    private int number_invoice;
+    private Integer number_invoice;
 
     private String note;
 
@@ -21,6 +19,8 @@ public class PurchaseDto {
 
     private Instant date_invoice;
 
+    private String supplier;
+
     public Integer getId() {
         return id;
     }
@@ -29,19 +29,11 @@ public class PurchaseDto {
         this.id = id;
     }
 
-    public int getSupplier_id() {
-        return supplier_id;
-    }
-
-    public void setSupplier_id(int supplier_id) {
-        this.supplier_id = supplier_id;
-    }
-
-    public int getNumber_invoice() {
+    public Integer getNumber_invoice() {
         return number_invoice;
     }
 
-    public void setNumber_invoice(int number_invoice) {
+    public void setNumber_invoice(Integer number_invoice) {
         this.number_invoice = number_invoice;
     }
 
@@ -85,18 +77,12 @@ public class PurchaseDto {
         this.date_invoice = date_invoice;
     }
 
-    @Override
-    public String toString() {
-        return "PurchaseDto{" +
-                "id=" + id +
-                ", supplier_id=" + supplier_id +
-                ", number_invoice=" + number_invoice +
-                ", note='" + note + '\'' +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                ", deletedAt=" + deletedAt +
-                ", date_invoice=" + date_invoice +
-                '}';
+    public String getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(String supplier) {
+        this.supplier = supplier;
     }
 
     @Override
@@ -108,19 +94,34 @@ public class PurchaseDto {
             return false;
         }
         PurchaseDto that = (PurchaseDto) o;
-        return getSupplier_id() == that.getSupplier_id()
-                && getNumber_invoice() == that.getNumber_invoice()
-                && getId().equals(that.getId())
+        return getId().equals(that.getId())
+                && getNumber_invoice().equals(that.getNumber_invoice())
                 && Objects.equals(getNote(), that.getNote())
                 && getCreatedAt().equals(that.getCreatedAt())
                 && Objects.equals(getUpdatedAt(), that.getUpdatedAt())
                 && Objects.equals(getDeletedAt(), that.getDeletedAt())
-                && getDate_invoice().equals(that.getDate_invoice());
+                && getDate_invoice().equals(that.getDate_invoice())
+                && getSupplier().equals(that.getSupplier());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getSupplier_id(), getNumber_invoice(), getNote(), getCreatedAt(), getUpdatedAt(),
-                getDeletedAt(), getDate_invoice());
+        return Objects.hash(getId(), getNumber_invoice(), getNote(), getCreatedAt(), getUpdatedAt(), getDeletedAt(),
+                getDate_invoice(), getSupplier());
     }
+
+    @Override
+    public String toString() {
+        return "PurchaseDto{" +
+                "id=" + id +
+                ", number_invoice=" + number_invoice +
+                ", note='" + note + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", deletedAt=" + deletedAt +
+                ", date_invoice=" + date_invoice +
+                ", supplier='" + supplier + '\'' +
+                '}';
+    }
+
 }

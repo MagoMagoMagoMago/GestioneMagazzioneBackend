@@ -12,8 +12,8 @@ public interface IPurchaseItems {
     Boolean modifica(PurchaseItem entity);
 
     Boolean elimina(int id);
-
-
+    
     List<PurchaseItemDto> getByPurchase(int id);
 
+    Boolean addPurchases(List<PurchaseItem> purchaseItems);
 }

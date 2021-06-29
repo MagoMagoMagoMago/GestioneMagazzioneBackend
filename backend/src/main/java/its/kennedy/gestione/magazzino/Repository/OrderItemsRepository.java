@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Spring Data repository for the OrderItem entity.
  */
@@ -16,4 +18,6 @@ import org.springframework.stereotype.Repository;
 public interface OrderItemsRepository extends JpaRepository<OrderItem, Integer> {
 	@Query("SELECT cor FROM OrderItem cor where cor.amazonOrderId.date.purchaseDate > ?1  and cor.amazonOrderId.date.purchaseDate < ?2")
 	List<OrderItem> getDateBetween(Instant inizio,Instant fine);
+
+    List<OrderItem> getAllByAmazonOrderId(String amazonOrderId);
 }
