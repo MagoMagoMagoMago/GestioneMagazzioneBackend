@@ -21,7 +21,8 @@ public class OrderItem implements Serializable {
     private Integer orderItemId;
 
     @Column(name = "AmazonOrderId", length = 19)
-    private String amazonOrderId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Order amazonOrderId;
 
     @NotNull
     @Column(name = "ASIN", length = 10, nullable = false)
@@ -67,7 +68,7 @@ public class OrderItem implements Serializable {
         this.orderItemId = orderItemId;
     }
 
-    public void setAmazonOrderId(String amazonOrderId) {
+    public void setAmazonOrderId(Order amazonOrderId) {
         this.amazonOrderId = amazonOrderId;
     }
 
@@ -119,7 +120,7 @@ public class OrderItem implements Serializable {
         return orderItemId;
     }
 
-    public String getAmazonOrderId() {
+    public Order getAmazonOrderId() {
         return amazonOrderId;
     }
 
