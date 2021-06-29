@@ -30,106 +30,113 @@ import java.util.List;
 @Service
 public class OrdersService implements IOrders {
 
-    @Autowired
-    private OrdersRepository ordersRepository;
+	@Autowired
+	private OrdersRepository ordersRepository;
 
-    @Autowired
-    private OrderItemsRepository orderItemsRepository;
+	@Autowired
+	private OrderItemsRepository orderItemsRepository;
 
-    @Autowired
-    private ItemsService itemsService;
+	@Autowired
+	private ItemsService itemsService;
 
-    @Autowired
-    private ModelMapper modelMapper;
+	@Autowired
+	private ModelMapper modelMapper;
 
-    @Override
-    public OrderDto getById(String id) {
-        return modelMapper.map(ordersRepository.findById(id), OrderDto.class);
-    }
+	@Override
+	public OrderDto getById(String id) {
+		return modelMapper.map(ordersRepository.findById(id), OrderDto.class);
+	}
 
-    @Override
-    public Boolean addOrders(OrderDto.OrdersDtoList orders) {
-        List<String> myAmazonOrdersIds = ordersRepository.findAllIds();
-        for (OrderDto order : orders.getOrders()) {
-            if (!myAmazonOrdersIds.contains(order.getAmazonOrderId())) {
+	@Override
+	public Boolean addOrders(OrderDto.OrdersDtoList orders) {
+		List<String> myAmazonOrdersIds = ordersRepository.findAllIds();
+		for (OrderDto order : orders.getOrders()) {
+			if (!myAmazonOrdersIds.contains(order.getAmazonOrderId())) {
 
-                OrderItemDto.OrderItemDtoList orderItemDtoList = getItemsOfOrder(order.getAmazonOrderId());
-                for (OrderItemDto orderItemDto : orderItemDtoList.getOrderItems()) {
-                    Item item = itemsService.getByAsin(orderItemDto.getAsin());
-                    try {
-                        item.getStorage();
-                    } catch (Exception e) {
-                        return false;
-                    }
-                    if (item.getStorage() < orderItemDto.getQuantityOrdered()) {
-                        order.setOrderSuccess(false);
-                        orderItemDto.setOrderSuccess(false);
-                    } else {
-                        order.setOrderSuccess(true);
-                        orderItemDto.setOrderSuccess(true);
-                        item.setStorage(item.getStorage() - orderItemDto.getQuantityOrdered());
-                        itemsService.addOrUpdate(item);
-                    }
-                    ordersRepository.save(modelMapper.map(order, Order.class));
-                    orderItemsRepository.save(modelMapper.map(orderItemDto, OrderItem.class));
-                }
+				OrderItemDto.OrderItemDtoList orderItemDtoList = getItemsOfOrder(order.getAmazonOrderId());
+				for (OrderItemDto orderItemDto : orderItemDtoList.getOrderItems()) {
+					Item item = itemsService.getByAsin(orderItemDto.getAsin());
+					try {
+						item.getStorage();
+					} catch (Exception e) {
+						return false;
+					}
+					if (item.getStorage() < orderItemDto.getQuantityOrdered()) {
+						order.setOrderSuccess(false);
+						orderItemDto.setOrderSuccess(false);
+					} else {
+						order.setOrderSuccess(true);
+						orderItemDto.setOrderSuccess(true);
+						item.setStorage(item.getStorage() - orderItemDto.getQuantityOrdered());
+						itemsService.addOrUpdate(item);
+					}
+					ordersRepository.save(modelMapper.map(order, Order.class));
+					orderItemsRepository.save(modelMapper.map(orderItemDto, OrderItem.class));
+				}
 
-            }
-        }
-        return true;
-    }
+			}
+		}
+		return true;
+	}
 
-    @Override
-    public BaseResponsePage<OrderDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean order) {
-        Pageable p;
-        if (sortBy.length() <= 0) {
-            sortBy = "Id";
-        }
-        if (order) {
-            p = PageRequest.of(pagina, quantita, Sort.by(sortBy).ascending());
-        } else {
-            p = PageRequest.of(pagina, quantita, Sort.by(sortBy).descending());
-        }
-        Page<Order> resP = ordersRepository.findAll(p);
-        BaseResponsePage<OrderDto> baseResponsePage = new BaseResponsePage<>();
-        baseResponsePage.setPagine(resP.getTotalPages());
-        ArrayList<OrderDto> res = new ArrayList<OrderDto>();
-        for (Order orderObject : resP) {
-            res.add(modelMapper.map(orderObject, OrderDto.class));
-        }
-        baseResponsePage.setList(res);
-        return baseResponsePage;
-    }
-    public List<String> getDateBetween(Instant inizio,Instant fine){
-    	orderItemsRepository.g;
-		return null;
-    }
-    @Override
-    public List<String> getAllAmazonOrderId() {
-        return ordersRepository.findAllIds();
-    }
+	@Override
+	public BaseResponsePage<OrderDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean order) {
+		Pageable p;
+		if (sortBy.length() <= 0) {
+			sortBy = "Id";
+		}
+		if (order) {
+			p = PageRequest.of(pagina, quantita, Sort.by(sortBy).ascending());
+		} else {
+			p = PageRequest.of(pagina, quantita, Sort.by(sortBy).descending());
+		}
+		Page<Order> resP = ordersRepository.findAll(p);
+		BaseResponsePage<OrderDto> baseResponsePage = new BaseResponsePage<>();
+		baseResponsePage.setPagine(resP.getTotalPages());
+		ArrayList<OrderDto> res = new ArrayList<OrderDto>();
+		for (Order orderObject : resP) {
+			res.add(modelMapper.map(orderObject, OrderDto.class));
+		}
+		baseResponsePage.setList(res);
+		return baseResponsePage;
+	}
 
-    public OrderItemDto.OrderItemDtoList getItemsOfOrder(String idOrdine) {
-        URL url = null;
-        try {
-            url = new URL("https://projectwork.gomulgame.com/WebServiceOrders.asmx/orderitems?refresh_token=Atzr|IwEBIPGGbogA4gJ86OciHsp16r6gXmV&AmazonOrderId=" + idOrdine);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        HttpURLConnection connection;
-        InputStream responseStream;
-        OrderItemDto.OrderItemDtoList orderItemDtoList = null;
-        try {
-            connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestProperty("accept", "application/json");
-            responseStream = connection.getInputStream();
-            ObjectMapper mapper = new ObjectMapper();
-            orderItemDtoList = mapper.readValue(responseStream, OrderItemDto.OrderItemDtoList.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return orderItemDtoList;
-    }
+	public ArrayList<OrderItemDto> getDateBetween(Instant inizio, Instant fine) {
+		List<OrderItem> t = orderItemsRepository.getDateBetween(inizio, fine);
+		ArrayList<OrderItemDto> res = new ArrayList<OrderItemDto>();
+		 for (OrderItem orderObject : t) {
+				res.add(modelMapper.map(orderObject, OrderItemDto.class));
+	        }
+		return res;
+	}
 
+	@Override
+	public List<String> getAllAmazonOrderId() {
+		return ordersRepository.findAllIds();
+	}
+
+	public OrderItemDto.OrderItemDtoList getItemsOfOrder(String idOrdine) {
+		URL url = null;
+		try {
+			url = new URL(
+					"https://projectwork.gomulgame.com/WebServiceOrders.asmx/orderitems?refresh_token=Atzr|IwEBIPGGbogA4gJ86OciHsp16r6gXmV&AmazonOrderId="
+							+ idOrdine);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		HttpURLConnection connection;
+		InputStream responseStream;
+		OrderItemDto.OrderItemDtoList orderItemDtoList = null;
+		try {
+			connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestProperty("accept", "application/json");
+			responseStream = connection.getInputStream();
+			ObjectMapper mapper = new ObjectMapper();
+			orderItemDtoList = mapper.readValue(responseStream, OrderItemDto.OrderItemDtoList.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return orderItemDtoList;
+	}
 
 }
