@@ -68,6 +68,10 @@ public class OrderItem implements Serializable {
         this.orderItemId = orderItemId;
     }
 
+    public void setAmazonOrderId(Order amazonOrderId) {
+        this.amazonOrderId = amazonOrderId;
+    }
+
     public void setPointsGrantedPointsMonetaryValueAmount(Integer pointsGrantedPointsMonetaryValueAmount) {
         this.pointsGrantedPointsMonetaryValueAmount = pointsGrantedPointsMonetaryValueAmount;
     }
@@ -114,6 +118,10 @@ public class OrderItem implements Serializable {
 
     public Integer getOrderItemId() {
         return orderItemId;
+    }
+
+    public Order getAmazonOrderId() {
+        return amazonOrderId;
     }
 
     public Integer getPointsGrantedPointsMonetaryValueAmount() {
