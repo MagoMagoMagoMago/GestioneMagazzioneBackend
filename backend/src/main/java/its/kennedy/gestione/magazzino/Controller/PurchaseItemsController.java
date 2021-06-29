@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/purchaseitems")
+@RequestMapping("/api/purchaseItems")
 @Transactional
 public class PurchaseItemsController {
     @Autowired
@@ -39,7 +39,7 @@ public class PurchaseItemsController {
         return ResponseEntity.ok().body(dto);
     }
 
-    @GetMapping("prucase/{id}")
+    @GetMapping("purchase/{id}")
     public ResponseEntity<List<PurchaseItemDto>> getItemsBypurchase(@PathVariable Integer id) {
         List<PurchaseItemDto> dto = null;
         try {

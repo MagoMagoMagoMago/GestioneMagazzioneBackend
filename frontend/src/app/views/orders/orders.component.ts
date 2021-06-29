@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { OrderItemsApiService } from 'src/app/api/order-items-api.service';
 import { OrdersApiService } from 'src/app/api/orders-api.service';
 import { Column } from 'src/app/models/columns';
-import { Order } from './order';
+import { Item } from 'src/app/models/item';
+import { OrderItems } from 'src/app/models/orderItems';
+import { Order } from '../../models/order';
 
 @Component({
   selector: 'app-orders',
@@ -10,11 +13,16 @@ import { Order } from './order';
 })
 export class OrdersComponent implements OnInit {
 
-  constructor(private api: OrdersApiService) { }
+  @ViewChild('myModalClose') modalClose: any;
+
+  constructor(private orderApi: OrdersApiService, private orderItemsApi: OrderItemsApiService) { }
 
   public colOrders!: Column[];
-
+  public orderSelected: Order = new Order();
   public listaOrders!: Order[];
+  public listaOrderItems!: OrderItems[];
+  public items!: Item[] | null;
+
   //dettagli paginazione
   readonly nameOnStorage = "table_orders";
   public quantity!: number;
@@ -64,7 +72,7 @@ export class OrdersComponent implements OnInit {
   }
 
   loadOrders() {
-    this.api.getAll(this.sort.name, this.sort.orderBy, this.page, this.quantity).subscribe((resp) => {
+    this.orderApi.getAll(this.sort.name, this.sort.orderBy, this.page, this.quantity).subscribe((resp) => {
       this.listaOrders = resp.list;
       this.totalPages = resp.pagine;
     })
@@ -88,8 +96,7 @@ export class OrdersComponent implements OnInit {
       return false;
     }
   } 
-
-  
+ 
   changeVisibility(column: Column): void{
     column.visible = !column.visible;
     localStorage.setItem(this.nameOnStorage, JSON.stringify(this.colOrders));
@@ -108,4 +115,13 @@ export class OrdersComponent implements OnInit {
     this.loadOrders();
   }
 
+  //MODALE DETTAGLI ORDINE
+  openDetailsModal(order: Order): void{
+    this.orderSelected = order;
+    this.orderItemsApi.getAll(this.orderSelected.AmazonOrderId).subscribe((resp) => {
+      this.listaOrderItems = resp;
+    console.log("listaOrder", this.listaOrderItems)
+
+    })
+  }
 }

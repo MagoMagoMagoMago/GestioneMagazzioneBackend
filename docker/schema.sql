@@ -67,6 +67,16 @@ CREATE TABLE suppliers (
 	PRIMARY KEY (id)
 );
 
+
+INSERT INTO GestioneMagazzino.suppliers (name,indirizzo,telefono,nazione,note,created_at,updated_at,deleted_at,email) VALUES 
+('Bailocom','via Roma 43','3278468482','Italia','Produttore insacchi per i salumi','2021-12-14 00:00:00',NULL,NULL,'bailocom@gmail.com')
+,('Pitarello','via degli Alpini','3425485444','Italia','Produttore di scarpe in pelle di asino','2021-09-21 00:00:00',NULL,NULL,'pitarello@gmail.com')
+,('Benzo','via Verdi 21','3254541215','Italia','','2021-09-21 00:00:00',NULL,NULL,'benzo@gmail.com')
+,('Gango','Street wall 31','4234564418','Stati Uniti','Azienda di consulenze','2021-09-21 00:00:00',NULL,NULL,'gango@gmail.com')
+,('Corvallis','via Savelli 12','313121412','Italia','Servizi informatici','2021-09-21 00:00:00',NULL,NULL,'corvallis@gmail.com')
+,('Forema','via d''orata 12','3211545644','Italai','Azienda informatica','2021-09-21 00:00:00',NULL,NULL,'forema@gmail.com')
+;
+
 CREATE TABLE purchases (
 	id int auto_increment,
 	supplier_id int not null,
@@ -79,6 +89,21 @@ CREATE TABLE purchases (
 	PRIMARY KEY (id),
 	FOREIGN KEY (supplier_id) REFERENCES suppliers(id)
 );
+
+
+INSERT INTO GestioneMagazzino.purchases
+(supplier_id, number_invoice, date_invoice, note, created_at, updated_at, deleted_at)
+VALUES
+(2, 3, '2021-12-14 12:04:01', 'Scarpe di Pelle', '2021-12-14 12:04:01', NULL, NULL),
+(3, 4, '2021-12-14 12:04:01', 'Sacco a Pelo', '2021-12-14 12:04:01', NULL, NULL),
+(4, 4, '2021-12-14 12:04:01', 'Consulenza filosofica', '2021-12-14 12:04:01', NULL, NULL),
+(5, 5, '2021-12-14 12:04:01', 'App e-commerce', '2021-12-14 12:04:01', NULL, NULL),
+(5, 6, '2021-12-14 12:04:01', 'Blog acquisti vestiti', '2021-12-14 12:04:01', NULL, NULL),
+(5, 7, '2021-12-14 12:04:01', 'Consulenza IT', '2021-12-14 12:04:01', NULL, NULL),
+(2, 8, '2021-12-14 12:04:01', 'Scarpe Corsa', '2021-12-14 12:04:01', NULL, NULL),
+(2, 9, '2021-12-14 12:04:01', 'Scarponi Snowboard', '2021-12-14 12:04:01', NULL, NULL),
+(2, 10, '2021-12-14 12:04:01', 'Scarpe Skate', '2021-12-14 12:04:01', NULL, NULL),
+(1, 11, '2021-12-14 12:04:01', 'Torta alle Mele', '2021-12-14 12:04:01', NULL, NULL);
 
 CREATE TABLE purchase_items (
 	id int auto_increment,

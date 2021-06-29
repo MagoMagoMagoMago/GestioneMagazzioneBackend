@@ -8,7 +8,9 @@ export const environment = {
   endpoint: {
     items: "items",
     orders: "orders",
+    orderItems: "orderItems",
     purchases: "purchases",
+    purchaseItems: "purchaseItems",
     suppliers: "supplier",
     login: "login",
     categories: "categories"
