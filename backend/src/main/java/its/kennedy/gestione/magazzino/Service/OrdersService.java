@@ -51,6 +51,7 @@ public class OrdersService implements IOrders {
         List<String> myAmazonOrdersIds = ordersRepository.findAllIds();
         for (OrderDto order : orders.getOrders()) {
             if (!myAmazonOrdersIds.contains(order.getAmazonOrderId())) {
+
                 OrderItemDto.OrderItemDtoList orderItemDtoList = getItemsOfOrder(order.getAmazonOrderId());
                 for (OrderItemDto orderItemDto : orderItemDtoList.getOrderItems()) {
                     Item item = itemsService.getByAsin(orderItemDto.getAsin());
@@ -70,6 +71,7 @@ public class OrdersService implements IOrders {
                         //return false;
                     }
                 }
+
             }
         }
         return true;
@@ -97,6 +99,7 @@ public class OrdersService implements IOrders {
         return baseResponsePage;
     }
 
+
     @Override
     public List<String> getAllAmazonOrderId() {
         return ordersRepository.findAllIds();
@@ -105,7 +108,9 @@ public class OrdersService implements IOrders {
     public OrderItemDto.OrderItemDtoList getItemsOfOrder(String idOrdine) {
         URL url = null;
         try {
-            url = new URL("https://projectwork.gomulgame.com/WebServiceOrders.asmx/orderitems?refresh_token=Atzr|IwEBIPGGbogA4gJ86OciHsp16r6gXmV&AmazonOrderId=" + idOrdine);
+            url = new URL(
+                    "https://projectwork.gomulgame.com/WebServiceOrders.asmx/orderitems?refresh_token=Atzr|IwEBIPGGbogA4gJ86OciHsp16r6gXmV&AmazonOrderId="
+                            + idOrdine);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -123,6 +128,5 @@ public class OrdersService implements IOrders {
         }
         return orderItemDtoList;
     }
-
 
 }

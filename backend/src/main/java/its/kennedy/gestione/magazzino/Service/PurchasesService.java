@@ -3,6 +3,7 @@ package its.kennedy.gestione.magazzino.Service;
 import its.kennedy.gestione.magazzino.Dao.Purchase;
 import its.kennedy.gestione.magazzino.Dto.BaseResponsePage;
 import its.kennedy.gestione.magazzino.Dto.PurchaseDto;
+import its.kennedy.gestione.magazzino.Dto.PurchaseItemDto;
 import its.kennedy.gestione.magazzino.IService.IPurchases;
 import its.kennedy.gestione.magazzino.Repository.PurchasesRepository;
 import org.modelmapper.ModelMapper;
@@ -18,8 +19,12 @@ import java.util.ArrayList;
 
 @Service
 public class PurchasesService implements IPurchases {
+
     @Autowired
     private PurchasesRepository puchasesRepository;
+
+    @Autowired
+    private PurchaseItemsService purchaseItemsService;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -38,8 +43,8 @@ public class PurchasesService implements IPurchases {
             if (entity.getId() == null) {
                 entity.setCreatedAt(Instant.now());
             } else {
-                if(puchasesRepository.getById(entity.getId()).getCreatedAt().plusMillis(864000000).isBefore(Instant.now())) {
-                	return false;
+                if (puchasesRepository.getById(entity.getId()).getCreatedAt().plusMillis(864000000).isBefore(Instant.now())) {
+                    return false;
                 }
                 entity.setUpdatedAt(Instant.now());
             }
@@ -54,8 +59,13 @@ public class PurchasesService implements IPurchases {
     public Boolean elimina(int id) {
         try {
             Purchase entity = puchasesRepository.findById(id).get();
-            if(entity.getCreatedAt().plusMillis(864000000).isBefore(Instant.now())) {
-            	return false;
+            if (entity.getCreatedAt().plusMillis(864000000).isBefore(Instant.now())) {
+                return false;
+            }
+            for (PurchaseItemDto purchaseItem : purchaseItemsService.getByPurchase(id)) {
+                if (!purchaseItemsService.elimina(purchaseItem.getId())) {
+                    return false;
+                }
             }
             entity.setDeletedAt(Instant.now());
             puchasesRepository.saveAndFlush(entity);
