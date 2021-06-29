@@ -57,7 +57,8 @@
           <td *ngIf="colOrders[21].visible" class="align-middle" width=10%>{{order.ShippingAddressCity}}</td>
           <td *ngIf="colOrders[22].visible" class="align-middle" width=10%>{{order.ShippingStateOrRegionPostalCode}}</td>
           <td>
-            <button type="button" class="btn btn-primary btn-sm shadow-none" data-bs-toggle="modal" data-bs-target="#dettagli" style="margin-left: 25%;"><i class="bi bi-search"></i></button>
+            <button type="button" class="btn btn-primary btn-sm shadow-none" data-bs-toggle="modal" data-bs-target="#modalDetails" 
+            style="margin-left: 25%;" (click)="openDetailsModal(order)"><i class="bi bi-search"></i></button>
           </td>
         </tr>
         <tr *ngIf="isListEmpty()">
@@ -128,6 +129,58 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--MODAL DETAILS -->
+<div class="modal fade" id="modalDetails" tabindex="-1" aria-labelledby="modalDetails" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Dettagli Ordine di {{ orderSelected.BuyerName }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- lista articoli -->
+        <div class="list-group">
+          <a class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">Title</h5>
+              <small>ID Amazon  {{ orderSelected.AmazonOrderId }} </small>
+            </div>
+            <p class="mb-1">ABGDKS9HK12</p>
+            <small>Prezzo €</small>
+          </a>
+          <a class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">Carne Cotta</h5>
+              <small>Decisamente Scaduta</small>
+            </div>
+            <p class="mb-1">ABGDKS980HK</p>
+            <small>Prezzo</small>
+          </a>
+          <a class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">Bottiglietta d'Acqua</h5>
+              <small>5 days ago</small>
+            </div>
+            <p class="mb-1">FDISDO65JSD</p>
+            <small>Prezzo</small>
+          </a>
+          <a class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">Idk</h5>
+              <small>5 days ago</small>
+            </div>
+            <p class="mb-1">FDISDO65JSD</p>
+            <small>Prezzo</small>
+          </a>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" #myModalClose data-bs-dismiss="modal">Chiudi</button>
       </div>
     </div>
   </div>

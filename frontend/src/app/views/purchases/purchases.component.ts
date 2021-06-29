@@ -5,7 +5,7 @@ import { PurchasesApiService } from 'src/app/api/purchases-api.service';
 import { SupplierApiService } from 'src/app/api/supplier-api.service';
 import { Column } from 'src/app/models/columns';
 import { Supplier } from 'src/app/models/supplier';
-import { Purchases } from './purchases';
+import { Purchases } from '../../models/purchases';
 
 @Component({
   selector: 'app-purchases',
