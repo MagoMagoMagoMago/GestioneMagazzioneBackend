@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { PurchaseInsert } from '../models/purchases';
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +23,9 @@ export class PurchasesApiService {
   
   public update(item: any){
     return this.http.put(this.url, item);
+  }
+
+  public insertPurchase(purchase: PurchaseInsert): Observable<any>{
+    return this.http.put(this.url + "/insert", purchase);
   }
 }

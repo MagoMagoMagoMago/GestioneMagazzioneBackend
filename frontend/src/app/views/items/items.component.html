@@ -29,7 +29,7 @@
 
       <thead class="thead-dark table-warning header sticky-top">
         <tr>
-          <th class="image-column">
+          <th class="image-column-header">
             Immagine
           </th>
           <ng-container *ngFor="let col of colItems">
@@ -45,7 +45,11 @@
 
       <tbody>
         <tr *ngFor="let item of listaItems">
-          <td class="image-column"><img src="{{item.image}}" class="img-thumbnail" alt="Articolo"></td>
+          <td >
+            <div class="image-column">
+              <img src="{{item.image}}"  alt="Articolo">
+            </div>
+          </td>
           <td *ngIf="colItems[0].visible" class="align-middle" width=10%>{{item.asin}}</td>
           <td *ngIf="colItems[1].visible" class="align-middle" width=18%>{{item.title}}</td>
           <td *ngIf="colItems[2].visible" class="align-middle" width=30%>{{item.description}}</td>
@@ -60,7 +64,7 @@
           <td *ngIf="colItems[6].visible" class="align-middle" width=10%>{{item.minAvailability}} pezzi</td>
           <td class="align-middle" width=10%>
             <button type="button" class="btn btn-secondary btn-sm shadow-none" data-bs-toggle="modal" data-bs-target="#updateItems" (click)="onUpdateButtonClick(item)"><i class="bi bi-pencil-fill"></i></button>
-            <button type="button" class="btn btn-warning btn-sm shadow-none "><i class="bi bi-cart"></i></button>
+            <button type="button" class="btn btn-warning btn-sm shadow-none" data-bs-toggle="modal" data-bs-target="#aggiungiAlCarello" (click)="addToCard(item)"><i class="bi bi-cart"></i></button>
             <button type="button" class="btn btn-danger btn-sm shadow-none" data-bs-toggle="modal" data-bs-target="#deleteItems" (click)="openDeleteModal(item)"><i class="bi bi-trash"></i></button>
           </td>
         </tr>
@@ -218,11 +222,41 @@
           </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" #myModalClose data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" #myModalClose data-bs-dismiss="modal">Chiudi</button>
         <button type="submit" class="btn btn-primary">Salva</button>
       </div>
-      
     </form>
+    </div>
+  </div>
+</div>
+
+<!-- Add on Cart MODAL -->
+<div class="modal fade" id="aggiungiAlCarello" tabindex="-1" aria-labelledby="aggiungiAlCarelloLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Aggiungi al carello</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-8">
+            {{itemSelected.title}}:
+          </div>
+          <div class="col-sm-4">
+            <div class="input-group input-group-sm mb-3">
+              <button class="btn btn-outline-secondary" type="button" (click)="addToCardChangeQuantiity('-')">-</button>
+              <input type="number" min="1" [(ngModel)]="addToCardQuantity" class="form-control quantity" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+              <button class="btn btn-outline-secondary" type="button" (click)="addToCardChangeQuantiity('+')">+</button>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="aggiungiAlCarello()">Aggiungi</button>
+      </div>
     </div>
   </div>
 </div>

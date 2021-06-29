@@ -54,6 +54,20 @@ public class PurchasesService implements IPurchases {
         }
         return true;
     }
+    
+    @Override
+    public Integer insert(Purchase entity) {
+        try {
+            if (entity.getId() != null) {
+            	entity.setId(null);
+            }
+            entity.setCreatedAt(Instant.now());
+            entity = puchasesRepository.saveAndFlush(entity);
+        } catch (Exception e) {
+            return null;
+        }
+        return entity.getId();
+    }
 
     @Override
     public Boolean elimina(int id) {
