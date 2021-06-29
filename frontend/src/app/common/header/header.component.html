@@ -23,26 +23,10 @@
           </a>
         </li>
       </ul>
+      
       <div class="d-flex justify-content-center">
-        <div class="dropdown">
-          <a href="#" class="nav-link text-white" d="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-            <svg class="bi d-block mx-auto mb-1" width="24" height="24">
-              <use xlink:href="bootstrap-icons.svg#person-circle" />
-            </svg>
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-            <li><button class="dropdown-item" type="button">Impostazioni</button></li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li><button class="dropdown-item" type="button" (click)="logout()">Esci</button></li>
-          </ul>
-        </div>
-      </div>
-      <div class="d-flex justify-content-center">
-        <button type="button" class="btn btn-dark position-relative" data-bs-toggle="offcanvas"
+        <button type="button" class="btn btn-dark position-relative me-3" data-bs-toggle="offcanvas"
           data-bs-target="#carelloOffCanvas">
-
           <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger">
             {{cartService.getItemsOnCartSessionStorage().length || 0}}
             <span class="visually-hidden">unread messages</span>
@@ -51,11 +35,14 @@
             <use xlink:href="bootstrap-icons.svg#cart4" />
           </svg>
         </button>
+        <button type="button" class="btn btn-primary" (click)="logout()"><i class="bi bi-box-arrow-right"></i>  Esci</button>
       </div>
     </div>
   </div>
 </nav>
 
+
+<!-- CARRELLO OFFCANVAS -->
 <div class="offcanvas offcanvas-end" tabindex="-1" id="carelloOffCanvas" aria-labelledby="CarelloOFFCanvas">
   <div class="offcanvas-header">
     <h2 class="offcanvas-title" id="offcanvasExampleLabel">Carrello</h2>
@@ -64,7 +51,7 @@
   <hr>
   <div class="offcanvas-body">
     <div class="order-md-last">
-      <h5 class="d-flex justify-content-between align-items-center mb-3">
+      <h5 class="d-flex justify-content-between align-items-center mb-3" >
         <span class="text-primary">Articoli aggiunti</span>
         <span class="badge bg-primary rounded-pill">{{cartService.getItemsOnCartSessionStorage().length}}</span>
       </h5>
@@ -90,10 +77,9 @@
           <strong>€ {{cartService.getTotalAmount() | number: '1.2-2'}}</strong>
         </li>
       </ul>
-      <h5 class="d-flex justify-content-between align-items-center mb-3">
+      <h5 class="d-flex justify-content-between align-items-center mb-3" *ngIf="cartService.getItemsOnCartSessionStorage().length != 0">
         <span class="text-primary">Dettagli dell'acquisto</span>
       </h5>
-      
       <ul class="list-group mb-3" *ngIf="cartService.getItemsOnCartSessionStorage().length != 0">
         <li class="list-group-item">
           <div class="row mt-1">

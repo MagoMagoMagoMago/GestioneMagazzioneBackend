@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
@@ -17,7 +17,7 @@ import { Navbar } from './navbar';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   visible!: boolean;
   quantityItemsToCard!: number;
   public navbar: Navbar[] = [
@@ -77,10 +77,15 @@ export class HeaderComponent implements OnInit {
       this.suppliers = resp;
     });
   }
+    
+  ngOnDestroy(): void {
+    this.logout();
+  }
 
   logout(): void{
     this.authService.logout().subscribe( () =>{
       this.router.navigate(['']);
+      sessionStorage.clear();
     });
   }
 
