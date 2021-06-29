@@ -29,7 +29,6 @@
             <svg class="bi d-block mx-auto mb-1" width="24" height="24">
               <use xlink:href="bootstrap-icons.svg#person-circle" />
             </svg>
-            Profilo
           </a>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
             <li><button class="dropdown-item" type="button">Impostazioni</button></li>
@@ -65,10 +64,10 @@
   <hr>
   <div class="offcanvas-body">
     <div class="order-md-last">
-      <h4 class="d-flex justify-content-between align-items-center mb-3">
+      <h5 class="d-flex justify-content-between align-items-center mb-3">
         <span class="text-primary">Articoli aggiunti</span>
         <span class="badge bg-primary rounded-pill">{{cartService.getItemsOnCartSessionStorage().length}}</span>
-      </h4>
+      </h5>
       <ul class="list-group mb-3" *ngIf="cartService.getItemsOnCartSessionStorage().length != 0">
         <li class="list-group-item d-flex justify-content-between lh-sm  px-3 py-3"
           *ngFor="let itemToCard of cartService.getItemsOnCartSessionStorage()">
@@ -90,6 +89,12 @@
           <span>Totale</span>
           <strong>€ {{cartService.getTotalAmount() | number: '1.2-2'}}</strong>
         </li>
+      </ul>
+      <h5 class="d-flex justify-content-between align-items-center mb-3">
+        <span class="text-primary">Dettagli dell'acquisto</span>
+      </h5>
+      
+      <ul class="list-group mb-3" *ngIf="cartService.getItemsOnCartSessionStorage().length != 0">
         <li class="list-group-item">
           <div class="row mt-1">
             <div class="col">
