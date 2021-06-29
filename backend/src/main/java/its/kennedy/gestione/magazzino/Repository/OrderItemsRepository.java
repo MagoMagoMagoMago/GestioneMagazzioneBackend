@@ -1,5 +1,6 @@
 package its.kennedy.gestione.magazzino.Repository;
 
+import its.kennedy.gestione.magazzino.Dao.Order;
 import its.kennedy.gestione.magazzino.Dao.OrderItem;
 import its.kennedy.gestione.magazzino.Dto.Grafo1dto;
 import its.kennedy.gestione.magazzino.Dto.Grafo2dto;
