@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.Instant;
 import java.util.List;
 
 @RestController
@@ -25,6 +26,16 @@ public class OrderItemsController {
         List<OrderItemDto> orderItemDtoList = null;
         try {
             orderItemDtoList = orderItemsService.getAllByAmazonOrderId(amazonOrderId);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(orderItemDtoList);
+    }
+    @GetMapping("between/{inizio}/{fine}")
+    public ResponseEntity<List<OrderItemDto>> getOrderItemsByAmazonOrderId(@PathVariable Instant inizio,) {
+        List<OrderItemDto> orderItemDtoList = null;
+        try {
+            orderItemDtoList = orderItemsService.getDateBetween(inizio, fine);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
