@@ -33,8 +33,9 @@ public class OrderItemsController {
         }
         return ResponseEntity.ok().body(orderItemDtoList);
     }
-    @GetMapping("between/{inizio}/{fine}")
-    public ResponseEntity<List<OrderItemDto>> getOrderItemsByAmazonOrderId(@PathVariable Instant inizio,) {
+
+	@GetMapping("between/{inizio}/{fine}")
+    public ResponseEntity<List<OrderItemDto>> getOrderItemsByAmazonOrderId(@PathVariable Instant inizio,@PathVariable Instant fine) {
         List<OrderItemDto> orderItemDtoList = null;
         try {
             orderItemDtoList = orderItemsService.getDateBetween(inizio, fine);
