@@ -51,28 +51,25 @@ public class OrdersService implements IOrders {
         List<String> myAmazonOrdersIds = ordersRepository.findAllIds();
         for (OrderDto order : orders.getOrders()) {
             if (!myAmazonOrdersIds.contains(order.getAmazonOrderId())) {
-
                 OrderItemDto.OrderItemDtoList orderItemDtoList = getItemsOfOrder(order.getAmazonOrderId());
                 for (OrderItemDto orderItemDto : orderItemDtoList.getOrderItems()) {
                     Item item = itemsService.getByAsin(orderItemDto.getAsin());
                     try {
-                        item.getStorage();
+                        if (item.getStorage() < orderItemDto.getQuantityOrdered()) {
+                            order.setOrderSuccess(false);
+                            orderItemDto.setOrderSuccess(false);
+                        } else {
+                            order.setOrderSuccess(true);
+                            orderItemDto.setOrderSuccess(true);
+                            item.setStorage(item.getStorage() - orderItemDto.getQuantityOrdered());
+                            itemsService.addOrUpdate(item);
+                        }
+                        ordersRepository.save(modelMapper.map(order, Order.class));
+                        orderItemsRepository.save(modelMapper.map(orderItemDto, OrderItem.class));
                     } catch (Exception e) {
-                        return false;
+                        //return false;
                     }
-                    if (item.getStorage() < orderItemDto.getQuantityOrdered()) {
-                        order.setOrderSuccess(false);
-                        orderItemDto.setOrderSuccess(false);
-                    } else {
-                        order.setOrderSuccess(true);
-                        orderItemDto.setOrderSuccess(true);
-                        item.setStorage(item.getStorage() - orderItemDto.getQuantityOrdered());
-                        itemsService.addOrUpdate(item);
-                    }
-                    ordersRepository.save(modelMapper.map(order, Order.class));
-                    orderItemsRepository.save(modelMapper.map(orderItemDto, OrderItem.class));
                 }
-
             }
         }
         return true;

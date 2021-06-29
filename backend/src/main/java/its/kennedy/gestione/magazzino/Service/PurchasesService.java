@@ -26,12 +26,10 @@ public class PurchasesService implements IPurchases {
 
     @Override
     public PurchaseDto getById(Integer id) {
-        try {
-            return modelMapper.map(puchasesRepository.findById(id).get(), PurchaseDto.class);
-        } catch (Exception e) {
-            return null;
-        }
-
+        Purchase purchase = puchasesRepository.getById(id);
+        PurchaseDto purchaseDto = modelMapper.map(purchase, PurchaseDto.class);
+        purchaseDto.setSupplier(purchase.getSupplier().getName());
+        return purchaseDto;
     }
 
     @Override
@@ -40,6 +38,9 @@ public class PurchasesService implements IPurchases {
             if (entity.getId() == null) {
                 entity.setCreatedAt(Instant.now());
             } else {
+                if(puchasesRepository.getById(entity.getId()).getCreatedAt().plusMillis(864000000).isBefore(Instant.now())) {
+                	return false;
+                }
                 entity.setUpdatedAt(Instant.now());
             }
             puchasesRepository.saveAndFlush(entity);
@@ -53,6 +54,9 @@ public class PurchasesService implements IPurchases {
     public Boolean elimina(int id) {
         try {
             Purchase entity = puchasesRepository.findById(id).get();
+            if(entity.getCreatedAt().plusMillis(864000000).isBefore(Instant.now())) {
+            	return false;
+            }
             entity.setDeletedAt(Instant.now());
             puchasesRepository.saveAndFlush(entity);
         } catch (Exception e) {
@@ -77,7 +81,9 @@ public class PurchasesService implements IPurchases {
         baseResponsePage.setPagine(resP.getTotalPages());
         ArrayList<PurchaseDto> res = new ArrayList<PurchaseDto>();
         for (Purchase purchase : resP) {
-            res.add(modelMapper.map(purchase, PurchaseDto.class));
+            PurchaseDto purchaseDto = modelMapper.map(purchase, PurchaseDto.class);
+            purchaseDto.setSupplier(purchase.getSupplier().getName());
+            res.add(purchaseDto);
         }
         baseResponsePage.setList(res);
         return baseResponsePage;

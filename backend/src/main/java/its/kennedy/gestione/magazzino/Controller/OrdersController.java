@@ -9,8 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/orders")
 @Transactional
@@ -23,7 +21,6 @@ public class OrdersController {
     public ResponseEntity<OrderDto> getItemsById(@PathVariable String id) {
         OrderDto dto = null;
         try {
-            ordersService.getAllAmazonOrderId();
             dto = ordersService.getById(id);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();

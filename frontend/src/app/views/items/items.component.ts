@@ -6,7 +6,7 @@ import { CategoryApiService } from 'src/app/api/category-api.service';
 import { ItemApiService } from 'src/app/api/item-api.service';
 import { Category } from 'src/app/models/category';
 import { Column } from 'src/app/models/columns';
-import { Item } from './item';
+import { Item } from '../../models/item';
 
 
 @Component({
