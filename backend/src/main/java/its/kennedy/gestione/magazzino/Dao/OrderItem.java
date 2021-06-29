@@ -20,9 +20,9 @@ public class OrderItem implements Serializable {
     @Column(name = "OrderItemId")
     private Integer orderItemId;
 
-    @Column(name = "AmazonOrderId", length = 19)
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Order amazonOrderId;
+    @JoinColumn(name =  "AmazonOrderId", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Order order;
 
     @NotNull
     @Column(name = "ASIN", length = 10, nullable = false)
@@ -69,7 +69,7 @@ public class OrderItem implements Serializable {
     }
 
     public void setAmazonOrderId(Order amazonOrderId) {
-        this.amazonOrderId = amazonOrderId;
+        this.order = amazonOrderId;
     }
 
     public void setPointsGrantedPointsMonetaryValueAmount(Integer pointsGrantedPointsMonetaryValueAmount) {
@@ -121,7 +121,7 @@ public class OrderItem implements Serializable {
     }
 
     public Order getAmazonOrderId() {
-        return amazonOrderId;
+        return order;
     }
 
     public Integer getPointsGrantedPointsMonetaryValueAmount() {
@@ -188,7 +188,7 @@ public class OrderItem implements Serializable {
     public String toString() {
         return "OrderItemsDao{" +
                 "orderItemId=" + orderItemId +
-                ", amazonOrderId='" + amazonOrderId + '\'' +
+                ", amazonOrderId='" + order + '\'' +
                 ", asin='" + asin + '\'' +
                 ", title='" + title + '\'' +
                 ", quantityOrdered=" + quantityOrdered +
