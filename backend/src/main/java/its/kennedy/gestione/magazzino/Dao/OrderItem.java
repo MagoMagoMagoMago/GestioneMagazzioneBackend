@@ -20,8 +20,9 @@ public class OrderItem implements Serializable {
     @Column(name = "OrderItemId")
     private Integer orderItemId;
 
-    @Column(name = "AmazonOrderId", length = 19)
-    private String amazonOrderId;
+    @JoinColumn(name = "AmazonOrderId", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Order order;
 
     @NotNull
     @Column(name = "ASIN", length = 10, nullable = false)
@@ -65,10 +66,6 @@ public class OrderItem implements Serializable {
 
     public void setOrderItemId(Integer orderItemId) {
         this.orderItemId = orderItemId;
-    }
-
-    public void setAmazonOrderId(String amazonOrderId) {
-        this.amazonOrderId = amazonOrderId;
     }
 
     public void setPointsGrantedPointsMonetaryValueAmount(Integer pointsGrantedPointsMonetaryValueAmount) {
@@ -117,10 +114,6 @@ public class OrderItem implements Serializable {
 
     public Integer getOrderItemId() {
         return orderItemId;
-    }
-
-    public String getAmazonOrderId() {
-        return amazonOrderId;
     }
 
     public Integer getPointsGrantedPointsMonetaryValueAmount() {
@@ -183,24 +176,12 @@ public class OrderItem implements Serializable {
         this.orderSuccess = orderSuccess;
     }
 
-    @Override
-    public String toString() {
-        return "OrderItemsDao{" +
-                "orderItemId=" + orderItemId +
-                ", amazonOrderId='" + amazonOrderId + '\'' +
-                ", asin='" + asin + '\'' +
-                ", title='" + title + '\'' +
-                ", quantityOrdered=" + quantityOrdered +
-                ", QuantityShipped=" + QuantityShipped +
-                ", pointsGrantedPointsNumber=" + pointsGrantedPointsNumber +
-                ", AmazonOrderId='" + pointsGrantedPointsMonetaryValueCurrencyCode + '\'' +
-                ", pointsGrantedPointsMonetaryValueAmount=" + pointsGrantedPointsMonetaryValueAmount +
-                ", itemPriceCurrencyCode='" + itemPriceCurrencyCode + '\'' +
-                ", itemPriceAmount=" + itemPriceAmount +
-                ", shippingPriceCurrencyCode='" + shippingPriceCurrencyCode + '\'' +
-                ", ShippingPriceAmount=" + ShippingPriceAmount +
-                ", promotionIds='" + promotionIds + '\'' +
-                '}';
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     @Override
@@ -213,26 +194,48 @@ public class OrderItem implements Serializable {
         }
         OrderItem orderItem = (OrderItem) o;
         return getOrderItemId().equals(orderItem.getOrderItemId())
-                && Objects.equals(getAmazonOrderId(), orderItem.getAmazonOrderId())
+                && Objects.equals(getOrder(), orderItem.getOrder())
                 && getAsin().equals(orderItem.getAsin())
                 && Objects.equals(getTitle(), orderItem.getTitle())
                 && Objects.equals(getQuantityOrdered(), orderItem.getQuantityOrdered())
                 && Objects.equals(getQuantityShipped(), orderItem.getQuantityShipped())
                 && Objects.equals(getPointsGrantedPointsNumber(), orderItem.getPointsGrantedPointsNumber())
-                && Objects.equals(pointsGrantedPointsMonetaryValueCurrencyCode, orderItem.pointsGrantedPointsMonetaryValueCurrencyCode)
+                && Objects.equals(getPointsGrantedPointsMonetaryValueCurrencyCode(), orderItem.getPointsGrantedPointsMonetaryValueCurrencyCode())
                 && Objects.equals(getPointsGrantedPointsMonetaryValueAmount(), orderItem.getPointsGrantedPointsMonetaryValueAmount())
                 && Objects.equals(getItemPriceCurrencyCode(), orderItem.getItemPriceCurrencyCode())
                 && Objects.equals(getItemPriceAmount(), orderItem.getItemPriceAmount())
                 && Objects.equals(getShippingPriceCurrencyCode(), orderItem.getShippingPriceCurrencyCode())
                 && Objects.equals(getShippingPriceAmount(), orderItem.getShippingPriceAmount())
-                && Objects.equals(getPromotionIds(), orderItem.getPromotionIds());
+                && Objects.equals(getPromotionIds(), orderItem.getPromotionIds())
+                && Objects.equals(getOrderSuccess(), orderItem.getOrderSuccess());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getOrderItemId(), getAmazonOrderId(), getAsin(), getTitle(), getQuantityOrdered(),
-                getQuantityShipped(), getPointsGrantedPointsNumber(), pointsGrantedPointsMonetaryValueCurrencyCode,
+        return Objects.hash(getOrderItemId(), getOrder(), getAsin(), getTitle(), getQuantityOrdered(),
+                getQuantityShipped(), getPointsGrantedPointsNumber(), getPointsGrantedPointsMonetaryValueCurrencyCode(),
                 getPointsGrantedPointsMonetaryValueAmount(), getItemPriceCurrencyCode(), getItemPriceAmount(),
-                getShippingPriceCurrencyCode(), getShippingPriceAmount(), getPromotionIds());
+                getShippingPriceCurrencyCode(), getShippingPriceAmount(), getPromotionIds(), getOrderSuccess());
+    }
+
+    @Override
+    public String toString() {
+        return "OrderItem{" +
+                "orderItemId=" + orderItemId +
+                ", order=" + order +
+                ", asin='" + asin + '\'' +
+                ", title='" + title + '\'' +
+                ", quantityOrdered=" + quantityOrdered +
+                ", QuantityShipped=" + QuantityShipped +
+                ", pointsGrantedPointsNumber=" + pointsGrantedPointsNumber +
+                ", pointsGrantedPointsMonetaryValueCurrencyCode='" + pointsGrantedPointsMonetaryValueCurrencyCode + '\'' +
+                ", pointsGrantedPointsMonetaryValueAmount=" + pointsGrantedPointsMonetaryValueAmount +
+                ", itemPriceCurrencyCode='" + itemPriceCurrencyCode + '\'' +
+                ", itemPriceAmount=" + itemPriceAmount +
+                ", shippingPriceCurrencyCode='" + shippingPriceCurrencyCode + '\'' +
+                ", ShippingPriceAmount=" + ShippingPriceAmount +
+                ", promotionIds='" + promotionIds + '\'' +
+                ", orderSuccess=" + orderSuccess +
+                '}';
     }
 }
