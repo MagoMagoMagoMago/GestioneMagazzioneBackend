@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { PurchaseItemsApiService } from 'src/app/api/purchase-items-api.service';
 import { PurchasesApiService } from 'src/app/api/purchases-api.service';
 import { SupplierApiService } from 'src/app/api/supplier-api.service';
 import { Column } from 'src/app/models/columns';
+import { PurchaseItems } from 'src/app/models/purchaseItems';
 import { Supplier } from 'src/app/models/supplier';
 import { Purchases } from '../../models/purchases';
 
@@ -17,14 +19,16 @@ export class PurchasesComponent implements OnInit {
   @ViewChild('myModalClose') modalClose: any;
 
   constructor(
-    public purchasesApi: PurchasesApiService,
-    public supplierApi: SupplierApiService,
+    private purchasesApi: PurchasesApiService,
+    private supplierApi: SupplierApiService,
+    private purchaseItemsApi: PurchaseItemsApiService,
     public fb: FormBuilder,
     public toast: ToastrService
     ) { }
 
   public colPurchases!: Column[];
   public listaPurchases!: Purchases[];
+  public listaPurchaseItems!: PurchaseItems[];
   public purchaseSelected: Purchases = new Purchases();
   public suppliers!: Supplier[] | null;
   submitted: boolean = false;
@@ -54,7 +58,7 @@ export class PurchasesComponent implements OnInit {
       this.colPurchases = JSON.parse(localStorage.getItem(this.nameOnStorage)!) as Column[];
     }else{
       this.colPurchases = [
-        { name: "number_invoice", text: "Numero Acquisto",  visible: true },
+        { name: "number_invoice", text: "N. Fattura",  visible: true },
         { name: "note", text: "Descrizione",  visible: true },
         { name: "date_invoice", text: "Data", visible: true},
         { name: "supplier", text: "Fornitore", visible: true}, 
@@ -133,7 +137,7 @@ export class PurchasesComponent implements OnInit {
     this.updateForm.controls['supplier'].setValue({id: this.updateForm.get("supplier")?.value});
     this.purchasesApi.update(this.updateForm.value).subscribe(
       (success) => { 
-        this.toast.success("Articolo modificato con successo.", "Modifica"); 
+        this.toast.success("Acquisto modificato con successo.", "Modifica"); 
         this.loadPurchases();
         this.modalClose.nativeElement.click();
       },
@@ -143,6 +147,16 @@ export class PurchasesComponent implements OnInit {
         this.toast.error("Errore riscontrato nella modifica.", "Modifica") 
       }
     );
+  }
+
+  //MODALE ARTICOLI PER ACQUISTO
+  openDetailsModal(purchase: Purchases): void{
+    this.purchaseSelected = purchase;
+    console.log("purchaseSelected", this.purchaseSelected)
+    this.purchaseItemsApi.getAll(this.purchaseSelected.id).subscribe((resp) => {
+      this.listaPurchaseItems = resp;
+      console.log("listaOrder", this.listaPurchaseItems)
+    })
   }
 
   onChangePurchasePerPage(orderPerPage: string): void{

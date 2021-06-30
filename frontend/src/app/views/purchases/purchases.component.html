@@ -1,27 +1,29 @@
 <div class="container py-2">
 
-    <div class="row">
-      <div class="col d-flex justify-content-center">
-        <h1 class="display-5 text-white">Lista Acquisti</h1>
-      </div>
+  <div class="row">
+    <div class="col d-flex justify-content-center">
+      <h1 class="display-5 text-white">Lista Acquisti</h1>
     </div>
-  
-    <div class="row">
-      <!-- IMPOSTAZIONI -->
-      <div class="col d-flex align-items-center">
-        <button class="btn btn-light shadow-none" role="button" data-bs-toggle="modal" data-bs-target="#configModal">
-          <i class="bi bi-gear-wide-connected"></i> Impostazioni
-        </button>
-      </div>
+  </div>
 
-  <!-- TABELLA -->
+  <div class="row">
+    <!-- IMPOSTAZIONI -->
+    <div class="col d-flex align-items-center">
+      <button class="btn btn-light shadow-none" role="button" data-bs-toggle="modal" data-bs-target="#configModal">
+        <i class="bi bi-gear-wide-connected"></i> Impostazioni
+      </button>
+    </div>
+
+    <!-- TABELLA -->
     <div class="table-responsive-xl pt-2">
       <table class="table table-light table-striped">
         <thead class="thead-dark table-warning header sticky-top">
           <tr>
             <ng-container *ngFor="let col of colPurchases">
               <th class="th" *ngIf="col.visible" (click)="changePurchasesBy(col)">
-                {{ col.text }} <i class="bi bi-caret-down-square-fill" *ngIf="col.name === sort.name" [ngClass]="{'bi-caret-down-square-fill': sort.orderBy == true, 'bi-caret-up-square-fill': sort.orderBy == false}"></i></th>
+                {{ col.text }} <i class="bi bi-caret-down-square-fill" *ngIf="col.name === sort.name"
+                  [ngClass]="{'bi-caret-down-square-fill': sort.orderBy == true, 'bi-caret-up-square-fill': sort.orderBy == false}"></i>
+              </th>
             </ng-container>
             <th>
               Operazioni
@@ -32,13 +34,21 @@
           <tr *ngFor="let purchase of listaPurchases">
             <td *ngIf="colPurchases[0].visible" class="align-middle" width=20%>{{purchase.number_invoice}}</td>
             <td *ngIf="colPurchases[1].visible" class="align-middle" width=20%>{{purchase.note}}</td>
-            <td *ngIf="colPurchases[2].visible" class="align-middle" width=20% >{{purchase.date_invoice  | date: 'dd/MM/yyyy'}}</td>
+            <td *ngIf="colPurchases[2].visible" class="align-middle" width=20%>{{purchase.date_invoice | date:
+              'dd/MM/yyyy'}}</td>
             <td *ngIf="colPurchases[3].visible" class="align-middle" width=20%>{{purchase.supplier}}</td>
             <td class="align-middle" width=10%>
-              <button type="button" class="btn btn-secondary btn-sm shadow-none" data-bs-toggle="modal" data-bs-target="#updatePurchase" (click)="onUpdateButtonClick(purchase)" style="margin: 2%;"><i class="bi bi-pencil-fill"></i></button>
-              <button type="button" class="btn btn-danger btn-sm shadow-none" data-bs-toggle="modal" data-bs-target="#deletePurchase" (click)="openDeleteModal(purchase)"><i class="bi bi-trash"></i></button>
-            </td>      
-        </tr>
+              <button type="button" class="btn btn-secondary btn-sm shadow-none" data-bs-toggle="modal"
+                data-bs-target="#updatePurchase" (click)="onUpdateButtonClick(purchase)" style="margin: 2%;"><i
+                  class="bi bi-pencil-fill"></i></button>
+              <button type="button" class="btn btn-danger btn-sm shadow-none" data-bs-toggle="modal"
+                data-bs-target="#deletePurchase" (click)="openDeleteModal(purchase)" style="margin: 2%;"><i
+                  class="bi bi-trash"></i></button>
+              <button type="button" class="btn btn-primary btn-sm shadow-none" data-bs-toggle="modal"
+                data-bs-target="#modalDetails" style="margin: 2%;" (click)="openDetailsModal(purchase)"><i
+                  class="bi bi-search"></i></button>
+            </td>
+          </tr>
           <tr *ngIf="isListEmpty()">
             <td class="text-center align-middle not-found" colspan="100%">
               Nessun risultato trovato
@@ -47,27 +57,27 @@
         </tbody>
       </table>
     </div>
-  
+
     <!-- PAGINATION  -->
     <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center">
         <li class="page-item" [ngClass]="{'disabled': page == 0}">
           <a class="page-link" (click)="changePage(page - 1)">Previous</a>
         </li>
-  
+
         <ng-container *ngFor="let x of [].constructor(totalPages); let i = index">
-          <li class="page-item" [ngClass]="{'active': i == page}" >
+          <li class="page-item" [ngClass]="{'active': i == page}">
             <a class="page-link" (click)="changePage(i)">{{i + 1}}</a>
           </li>
         </ng-container>
-        
+
         <li class="page-item" [ngClass]="{'disabled': page == totalPages - 1}">
           <a class="page-link" (click)="changePage(page + 1)">Next</a>
         </li>
       </ul>
     </nav>
   </div>
-  
+
   <!-- CONFGIURATION MODAL -->
   <div class="modal fade" id="configModal" tabindex="-1" aria-labelledby="configModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -79,10 +89,11 @@
         <div class="modal-body">
           <div class="row">
             <div class="col-sm">
-              Articoli per pagina: 
+              Articoli per pagina:
             </div>
             <div class="col-sm">
-              <select class="form-select shadow-lg" aria-label="Default select example" #purchasePerPage (change)="onChangePurchasePerPage(purchasePerPage.value)">  
+              <select class="form-select shadow-lg" aria-label="Default select example" #purchasePerPage
+                (change)="onChangePurchasePerPage(purchasePerPage.value)">
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="20">20</option>
@@ -112,71 +123,101 @@
     </div>
   </div>
 
-<!-- DELETE MODAL -->
-<div class="modal fade" id="deletePurchase" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Eliminazione</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Sei sicuro di voler eliminare l'acquisto '{{purchaseSelected.number_invoice}}'?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deletePurchase(purchaseSelected.id)">Elimina</button>
+  <!-- DELETE MODAL -->
+  <div class="modal fade" id="deletePurchase" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Eliminazione</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Sei sicuro di voler eliminare l'acquisto '{{purchaseSelected.number_invoice}}'?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+            (click)="deletePurchase(purchaseSelected.id)">Elimina</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- UPDATE MODAL -->
-<div class="modal fade" id="updatePurchase" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modifica Acquisto</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <form [formGroup]="updateForm" (ngSubmit)="onSubmitUpdate()">
-      <div class="modal-body">
-        <div class="row">
-          <div class=" col mb-2">
-            <label for="number_invoice" class="col-form-label">Numero Acquisto:</label>
-            <input type="text" class="form-control" id="number_invoice" formControlName="number_invoice" readonly>
-          </div>
+  <!-- UPDATE MODAL -->
+  <div class="modal fade" id="updatePurchase" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modifica Acquisto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="row">
-          <div class="col mb-2">
-            <label for="note" class="col-form-label">Descrizione:</label>
-            <input type="text" class="form-control" id="note" formControlName="note">
-          </div>
-        </div>
-          <div class="row">
-            <div class="col mb-2">
+        <form [formGroup]="updateForm" (ngSubmit)="onSubmitUpdate()">
+          <div class="modal-body">
+            <div class="row">
+              <div class=" col mb-2">
+                <label for="number_invoice" class="col-form-label">Numero Acquisto:</label>
+                <input type="text" class="form-control" id="number_invoice" formControlName="number_invoice" readonly>
+              </div>
+            </div>
+            <div class="row">
               <div class="col mb-2">
-                <label for="supplier" class="col-form-label">Fornitore:</label>
-                <select class="form-select" aria-label="Default select example" formControlName="supplier">
-                  <ng-container *ngFor="let supplier of suppliers">
-                    <option value="{{supplier.id}}">{{supplier.name}}</option>
-                  </ng-container>
-                </select>
+                <label for="note" class="col-form-label">Descrizione:</label>
+                <input type="text" class="form-control" id="note" formControlName="note">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col mb-2">
+                <div class="col mb-2">
+                  <label for="supplier" class="col-form-label">Fornitore:</label>
+                  <select class="form-select" aria-label="Default select example" formControlName="supplier">
+                    <ng-container *ngFor="let supplier of suppliers">
+                      <option value="{{supplier.id}}">{{supplier.name}}</option>
+                    </ng-container>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col mb-2">
+                <label for="date_invoice" class="col-form-label">Data Acquisto:</label>
+                <input class="form-control" id="date_invoice" formControlName="date_invoice" readonly>
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col mb-2">
-              <label for="date_invoice" class="col-form-label">Data Acquisto:</label>
-              <input class="form-control" id="date_invoice" formControlName="date_invoice" readonly>
-            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" #myModalClose data-bs-dismiss="modal">Chiudi</button>
+            <button type="submit" class="btn btn-primary">Salva</button>
           </div>
-        </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" #myModalClose data-bs-dismiss="modal">Chiudi</button>
-        <button type="submit" class="btn btn-primary">Salva</button>
+        </form>
       </div>
-    </form>
     </div>
   </div>
-</div>
+  <!--MODAL ARTICOLI -->
+  <div class="modal fade" id="modalDetails" tabindex="-1" aria-labelledby="modalDetails" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Dettagli Ordine Fattura N. {{ purchaseSelected.id }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- lista articoli -->
+          <div class="list-group">
+            <ng-container *ngFor="let purchaseItem of listaPurchaseItems">
+              <div class="list-group-item list-group-item-warning flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1">{{purchaseItem.item_id}}</h5>
+                  <small>{{purchaseItem.created_at | date: 'dd/MM/yyyy'}}</small>
+                </div>              
+                <p class="mb-1">Fornitore: {{ purchaseSelected.supplier }}</p>
+                <p class="mb-1">Prezzo Articolo: <b>{{purchaseItem.unit_price}} €</b></p>
+                <p class="mb-1">Quantità: {{purchaseItem.quantity}} </p>
+              </div>
+            </ng-container>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" #myModalClose data-bs-dismiss="modal">Chiudi</button>
+          </div>
+        </div>
+      </div>
+    </div>
