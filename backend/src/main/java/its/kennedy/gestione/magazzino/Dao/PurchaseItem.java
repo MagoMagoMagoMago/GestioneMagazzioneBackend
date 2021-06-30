@@ -117,7 +117,7 @@ public class PurchaseItem implements Serializable {
         return "PurchaseItemsDao{" +
                 "id=" + id +
                 ", purchase_id=" + purchase_id +
-                ", item_id=" + item +
+                ", item_id=" + item.getTitle() +
                 ", quantity=" + quantity +
                 ", unit_price=" + unit_price +
                 ", created_at=" + created_at +
@@ -137,7 +137,7 @@ public class PurchaseItem implements Serializable {
         PurchaseItem that = (PurchaseItem) o;
         return getId().equals(that.getId())
                 && getPurchase_id().equals(that.getPurchase_id())
-                && getItem().equals(that.getItem())
+                && getItem().getTitle().equals(that.getItem().getTitle())
                 && getQuantity().equals(that.getQuantity())
                 && getUnit_price().equals(that.getUnit_price())
                 && getCreated_at().equals(that.getCreated_at())
@@ -147,7 +147,7 @@ public class PurchaseItem implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getPurchase_id(), getItem(), getQuantity(), getUnit_price(), getCreated_at(),
+        return Objects.hash(getId(), getPurchase_id(), getItem().getTitle(), getQuantity(), getUnit_price(), getCreated_at(),
                 getUpdated_at(), getDeleted_at());
     }
 }
