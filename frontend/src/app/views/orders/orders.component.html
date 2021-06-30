@@ -20,7 +20,9 @@
         <tr>
           <ng-container *ngFor="let col of colOrders">
             <th class="th" *ngIf="col.visible" (click)="changeOrderBy(col)">
-              {{ col.text }} <i class="bi bi-caret-down-square-fill" *ngIf="col.name === sort.name" [ngClass]="{'bi-caret-down-square-fill': sort.orderBy == true, 'bi-caret-up-square-fill': sort.orderBy == false}"></i></th>
+              {{ col.text }} <i class="bi bi-caret-down-square-fill" *ngIf="col.name === sort.name"
+                [ngClass]="{'bi-caret-down-square-fill': sort.orderBy == true, 'bi-caret-up-square-fill': sort.orderBy == false}"></i>
+            </th>
           </ng-container>
           <th>
             Operazioni
@@ -30,15 +32,17 @@
       <tbody>
         <tr *ngFor="let order of listaOrders">
           <td *ngIf="colOrders[0].visible" class="align-middle" width=10%
-          [ngClass]="{'text-success': order.OrderStatus == 'Shipped', 'text-danger': order.OrderStatus != 'Shipped'}">
-          <i class="bi bi-exclamation-circle-fill" *ngIf="order.OrderStatus != 'Shipped'"></i>
-          <i class="bi bi-check-circle-fill" *ngIf="order.OrderStatus == 'Shipped'"></i>
-          {{order.OrderStatus}}</td>  
+            [ngClass]="{'text-success': order.OrderStatus == 'Shipped', 'text-danger': order.OrderStatus != 'Shipped'}">
+            <i class="bi bi-exclamation-circle-fill" *ngIf="order.OrderStatus != 'Shipped'"></i>
+            <i class="bi bi-check-circle-fill" *ngIf="order.OrderStatus == 'Shipped'"></i>
+            {{order.OrderStatus}}
+          </td>
           <td *ngIf="colOrders[1].visible" class="align-middle" width=20%>{{order.OrderType}}</td>
           <td *ngIf="colOrders[2].visible" class="align-middle" width=20%>{{order.AmazonOrderId}}</td>
           <td *ngIf="colOrders[3].visible" class="align-middle" width=20%>{{order.BuyerName}}</td>
           <td *ngIf="colOrders[4].visible" class="align-middle" width=20%>{{order.BuyerEmail}}</td>
-          <td *ngIf="colOrders[5].visible" class="align-middle" width=20%>{{order.EarliestShipDate | date: 'dd/MM/yyyy'}}</td>
+          <td *ngIf="colOrders[5].visible" class="align-middle" width=20%>{{order.EarliestShipDate | date:
+            'dd/MM/yyyy'}}</td>
           <td *ngIf="colOrders[6].visible" class="align-middle" width=20%>{{order.FulfillmentChannel}}</td>
           <td *ngIf="colOrders[7].visible" class="align-middle" width=20%>{{order.IsBusinessOrder}}</td>
           <td *ngIf="colOrders[8].visible" class="align-middle" width=20%>{{order.IsPremiumOrder}}</td>
@@ -50,15 +54,18 @@
           <td *ngIf="colOrders[14].visible" class="align-middle" width=20%>{{order.PaymentMethod}}</td>
           <td *ngIf="colOrders[15].visible" class="align-middle" width=20%>{{order.PaymentMethodDetails}}</td>
           <td *ngIf="colOrders[16].visible" class="align-middle" width=20%>{{order.PurchaseOrderNumber}}</td>
-          <td *ngIf="colOrders[17].visible" class="align-middle" width=20%>{{order.PurchaseDate  | date: 'dd/MM/yyyy'}}</td>
+          <td *ngIf="colOrders[17].visible" class="align-middle" width=20%>{{order.PurchaseDate | date: 'dd/MM/yyyy'}}
+          </td>
           <td *ngIf="colOrders[18].visible" class="align-middle" width=20%>{{order.ShipmentServiceLevelCategory}}</td>
           <td *ngIf="colOrders[19].visible" class="align-middle" width=20%>{{order.ShippingAddressLine1}}</td>
           <td *ngIf="colOrders[20].visible" class="align-middle" width=20%>{{order.ShippingCityStateOrRegion}}</td>
           <td *ngIf="colOrders[21].visible" class="align-middle" width=10%>{{order.ShippingAddressCity}}</td>
-          <td *ngIf="colOrders[22].visible" class="align-middle" width=10%>{{order.ShippingStateOrRegionPostalCode}}</td>
+          <td *ngIf="colOrders[22].visible" class="align-middle" width=10%>{{order.ShippingStateOrRegionPostalCode}}
+          </td>
           <td>
-            <button type="button" class="btn btn-primary btn-sm shadow-none" data-bs-toggle="modal" data-bs-target="#modalDetails" 
-            style="margin-left: 25%;" (click)="openDetailsModal(order)"><i class="bi bi-search"></i></button>
+            <button type="button" class="btn btn-primary btn-sm shadow-none" data-bs-toggle="modal"
+              data-bs-target="#modalDetails" style="margin-left: 25%;" (click)="openDetailsModal(order)"><i
+                class="bi bi-search"></i></button>
           </td>
         </tr>
         <tr *ngIf="isListEmpty()">
@@ -78,11 +85,11 @@
       </li>
 
       <ng-container *ngFor="let x of [].constructor(totalPages); let i = index">
-        <li class="page-item" [ngClass]="{'active': i == page}" >
+        <li class="page-item" [ngClass]="{'active': i == page}">
           <a class="page-link" (click)="changePage(i)">{{i + 1}}</a>
         </li>
       </ng-container>
-      
+
       <li class="page-item" [ngClass]="{'disabled': page == totalPages - 1}">
         <a class="page-link" (click)="changePage(page + 1)">Next</a>
       </li>
@@ -101,10 +108,11 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-sm">
-            Articoli per pagina: 
+            Articoli per pagina:
           </div>
           <div class="col-sm">
-            <select class="form-select shadow-lg" aria-label="Default select example" #orderPerPage (change)="onChangeOrderPerPage(orderPerPage.value)">  
+            <select class="form-select shadow-lg" aria-label="Default select example" #orderPerPage
+              (change)="onChangeOrderPerPage(orderPerPage.value)">
               <option value="5">5</option>
               <option value="10">10</option>
               <option value="20">20</option>
@@ -134,7 +142,7 @@
   </div>
 </div>
 
-<!--MODAL DETAILS -->
+<!--MODAL ARTICOLI -->
 <div class="modal fade" id="modalDetails" tabindex="-1" aria-labelledby="modalDetails" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -149,23 +157,28 @@
             <div class="list-group-item list-group-item-warning flex-column align-items-start">
               <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1">
-                  <i class="bi bi-check-circle-fill" *ngIf="orderItem.orderSuccess == 1" [ngClass]="{'text-success': orderItem.orderSuccess == 1}" style="margin-right: 5px;"></i>
-                  <i class="bi bi-x-circle-fill" *ngIf="orderItem.orderSuccess != 1" [ngClass]="{'text-danger': orderItem.orderSuccess != 1}" style="margin-right: 5px;"></i>
-                  {{orderItem.Title}}</h5>
+                  <i class="bi bi-check-circle-fill" *ngIf="orderItem.orderSuccess == 1"
+                    [ngClass]="{'text-success': orderItem.orderSuccess == 1}" style="margin-right: 5px;"></i>
+                  <i class="bi bi-x-circle-fill" *ngIf="orderItem.orderSuccess != 1"
+                    [ngClass]="{'text-danger': orderItem.orderSuccess != 1}" style="margin-right: 5px;"></i>
+                  {{orderItem.Title}}
+                </h5>
                 <small>{{orderItem.ASIN }}</small>
               </div>
               <p class="mb-1"><small>Amazon ID: {{ orderSelected.AmazonOrderId }} </small></p>
               <p class="mb-1">Prezzo Articolo: <b>{{orderItem.ItemPriceAmount}} €</b></p>
               <p class="mb-1">Quantità: {{orderItem.QuantityOrdered}} </p>
-              <p class="mb-1" *ngIf="orderItem.ShippingPriceAmount > 0">Costo Spedizione: {{orderItem.ShippingPriceAmount}} €</p>
+              <p class="mb-1" *ngIf="orderItem.ShippingPriceAmount > 0">Costo Spedizione:
+                {{orderItem.ShippingPriceAmount}} €</p>
               <p class="mb-1" *ngIf="orderItem.PromotionIds != '-'">Codice Promo: {{orderItem.PromotionIds}}</p>
-              <p class="mb-1" *ngIf="orderItem.PointsGrantedPointsNumber != 0 ">Punti Guadagnati: {{orderItem.PointsGrantedPointsNumber}}</p>
+              <p class="mb-1" *ngIf="orderItem.PointsGrantedPointsNumber != 0 ">Punti Guadagnati:
+                {{orderItem.PointsGrantedPointsNumber}}</p>
             </div>
           </ng-container>
-        </div> 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" #myModalClose data-bs-dismiss="modal">Chiudi</button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" #myModalClose data-bs-dismiss="modal">Chiudi</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
