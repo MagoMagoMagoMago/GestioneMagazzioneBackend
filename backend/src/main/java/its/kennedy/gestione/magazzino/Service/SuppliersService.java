@@ -2,11 +2,14 @@ package its.kennedy.gestione.magazzino.Service;
 
 import its.kennedy.gestione.magazzino.Dao.Supplier;
 import its.kennedy.gestione.magazzino.Dto.SupplierDto;
+import its.kennedy.gestione.magazzino.Dto.SupplierInsertDto;
+import its.kennedy.gestione.magazzino.Dto.SupplierUpdateDto;
 import its.kennedy.gestione.magazzino.IService.ISuppliers;
 import its.kennedy.gestione.magazzino.Repository.SuppliersRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -24,21 +27,36 @@ public class SuppliersService implements ISuppliers {
     public SupplierDto getById(Integer id) {
         return modelMapper.map(suppliersRepository.getById(id), SupplierDto.class);
     }
+    
+    public Supplier insert(SupplierInsertDto entity) {
+    	final Supplier supplier = modelMapper.map(entity, Supplier.class);
+    	supplier.setCreatedAt(Instant.now());
+    	suppliersRepository.save(supplier);
+        return supplier;
+    }
 
     @Override
-    public Boolean modifica(Supplier entity) {
+    public Boolean modifica(SupplierUpdateDto entity) {
         try {
             if (entity.getId() == null) {
-                entity.setCreatedAt(Instant.now());
+                return false;
             } else {
-                entity.setUpdatedAt(Instant.now());
+            	final Supplier supplier = suppliersRepository.getById(entity.getId());
+            	supplier.setEmail(entity.getEmail());
+            	supplier.setIndirizzo(entity.getIndirizzo());
+            	supplier.setName(entity.getName());
+            	supplier.setNazione(entity.getNazione());
+            	supplier.setNote(entity.getNote());
+            	supplier.setTelefono(entity.getTelefono());
+            	supplier.setUpdatedAt(Instant.now());
+                suppliersRepository.saveAndFlush(supplier);
             }
-            suppliersRepository.saveAndFlush(entity);
         } catch (Exception e) {
             return false;
         }
         return true;
     }
+    
     @Override
     public Boolean elimina(int id) {
         try {
@@ -50,10 +68,12 @@ public class SuppliersService implements ISuppliers {
         }
         return true;
     }
+    
     @Override
-    public List<SupplierDto> getAll(String ord) {
+    public List<SupplierDto> getAll(String sortBy, Boolean order) {
         List<SupplierDto> ritorno = new ArrayList<SupplierDto>();
-        List<Supplier> iterable = suppliersRepository.findByDeletedAt(Sort.by(Sort.Direction.ASC,ord));
+        Direction direction = order == true ? Sort.Direction.ASC : Sort.Direction.DESC;
+        List<Supplier> iterable = suppliersRepository.findByDeletedAt(Sort.by(direction,sortBy));
         for (Supplier i : iterable) {
             ritorno.add(modelMapper.map(i, SupplierDto.class));
         }

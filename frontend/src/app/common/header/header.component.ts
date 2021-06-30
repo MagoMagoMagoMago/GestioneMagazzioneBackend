@@ -73,7 +73,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private toast: ToastrService,) { }
 
   ngOnInit(): void {
-    this.supplierService.getAll("name").subscribe((resp: Supplier[])=>{
+    this.supplierService.getAll("name", true).subscribe((resp: Supplier[])=>{
       this.suppliers = resp;
     });
   }
