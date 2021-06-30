@@ -111,7 +111,7 @@ export class PurchasesComponent implements OnInit {
         }
       );
     }else{
-      this.supplierApi.getAll(this.order).subscribe((resp: Supplier[])=>{
+      this.supplierApi.getAll(this.order, true).subscribe((resp: Supplier[])=>{
         this.suppliers = resp;
         this.updateForm.patchValue(
           {

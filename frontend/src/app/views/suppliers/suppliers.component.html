@@ -30,7 +30,7 @@
         <tr>
           <ng-container *ngFor="let col of columns">
             <th class="th" *ngIf="col.visible" (click)="changeOrderBy(col)">
-              {{ col.text }}
+              {{ col.text }} <i class="bi bi-caret-down-square-fill" *ngIf="col.name === sort.name" [ngClass]="{'bi-caret-down-square-fill': sort.orderBy == true, 'bi-caret-up-square-fill': sort.orderBy == false}"></i>
             </th>
           </ng-container>
           <th>
@@ -111,31 +111,31 @@
           <div class="row">
             <div class="col">
               <label for="nome" class="col-form-label">Nome:</label>
-              <input type="text" class="form-control" formControlName="name" id="nome">
+              <input type="text" [ngClass]="{'error': submitted && myForm.name.errors}" class="form-control" formControlName="name" id="nome">
             </div>
           </div>
           <div class="row">
             <div class="col">
               <label for="indirizzo" class="col-form-label">Indirizzo:</label>
-              <input type="text" class="form-control" formControlName="indirizzo" id="indirizzo">
+              <input type="text" [ngClass]="{'error': submitted && myForm.indirizzo.errors}" class="form-control" formControlName="indirizzo" id="indirizzo">
             </div>
           </div>
           <div class="row">
             <div class="col">
               <label for="telefono" class="col-form-label">Telefono:</label>
-              <input type="text" class="form-control" formControlName="telefono" id="telefono">
+              <input type="text" [ngClass]="{'error': submitted && myForm.telefono.errors}" class="form-control" formControlName="telefono" id="telefono">
             </div>
           </div>
           <div class="row">
             <div class="col">
               <label for="email" class="col-form-label">Email:</label>
-              <input type="text" class="form-control" formControlName="email" id="email">
+              <input type="text" [ngClass]="{'error': submitted && myForm.email.errors}" class="form-control" formControlName="email" id="email">
             </div>
           </div>
           <div class="row">
             <div class="col">
               <label for="nazione" class="col-form-label">Nazione:</label>
-              <input type="text" class="form-control" formControlName="nazione" id="nazione">
+              <input type="text" [ngClass]="{'error': submitted && myForm.nazione.errors}" class="form-control" formControlName="nazione" id="nazione">
             </div>
           </div>
           <div class="row">
@@ -146,8 +146,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-          <button type="submit" class="btn btn-primary">Inserisci</button>
+          <button type="button" class="btn btn-secondary" #myModalClose data-bs-dismiss="modal">Chiudi</button>
+          <button type="submit" class="btn btn-primary">{{ new ? 'Inserisci' : 'Modifica'}}</button>
         </div>
       </form>
     </div>
@@ -163,7 +163,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Sei sicuro di voler eliminare l'articolo '{{selectedSupplier?.name}}'?
+        Sei sicuro di voler eliminare il forniotre '{{selectedSupplier?.name}}'?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
