@@ -12,4 +12,6 @@ public interface IPurchases {
     Boolean modifica(Purchase entity);
 
     Boolean elimina(int id);
+    
+    Integer insert(Purchase entity);
 }
