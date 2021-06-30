@@ -95,7 +95,7 @@
               <label class="form-label mb-0 mt-1" for="supplierSelect">Fornitore:</label>
             </div>
             <div class="col-7">
-              <select class="form-select" [(ngModel)]="fornitore" aria-label="Default select example" id="supplierSelect">
+              <select class="form-select" [(ngModel)]="fornitore" aria-label="Default select example" id="supplierSelect" (click)="loadSuppliers()">
                 
                 <ng-container *ngFor="let supplier of suppliers">
                   <option [value]="supplier.id">{{supplier.name}}</option>
