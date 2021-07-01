@@ -87,9 +87,9 @@ CREATE TABLE purchases (
 	updated_at timestamp,
 	deleted_at timestamp,
 	PRIMARY KEY (id),
+	UNIQUE KEY purchases_UN (number_invoice),
 	FOREIGN KEY (supplier_id) REFERENCES suppliers(id)
 );
-
 
 INSERT INTO GestioneMagazzino.purchases
 (supplier_id, number_invoice, date_invoice, note, created_at, updated_at, deleted_at)
