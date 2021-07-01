@@ -1,0 +1,38 @@
+.table {
+    background-color: transparentize($color: rgb(252, 252, 252), $amount: 0.5)
+}
+
+.header{
+    background-color: rgba(255, 255, 255, 0.911)
+}
+
+.th:hover{
+    background-color: #413f4a69;
+    cursor: pointer;
+}
+
+.page-link{
+    cursor: pointer;
+}
+
+.list-group-item{
+    background-color: transparentize($color: #9dc4fa, $amount: 0.7)
+}
+
+.listDelete{
+    background-color: transparentize($color: #dedede, $amount: 0.9)
+}
+
+.badge{
+    background-color: transparentize($color: #4144f3, $amount: 0.3)
+}
+
+
+.modal-dialog{
+    overflow-y: initial !important
+}
+
+.details{
+    max-height: 600px;
+    overflow-y: auto;
+}

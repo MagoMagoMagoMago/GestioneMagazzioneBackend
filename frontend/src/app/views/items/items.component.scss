@@ -1,3 +1,11 @@
+.table {
+    background-color: transparentize($color: rgb(252, 252, 252), $amount: 0.5)
+}
+
+.header{
+    background-color: rgba(255, 255, 255, 0.911)
+}
+
 .form-select{
     width: auto;
 }
@@ -7,7 +15,7 @@
 }
 
 .th:hover{
-    background-color: #DCDF92;
+    background-color: #413f4a69;
     cursor: pointer;
 }
 

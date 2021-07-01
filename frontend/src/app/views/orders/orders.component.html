@@ -15,8 +15,8 @@
   </div>
 
   <div class="table-responsive-xl pt-2">
-    <table class="table table-light table-striped">
-      <thead class="thead-dark table-warning header sticky-top">
+    <table class="table">
+      <thead class="thead-dark table header sticky-top">
         <tr>
           <ng-container *ngFor="let col of colOrders">
             <th class="th" *ngIf="col.visible" (click)="changeOrderBy(col)">
@@ -64,7 +64,7 @@
           </td>
           <td>
             <button type="button" class="btn btn-primary btn-sm shadow-none" data-bs-toggle="modal"
-              data-bs-target="#modalDetails" style="margin-left: 25%;" (click)="openDetailsModal(order)"><i
+              data-bs-target="#modalDetails" style="margin-left: 30%;" (click)="openDetailsModal(order)"><i
                 class="bi bi-search"></i></button>
           </td>
         </tr>
