@@ -1,10 +1,10 @@
 package its.kennedy.gestione.magazzino.IService;
 
-import java.util.List;
-
 import its.kennedy.gestione.magazzino.Dao.Item;
 import its.kennedy.gestione.magazzino.Dto.BaseResponsePage;
 import its.kennedy.gestione.magazzino.Dto.ItemDto;
+
+import java.util.List;
 
 public interface IItems {
 
@@ -31,11 +31,12 @@ public interface IItems {
      * @param dir
      * @return
      */
-    public BaseResponsePage<ItemDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean dir);
+    public BaseResponsePage<ItemDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean dir, String title);
 
     public Boolean deleteById(Integer id);
 
     public Item getByAsin(String asin);
 
-	List<ItemDto> getBygiacenzainferiore();
+    List<ItemDto> getBygiacenzainferiore();
+
 }

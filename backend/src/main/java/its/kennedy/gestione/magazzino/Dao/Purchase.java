@@ -25,8 +25,8 @@ public class Purchase implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     private Supplier supplier;
 
-    @NotNull
-    @Column(name = "number_invoice", nullable = false)
+
+    @Column(name = "number_invoice", nullable = false, unique = true)
     private Integer number_invoice;
 
     @Column(name = "note", length = 400)
