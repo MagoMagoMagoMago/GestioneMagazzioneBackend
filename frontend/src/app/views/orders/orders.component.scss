@@ -1,3 +1,16 @@
+.table {
+    background-color: transparentize($color: rgb(252, 252, 252), $amount: 0.5)
+}
+
+.header{
+    background-color: rgba(255, 255, 255, 0.911)
+}
+
+.list-group-item{
+    background-color: transparentize($color: #9dc4fa, $amount: 0.7)
+    
+}
+
 .form-select{
     width: auto;
 }
@@ -5,15 +18,6 @@
 .page-link{
     cursor: pointer;
 }
-
-// .header {
-//     background: linear-gradient(90deg, rgba(101, 99, 112, 0.485) 14%, rgba(140, 188, 218, 0.362) 43%, rgba(188,211,216,0.5329482134650736) 89%);
-// }
-
-// table, tbody, tr, th, td{
-//     background-color: rgba(197, 209, 209, 0.377) !important;
-//     border: 1px solid black;
-// }
 
 .th:hover{
     background-color: #413f4a69;

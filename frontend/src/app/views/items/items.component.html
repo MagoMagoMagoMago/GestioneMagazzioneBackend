@@ -25,9 +25,8 @@
   </div>
 
   <div class="table-responsive-xl pt-2">
-    <table class="table table-secondary table-striped">
-
-      <thead class="thead-dark table-warning header sticky-top">
+    <table class="table">
+      <thead class="thead-dark table header sticky-top">
         <tr>
           <th class="image-column-header">
             Immagine
@@ -45,17 +44,17 @@
 
       <tbody>
         <tr *ngFor="let item of listaItems">
-          <td >
+          <td class="align-middle" width=10% >
             <div class="image-column">
               <img src="{{item.image}}"  alt="Articolo">
             </div>
           </td>
           <td *ngIf="colItems[0].visible" class="align-middle" width=10%>{{item.asin}}</td>
           <td *ngIf="colItems[1].visible" class="align-middle" width=18%>{{item.title}}</td>
-          <td *ngIf="colItems[2].visible" class="align-middle" width=30%>{{item.description}}</td>
-          <td *ngIf="colItems[3].visible" class="align-middle" width=10%>{{item.category}}</td>
+          <td *ngIf="colItems[2].visible" class="align-middle" width=20%>{{item.description}}</td>
+          <td *ngIf="colItems[3].visible" class="align-middle" width=12%>{{item.category}}</td>
           <td *ngIf="colItems[4].visible" class="align-middle" width=10%>€ {{item.price | number : '1.2-2'}}</td>
-          <td *ngIf="colItems[5].visible" class="align-middle font-weight-bold"
+          <td *ngIf="colItems[5].visible" class="align-middle font-weight-bold" width=10%
             [ngClass]="{'text-success': item.storage > item.minAvailability, 'text-danger': item.storage < item.minAvailability}">
             <i class="bi bi-exclamation-circle-fill" *ngIf="item.storage <= item.minAvailability"></i>
             <i class="bi bi-check-circle-fill" *ngIf="item.storage > item.minAvailability"></i>
@@ -63,9 +62,10 @@
           </td>
           <td *ngIf="colItems[6].visible" class="align-middle" width=10%>{{item.minAvailability}} pezzi</td>
           <td class="align-middle" width=10%>
-            <button type="button" class="btn btn-secondary btn-sm shadow-none" data-bs-toggle="modal" data-bs-target="#updateItems" (click)="onUpdateButtonClick(item)"><i class="bi bi-pencil-fill"></i></button>
-            <button type="button" class="btn btn-warning btn-sm shadow-none" data-bs-toggle="modal" data-bs-target="#aggiungiAlCarello" (click)="addToCard(item)"><i class="bi bi-cart"></i></button>
-            <button type="button" class="btn btn-danger btn-sm shadow-none" data-bs-toggle="modal" data-bs-target="#deleteItems" (click)="openDeleteModal(item)"><i class="bi bi-trash"></i></button>
+            <button type="button" class="btn btn-warning btn-sm shadow-none" data-bs-toggle="modal" data-bs-target="#aggiungiAlCarello"
+            style="margin: 1.5%;" (click)="addToCard(item)"><i class="bi bi-cart"></i></button>
+            <button type="button" class="btn btn-secondary btn-sm shadow-none" data-bs-toggle="modal" data-bs-target="#updateItems" style="margin: 1.5%;" (click)="onUpdateButtonClick(item)"><i class="bi bi-pencil-fill"></i></button>
+            <button type="button" class="btn btn-danger btn-sm shadow-none" data-bs-toggle="modal" data-bs-target="#deleteItems" style="margin: 1.5%;" (click)="openDeleteModal(item)"><i class="bi bi-trash"></i></button>
           </td>
         </tr>
         <tr *ngIf="isListEmpty()">
@@ -146,7 +146,7 @@
 <div class="modal fade" id="deleteItems" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header alert-danger">
         <h5 class="modal-title" id="exampleModalLabel">Eliminazione</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -165,7 +165,7 @@
 <div class="modal fade" id="updateItems" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header alert-primary">
         <h5 class="modal-title" id="exampleModalLabel">Modifica Articolo</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
