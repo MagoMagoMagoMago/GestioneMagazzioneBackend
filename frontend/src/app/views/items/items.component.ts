@@ -134,10 +134,10 @@ export class ItemsComponent implements OnInit {
   deleteItems(id: number): void{
     this.itemService.deleteById(id).subscribe(
       (success) => { 
-        this.toast.success("Articolo eliminato con successo.", "Eliminazione"); 
+        this.toast.success("Articolo eliminato con successo.", "Eliminazione", { positionClass: 'toast-bottom-right'}); 
         this.loadItems();
       },
-      (error) => { this.toast.error("Erorre riscontrato nella eliminazione.", "Eliminazione") }
+      (error) => { this.toast.error("Erorre riscontrato nella eliminazione.", "Eliminazione"), { positionClass: 'toast-bottom-right'} }
     )
   }
 
@@ -187,14 +187,14 @@ export class ItemsComponent implements OnInit {
     this.updateForm.controls['category'].setValue({id: this.updateForm.get("category")?.value});
     this.itemService.update(this.updateForm.value).subscribe(
       (success) => { 
-        this.toast.success("Articolo modificato con successo.", "Modifica"); 
+        this.toast.success("Articolo modificato con successo.", "Modifica", { positionClass: 'toast-bottom-right'}); 
         this.loadItems();
         this.modalClose.nativeElement.click();
       },
       (error) => { 
         console.log(error);
         this.updateForm.controls['category'].setValue(this.categories?.find((x)=> x.id == this.updateForm.get("category")?.value.id)?.id);
-        this.toast.error("Errore riscontrato nella modifica.", "Modifica") 
+        this.toast.error("Errore riscontrato nella modifica.", "Modifica", { positionClass: 'toast-bottom-right'}) 
       }
     );
   }
@@ -216,7 +216,7 @@ export class ItemsComponent implements OnInit {
   
   aggiungiAlCarello(): void{
     this.cartService.addItemToCartSessionStorage(this.itemSelected, this.addToCardQuantity);
-    this.toast.success(this.itemSelected.title + " è stato aggiunto al carello", "Carello");
+    this.toast.success(this.itemSelected.title + " è stato aggiunto al carello", "Carello", { positionClass: 'toast-bottom-right'});
   }
 
 }
