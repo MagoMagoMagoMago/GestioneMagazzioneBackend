@@ -92,10 +92,10 @@ export class PurchasesComponent implements OnInit {
   deletePurchase(id: number): void{
     this.purchasesApi.deleteById(id).subscribe(
       (success) => { 
-        this.toast.success("Acquisto eliminato con successo.", "Eliminazione"); 
+        this.toast.success("Acquisto eliminato con successo.", "Eliminazione", { positionClass: 'toast-bottom-right'}); 
         this.loadPurchases();
       },
-      (error) => { this.toast.error("Errore riscontrato nella eliminazione.", "Eliminazione") }
+      (error) => { this.toast.error("Errore riscontrato nella eliminazione.", "Eliminazione", { positionClass: 'toast-bottom-right'}) }
     )
   }
   
@@ -115,7 +115,7 @@ export class PurchasesComponent implements OnInit {
         }
       );
     }else{
-      this.supplierApi.getAll(this.order).subscribe((resp: Supplier[])=>{
+      this.supplierApi.getAll(this.order, true).subscribe((resp: Supplier[])=>{
         this.suppliers = resp;
         this.updateForm.patchValue(
           {
@@ -137,14 +137,14 @@ export class PurchasesComponent implements OnInit {
     this.updateForm.controls['supplier'].setValue({id: this.updateForm.get("supplier")?.value});
     this.purchasesApi.update(this.updateForm.value).subscribe(
       (success) => { 
-        this.toast.success("Acquisto modificato con successo.", "Modifica"); 
+        this.toast.success("Articolo modificato con successo.", "Modifica", { positionClass: 'toast-bottom-right'}); 
         this.loadPurchases();
         this.modalClose.nativeElement.click();
       },
       (error) => { 
         console.log(error);
         this.updateForm.controls['supplier'].setValue(this.suppliers?.find((x)=> x.id == this.updateForm.get("supplier")?.value.id)?.id);
-        this.toast.error("Errore riscontrato nella modifica.", "Modifica") 
+        this.toast.error("Errore riscontrato nella modifica.", "Modifica", { positionClass: 'toast-bottom-right'}) 
       }
     );
   }

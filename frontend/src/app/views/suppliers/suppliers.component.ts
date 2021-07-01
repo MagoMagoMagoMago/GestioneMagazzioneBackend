@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { SupplierApiService } from 'src/app/api/supplier-api.service';
 import { Column } from 'src/app/models/columns';
-import { Supplier } from 'src/app/models/supplier';
+import { Supplier, SupplierInsert, SupplierUpdate } from 'src/app/models/supplier';
 
 @Component({
   selector: 'app-suppliers',
@@ -11,30 +12,35 @@ import { Supplier } from 'src/app/models/supplier';
 })
 export class SuppliersComponent implements OnInit {
 
+  @ViewChild('myModalClose') modalClose: any;
+
   constructor(
     private supplierService: SupplierApiService,
     public fb: FormBuilder,
+    private toast: ToastrService
     ) { }
 
   public columns!: Column[];
 
   public listaSuppliers!: Supplier[] | null;
   //paginazione
-  public sort = { name: "title", orderBy: true};
+  public sort = { name: "name", orderBy: true};
   public order = "name";
 
   public new!: boolean | null;
   public selectedSupplier!: Supplier | null;
 
+  public submitted: boolean = false;
+
   formNewEditSupplier = this.fb.group({
-    id: [null, Validators.required],
+    id: [null],
     name: [null, Validators.required],
     indirizzo: [null, Validators.required],
     telefono: [null, Validators.required],
     email: [null, Validators.required],
     nazione: [null, Validators.required],
     note: [null],
-    createdAt: [null, Validators.required],
+    createdAt: [null],
     updatedAt: [null],
     deletedAt: [null],
   });
@@ -59,9 +65,14 @@ export class SuppliersComponent implements OnInit {
   }
 
   loadAllSuppliers(): void{
-    this.supplierService.getAll(this.order).subscribe((resp: Supplier[]) => {
+    this.supplierService.getAll(this.sort.name, this.sort.orderBy).subscribe((resp: Supplier[]) => {
       this.listaSuppliers = resp;
     })
+  }
+  
+  // Getter method to access formcontrols
+  get myForm() {
+    return this.formNewEditSupplier.controls;
   }
 
   isListEmpty(): boolean {
@@ -92,6 +103,7 @@ export class SuppliersComponent implements OnInit {
   }
 
   typeForm(type: string, supplier: Supplier | null): void{
+    this.submitted = false;
     if(type == "new"){
       this.new = true;
       this.formNewEditSupplier.reset();
@@ -114,7 +126,54 @@ export class SuppliersComponent implements OnInit {
   }
 
   createorupdate(): void{
-    console.log(this.formNewEditSupplier.value);
+    this.submitted = true;
+    if (!this.formNewEditSupplier.valid) {
+      console.log(this.formNewEditSupplier.value)
+      return;
+    }
+    if (this.new) {
+      const supplierTemp: SupplierInsert = {
+        name: this.formNewEditSupplier.controls['name'].value,
+        indirizzo: this.formNewEditSupplier.controls['indirizzo'].value,
+        telefono: this.formNewEditSupplier.controls['telefono'].value,
+        email: this.formNewEditSupplier.controls['email'].value,
+        nazione: this.formNewEditSupplier.controls['nazione'].value,
+        note: this.formNewEditSupplier.controls['note'].value
+  
+      }
+      this.supplierService.insert(supplierTemp).subscribe(
+        (success)=>{
+          this.toast.success("Fornitore inserito correttamente!", "Fornitore", { positionClass: 'toast-bottom-right'});
+          this.modalClose.nativeElement.click();
+          this.loadAllSuppliers();
+        },
+        (err)=>{
+          this.toast.error("Errore nella creazione del fornitore.", "Fornitore", { positionClass: 'toast-bottom-right'});
+        }
+      );
+    }else{
+      const supplierTemp: SupplierUpdate = {
+        id: this.formNewEditSupplier.controls['id'].value,
+        name: this.formNewEditSupplier.controls['name'].value,
+        indirizzo: this.formNewEditSupplier.controls['indirizzo'].value,
+        telefono: this.formNewEditSupplier.controls['telefono'].value,
+        email: this.formNewEditSupplier.controls['email'].value,
+        nazione: this.formNewEditSupplier.controls['nazione'].value,
+        note: this.formNewEditSupplier.controls['note'].value
+  
+      }
+      this.supplierService.update(supplierTemp).subscribe(
+        (success)=>{
+          this.toast.success("Fornitore modificato correttamente!", "Fornitore", { positionClass: 'toast-bottom-right'});
+          this.modalClose.nativeElement.click();
+          this.loadAllSuppliers();
+        },
+        (err)=>{
+          this.toast.error("Errore nella modifica del fornitore.", "Fornitore", { positionClass: 'toast-bottom-right'});
+        }
+      );
+    }
+    
   }
 
   openDeleteModal(supplier: Supplier):void{
@@ -122,7 +181,15 @@ export class SuppliersComponent implements OnInit {
   }
 
   deleteSupplier(id: number): void{
-    console.log(id);
+    this.supplierService.delete(id).subscribe(
+      (success)=>{
+        this.toast.success("Fornitore eliminato con successo", "Eliminazione", { positionClass: 'toast-bottom-right'});
+        this.loadAllSuppliers();
+      },
+      (error)=>{
+        this.toast.error("Questo fornitore non può essere eliminato", "Eliminazione", { positionClass: 'toast-bottom-right'})
+      }
+    )
   }
 
   
