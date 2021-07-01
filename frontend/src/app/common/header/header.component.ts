@@ -145,17 +145,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
         });
         this.pruchaseItemService.insertPurchaseItems(itemBody).subscribe(
           (success)=>{
-            this.toast.success("Acquisto caricato correttamente", "Acquisto");
+            this.toast.success("Acquisto caricato correttamente", "Acquisto", { positionClass: 'toast-bottom-right'});
             this.cartService.clearItemsOnCartSessionStorage();
             this.fornitore = null;
             this.numeroFattura = null;
             this.dataFattura = moment().format('YYYY-MM-DD');
             this.note = null;
           },
-          (error)=>{this.toast.error("Gli articoli non sono stati carricati correttamente", "Acquisto")}
+          (error)=>{this.toast.error("Gli articoli non sono stati carricati correttamente", "Acquisto", { positionClass: 'toast-bottom-right'})}
         );
        },
-      (err)=>{this.toast.error("I campi non sono stati inseriti correttamente. </br></br> Ricontrolla e riprova", "Acquisto", { enableHtml: true})},
+      (err)=>{this.toast.error("I campi non sono stati inseriti correttamente. </br></br> Ricontrolla e riprova", "Acquisto", { enableHtml: true, positionClass: 'toast-bottom-right'})},
     )
   }
 

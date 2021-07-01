@@ -33,14 +33,14 @@ export class SuppliersComponent implements OnInit {
   public submitted: boolean = false;
 
   formNewEditSupplier = this.fb.group({
-    id: [null, Validators.required],
+    id: [null],
     name: [null, Validators.required],
     indirizzo: [null, Validators.required],
     telefono: [null, Validators.required],
     email: [null, Validators.required],
     nazione: [null, Validators.required],
     note: [null],
-    createdAt: [null, Validators.required],
+    createdAt: [null],
     updatedAt: [null],
     deletedAt: [null],
   });
@@ -128,6 +128,7 @@ export class SuppliersComponent implements OnInit {
   createorupdate(): void{
     this.submitted = true;
     if (!this.formNewEditSupplier.valid) {
+      console.log(this.formNewEditSupplier.value)
       return;
     }
     if (this.new) {
@@ -142,12 +143,12 @@ export class SuppliersComponent implements OnInit {
       }
       this.supplierService.insert(supplierTemp).subscribe(
         (success)=>{
-          this.toast.success("Fornitore inserito correttamente!", "Fornitore");
+          this.toast.success("Fornitore inserito correttamente!", "Fornitore", { positionClass: 'toast-bottom-right'});
           this.modalClose.nativeElement.click();
           this.loadAllSuppliers();
         },
         (err)=>{
-          this.toast.error("Errore nella creazione del fornitore.", "Fornitore");
+          this.toast.error("Errore nella creazione del fornitore.", "Fornitore", { positionClass: 'toast-bottom-right'});
         }
       );
     }else{
@@ -163,12 +164,12 @@ export class SuppliersComponent implements OnInit {
       }
       this.supplierService.update(supplierTemp).subscribe(
         (success)=>{
-          this.toast.success("Fornitore modificato correttamente!", "Fornitore");
+          this.toast.success("Fornitore modificato correttamente!", "Fornitore", { positionClass: 'toast-bottom-right'});
           this.modalClose.nativeElement.click();
           this.loadAllSuppliers();
         },
         (err)=>{
-          this.toast.error("Errore nella modifica del fornitore.", "Fornitore");
+          this.toast.error("Errore nella modifica del fornitore.", "Fornitore", { positionClass: 'toast-bottom-right'});
         }
       );
     }
@@ -182,11 +183,11 @@ export class SuppliersComponent implements OnInit {
   deleteSupplier(id: number): void{
     this.supplierService.delete(id).subscribe(
       (success)=>{
-        this.toast.success("Fornitore eliminato con successo", "Eliminazione");
+        this.toast.success("Fornitore eliminato con successo", "Eliminazione", { positionClass: 'toast-bottom-right'});
         this.loadAllSuppliers();
       },
       (error)=>{
-        this.toast.error("Questo fornitore non può essere eliminato", "Eliminazione")
+        this.toast.error("Questo fornitore non può essere eliminato", "Eliminazione", { positionClass: 'toast-bottom-right'})
       }
     )
   }
