@@ -51,23 +51,28 @@ public class ItemsService implements IItems {
 
     @Override
     @Transactional()
-    public BaseResponsePage<ItemDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean order) {
-        Pageable p;
+    public BaseResponsePage<ItemDto> selezionaPagina(int pagina, int quantita, String sortBy, Boolean order, String title) {
+        Pageable pageable;
         if (sortBy.length() <= 0) {
             sortBy = "Id";
         } else if (sortBy.equals("categoryId")) {
             sortBy += ".name";
         }
         if (order) {
-            p = PageRequest.of(pagina, quantita, Sort.by(sortBy).ascending());
+            pageable = PageRequest.of(pagina, quantita, Sort.by(sortBy).ascending());
         } else {
-            p = PageRequest.of(pagina, quantita, Sort.by(sortBy).descending());
+            pageable = PageRequest.of(pagina, quantita, Sort.by(sortBy).descending());
         }
-        Page<Item> resP = itemsRepository.findAllByDeletedAt(null, p);
+        Page<Item> itemPage;
+        if (title == null) {
+            itemPage = itemsRepository.findAllByDeletedAt(null, pageable);
+        } else {
+            itemPage = itemsRepository.findByDeletedAtAndTitleContainingIgnoreCase(null, title, pageable);
+        }
         BaseResponsePage<ItemDto> baseResponsePage = new BaseResponsePage<ItemDto>();
-        baseResponsePage.setPagine(resP.getTotalPages());
+        baseResponsePage.setPagine(itemPage.getTotalPages());
         ArrayList<ItemDto> res = new ArrayList<ItemDto>();
-        for (Item d : resP) {
+        for (Item d : itemPage) {
             ItemDto itemDto = modelMapper.map(d, ItemDto.class);
             itemDto.setCategory(d.getCategory().getName());
             res.add(itemDto);
@@ -105,4 +110,5 @@ public class ItemsService implements IItems {
         }
         return res;
     }
+
 }
