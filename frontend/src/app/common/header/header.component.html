@@ -26,7 +26,7 @@
       
       <div class="d-flex justify-content-center">
         <button type="button" class="btn btn-dark position-relative me-3" data-bs-toggle="offcanvas"
-          data-bs-target="#carelloOffCanvas">
+          data-bs-target="#carelloOffCanvas" (click)="loadSuppliers()">
           <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger">
             {{cartService.getItemsOnCartSessionStorage().length || 0}}
             <span class="visually-hidden">unread messages</span>
@@ -95,8 +95,8 @@
               <label class="form-label mb-0 mt-1" for="supplierSelect">Fornitore:</label>
             </div>
             <div class="col-7">
-              <select class="form-select" [(ngModel)]="fornitore" aria-label="Default select example" id="supplierSelect" (click)="loadSuppliers()">
-                
+              <select class="form-select" [(ngModel)]="fornitore" aria-label="Default select example" id="supplierSelect">
+                <option></option>
                 <ng-container *ngFor="let supplier of suppliers">
                   <option [value]="supplier.id">{{supplier.name}}</option>
                 </ng-container>
