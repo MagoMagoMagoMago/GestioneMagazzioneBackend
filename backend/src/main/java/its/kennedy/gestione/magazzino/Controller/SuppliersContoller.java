@@ -29,9 +29,9 @@ public class SuppliersContoller {
         }
         return ResponseEntity.ok().body(dto);
     }
-    
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> eliminaItemsById(@PathVariable Integer id) {
+    public ResponseEntity<Boolean> deleteSupplierById(@PathVariable Integer id) {
         Boolean dto = null;
         try {
             dto = supplierservice.elimina(id);
@@ -40,7 +40,7 @@ public class SuppliersContoller {
         }
         return ResponseEntity.ok().body(dto);
     }
-    
+
     @GetMapping("all")
     public ResponseEntity<List<SupplierDto>> getAll(@RequestParam String sortBy, @RequestParam Boolean order) {
         List<SupplierDto> dto = null;
@@ -52,7 +52,7 @@ public class SuppliersContoller {
         return ResponseEntity.ok().body(dto);
     }
 
-    @PostMapping(value="update", produces = "application/json")
+    @PostMapping(value = "update", produces = "application/json")
     public ResponseEntity<Boolean> updateDoc(@RequestBody SupplierUpdateDto doc) {
         try {
             return ResponseEntity.ok().body(supplierservice.modifica(doc));
@@ -62,8 +62,8 @@ public class SuppliersContoller {
         }
 
     }
-    
-    @PostMapping(value="insert", produces = "application/json")
+
+    @PostMapping(value = "insert", produces = "application/json")
     public ResponseEntity<Supplier> insertDoc(@RequestBody SupplierInsertDto doc) {
         try {
             return ResponseEntity.ok().body(supplierservice.insert(doc));
