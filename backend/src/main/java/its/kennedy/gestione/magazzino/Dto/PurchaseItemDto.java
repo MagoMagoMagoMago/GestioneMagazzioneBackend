@@ -9,7 +9,7 @@ public class PurchaseItemDto {
 
     private Integer purchase_id;
 
-    private Integer item_id;
+    private String item;
 
     private Integer quantity;
 
@@ -37,12 +37,12 @@ public class PurchaseItemDto {
         this.purchase_id = purchase_id;
     }
 
-    public Integer getItem_id() {
-        return item_id;
+    public String getItem() {
+        return item;
     }
 
-    public void setItem_id(Integer item_id) {
-        this.item_id = item_id;
+    public void setItem(String item_id) {
+        this.item = item_id;
     }
 
     public Integer getQuantity() {
@@ -90,7 +90,7 @@ public class PurchaseItemDto {
         return "PurchaseItemDto{" +
                 "id=" + id +
                 ", purchase_id=" + purchase_id +
-                ", item_id=" + item_id +
+                ", item_id=" + item +
                 ", quantity=" + quantity +
                 ", unit_price=" + unit_price +
                 ", created_at=" + created_at +
@@ -110,7 +110,7 @@ public class PurchaseItemDto {
         PurchaseItemDto that = (PurchaseItemDto) o;
         return Objects.equals(getId(), that.getId())
                 && Objects.equals(getPurchase_id(), that.getPurchase_id())
-                && Objects.equals(getItem_id(), that.getItem_id())
+                && Objects.equals(getItem(), that.getItem())
                 && Objects.equals(getQuantity(), that.getQuantity())
                 && Objects.equals(getUnit_price(), that.getUnit_price())
                 && Objects.equals(getCreated_at(), that.getCreated_at())
@@ -120,7 +120,7 @@ public class PurchaseItemDto {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getPurchase_id(), getItem_id(), getQuantity(), getUnit_price(), getCreated_at(),
+        return Objects.hash(getId(), getPurchase_id(), getItem(), getQuantity(), getUnit_price(), getCreated_at(),
                 getUpdated_at(), getDeleted_at());
     }
 }

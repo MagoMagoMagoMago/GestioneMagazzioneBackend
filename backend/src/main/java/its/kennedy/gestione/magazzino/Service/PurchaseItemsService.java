@@ -25,7 +25,10 @@ public class PurchaseItemsService implements IPurchaseItems {
 
     @Override
     public PurchaseItemDto getById(Integer id) {
-        return modelMapper.map(puchasesRepository.findById(id).get(), PurchaseItemDto.class);
+    	PurchaseItem ent=puchasesRepository.findById(id).get();
+    	PurchaseItemDto dto=modelMapper.map(ent, PurchaseItemDto.class);
+    	dto.setItem(ent.getItem().getTitle());
+        return dto;
     }
 
     @Override
@@ -34,7 +37,9 @@ public class PurchaseItemsService implements IPurchaseItems {
         List<PurchaseItemDto> ritorno = new ArrayList<PurchaseItemDto>();
         List<PurchaseItem> iterable = puchasesRepository.findAllByPurchase_id(id);
         for (PurchaseItem i : iterable) {
-            ritorno.add(modelMapper.map(i, PurchaseItemDto.class));
+        	PurchaseItemDto t2=modelMapper.map(i, PurchaseItemDto.class);
+        	t2.setItem(i.getItem().getTitle());
+            ritorno.add(t2);
         }
         return ritorno;
     }
@@ -48,7 +53,7 @@ public class PurchaseItemsService implements IPurchaseItems {
                     purchaseItem.setCreated_at(Instant.now());
 
                     puchasesRepository.saveAndFlush(purchaseItem);
-                    Item n = itemsRepository.getById(purchaseItem.getItem_id());
+                    Item n = itemsRepository.getById(purchaseItem.getItem().getId());
                     n.setStorage(n.getStorage() + modicag);
                     itemsRepository.saveAndFlush(n);
                 }
@@ -73,7 +78,7 @@ public class PurchaseItemsService implements IPurchaseItems {
                 modicag -= puchasesRepository.getById(entity.getId()).getQuantity();
             }
             puchasesRepository.saveAndFlush(entity);
-            Item n = itemsRepository.getById(entity.getItem_id());
+            Item n = itemsRepository.getById(entity.getItem().getId());
             n.setStorage(n.getStorage() + modicag);
             itemsRepository.saveAndFlush(n);
         } catch (Exception e) {

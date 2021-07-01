@@ -24,10 +24,10 @@ public class PurchaseItem implements Serializable {
     @NotNull
     @Column(name = "purchase_id", nullable = false)
     private Integer purchase_id;
-
-    @NotNull
-    @Column(name = "item_id", nullable = false)
-    private Integer item_id;
+    
+    @JoinColumn(name = "item_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Item item;
 
     @NotNull
     @Column(name = "quantity", nullable = false)
@@ -63,15 +63,16 @@ public class PurchaseItem implements Serializable {
         this.purchase_id = purchase_id;
     }
 
-    public Integer getItem_id() {
-        return item_id;
-    }
 
-    public void setItem_id(Integer item_id) {
-        this.item_id = item_id;
-    }
+    public Item getItem() {
+		return item;
+	}
 
-    public Integer getQuantity() {
+	public void setItem(Item item) {
+		this.item = item;
+	}
+
+	public Integer getQuantity() {
         return quantity;
     }
 
@@ -116,7 +117,7 @@ public class PurchaseItem implements Serializable {
         return "PurchaseItemsDao{" +
                 "id=" + id +
                 ", purchase_id=" + purchase_id +
-                ", item_id=" + item_id +
+                ", item_id=" + item.getTitle() +
                 ", quantity=" + quantity +
                 ", unit_price=" + unit_price +
                 ", created_at=" + created_at +
@@ -136,7 +137,7 @@ public class PurchaseItem implements Serializable {
         PurchaseItem that = (PurchaseItem) o;
         return getId().equals(that.getId())
                 && getPurchase_id().equals(that.getPurchase_id())
-                && getItem_id().equals(that.getItem_id())
+                && getItem().getTitle().equals(that.getItem().getTitle())
                 && getQuantity().equals(that.getQuantity())
                 && getUnit_price().equals(that.getUnit_price())
                 && getCreated_at().equals(that.getCreated_at())
@@ -146,7 +147,7 @@ public class PurchaseItem implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getPurchase_id(), getItem_id(), getQuantity(), getUnit_price(), getCreated_at(),
+        return Objects.hash(getId(), getPurchase_id(), getItem().getTitle(), getQuantity(), getUnit_price(), getCreated_at(),
                 getUpdated_at(), getDeleted_at());
     }
 }
