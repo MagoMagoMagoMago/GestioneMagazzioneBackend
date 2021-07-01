@@ -4,7 +4,7 @@ export class PurchaseItems{
     
     id!: number; 
     purchase_id!: number; 
-    item_id!: number; 
+    item!: string;
     quantity!: number; 
     unit_price!: number; 
     created_at!: Date; 

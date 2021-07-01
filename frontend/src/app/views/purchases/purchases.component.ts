@@ -87,6 +87,10 @@ export class PurchasesComponent implements OnInit {
   // DELETE
   openDeleteModal(purchase: Purchases): void{
     this.purchaseSelected = purchase;
+    this.purchaseItemsApi.getAll(this.purchaseSelected.id).subscribe((resp) => {
+      this.listaPurchaseItems = resp;
+      console.log("listaOrder", this.listaPurchaseItems)
+    })
   }
 
   deletePurchase(id: number): void{
@@ -152,7 +156,6 @@ export class PurchasesComponent implements OnInit {
   //MODALE ARTICOLI PER ACQUISTO
   openDetailsModal(purchase: Purchases): void{
     this.purchaseSelected = purchase;
-    console.log("purchaseSelected", this.purchaseSelected)
     this.purchaseItemsApi.getAll(this.purchaseSelected.id).subscribe((resp) => {
       this.listaPurchaseItems = resp;
       console.log("listaOrder", this.listaPurchaseItems)
