@@ -55,6 +55,8 @@ public class ItemsService implements IItems {
         Pageable p;
         if (sortBy.length() <= 0) {
             sortBy = "Id";
+        } else if (sortBy.equals("categoryId")) {
+            sortBy += ".name";
         }
         if (order) {
             p = PageRequest.of(pagina, quantita, Sort.by(sortBy).ascending());
@@ -91,11 +93,11 @@ public class ItemsService implements IItems {
     public Item getByAsin(String asin) {
         return itemsRepository.getByAsin(asin);
     }
-    
+
     @Override
     public List<ItemDto> getBygiacenzainferiore() {
         ArrayList<ItemDto> res = new ArrayList<ItemDto>();
-        List<Item> resP=itemsRepository.getBygiacenzainferiore();
+        List<Item> resP = itemsRepository.getBygiacenzainferiore();
         for (Item d : resP) {
             ItemDto itemDto = modelMapper.map(d, ItemDto.class);
             itemDto.setCategory(d.getCategory().getName());
