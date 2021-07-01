@@ -2,6 +2,8 @@ package its.kennedy.gestione.magazzino.Controller;
 
 import its.kennedy.gestione.magazzino.Dao.Supplier;
 import its.kennedy.gestione.magazzino.Dto.SupplierDto;
+import its.kennedy.gestione.magazzino.Dto.SupplierInsertDto;
+import its.kennedy.gestione.magazzino.Dto.SupplierUpdateDto;
 import its.kennedy.gestione.magazzino.Service.SuppliersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +29,8 @@ public class SuppliersContoller {
         }
         return ResponseEntity.ok().body(dto);
     }
-    @GetMapping("delete/{id}")
+    
+    @DeleteMapping("/{id}")
     public ResponseEntity<Boolean> eliminaItemsById(@PathVariable Integer id) {
         Boolean dto = null;
         try {
@@ -37,24 +40,36 @@ public class SuppliersContoller {
         }
         return ResponseEntity.ok().body(dto);
     }
-    @GetMapping("all/{or}")
-    public ResponseEntity<List<SupplierDto>> getAll(@PathVariable String or) {
+    
+    @GetMapping("all")
+    public ResponseEntity<List<SupplierDto>> getAll(@RequestParam String sortBy, @RequestParam Boolean order) {
         List<SupplierDto> dto = null;
         try {
-            dto = supplierservice.getAll(or);
+            dto = supplierservice.getAll(sortBy, order);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok().body(dto);
     }
 
-    @PutMapping(produces = "application/json")
-    public ResponseEntity<Boolean> updateDoc(@RequestBody Supplier doc) {
+    @PostMapping(value="update", produces = "application/json")
+    public ResponseEntity<Boolean> updateDoc(@RequestBody SupplierUpdateDto doc) {
         try {
             return ResponseEntity.ok().body(supplierservice.modifica(doc));
 
         } catch (Exception e) {
             return ResponseEntity.ok().body(false);
+        }
+
+    }
+    
+    @PostMapping(value="insert", produces = "application/json")
+    public ResponseEntity<Supplier> insertDoc(@RequestBody SupplierInsertDto doc) {
+        try {
+            return ResponseEntity.ok().body(supplierservice.insert(doc));
+
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
         }
 
     }

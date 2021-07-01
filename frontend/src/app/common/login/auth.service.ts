@@ -28,7 +28,6 @@ export class AuthService {
   }
 
   logout(): Observable<boolean> {
-    console.log("dentro");
     return this.http.post<any>(this.url + "auth/logout", {
       "refreshToken": this.getRefreshToken(),
       "expiredToken": this.getJwtToken()

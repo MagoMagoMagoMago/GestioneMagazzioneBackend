@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CategoryApiService } from 'src/app/api/category-api.service';
+import { CartService } from 'src/app/api/internal-services/cart.service';
 import { ItemApiService } from 'src/app/api/item-api.service';
 import { Category } from 'src/app/models/category';
 import { Column } from 'src/app/models/columns';
@@ -23,7 +24,8 @@ export class ItemsComponent implements OnInit {
     private router: Router, 
     private toast: ToastrService,
     public fb: FormBuilder,
-    private categoriyService: CategoryApiService
+    private categoriyService: CategoryApiService,
+    private cartService: CartService
     ) { }
   public colItems!: Column[];
 
@@ -32,6 +34,7 @@ export class ItemsComponent implements OnInit {
   public listaItems!: Item[] | null;
   public itemSelected: Item = new Item();
   public categories!: Category[] | null;
+  public addToCardQuantity!: number;
 
   //dettagli paginazione
   public quantity!: number;
@@ -191,9 +194,29 @@ export class ItemsComponent implements OnInit {
       (error) => { 
         console.log(error);
         this.updateForm.controls['category'].setValue(this.categories?.find((x)=> x.id == this.updateForm.get("category")?.value.id)?.id);
-        this.toast.error("Erorre riscontrato nella modifica.", "Modiica") 
+        this.toast.error("Errore riscontrato nella modifica.", "Modifica") 
       }
     );
+  }
+
+  addToCard(item: Item): void{
+    this.addToCardQuantity = 1;
+    this.itemSelected = item;
+  }
+
+  addToCardChangeQuantiity(op: string){
+    if (op === "-") {
+      if (this.addToCardQuantity > 1) {
+        this.addToCardQuantity = this.addToCardQuantity - 1;
+      }
+    } else{
+      this.addToCardQuantity = this.addToCardQuantity + 1;
+    }
+  }
+  
+  aggiungiAlCarello(): void{
+    this.cartService.addItemToCartSessionStorage(this.itemSelected, this.addToCardQuantity);
+    this.toast.success(this.itemSelected.title + " è stato aggiunto al carello", "Carello");
   }
 
 }
