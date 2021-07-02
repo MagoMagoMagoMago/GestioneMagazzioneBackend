@@ -7,7 +7,7 @@ public class PurchaseDto {
 
     private Integer id;
 
-    private Integer number_invoice;
+    private Integer numberInvoice;
 
     private String note;
 
@@ -17,7 +17,7 @@ public class PurchaseDto {
 
     private Instant deletedAt;
 
-    private Instant date_invoice;
+    private Instant dateInvoice;
 
     private String supplier;
 
@@ -29,12 +29,12 @@ public class PurchaseDto {
         this.id = id;
     }
 
-    public Integer getNumber_invoice() {
-        return number_invoice;
+    public Integer getNumberInvoice() {
+        return numberInvoice;
     }
 
-    public void setNumber_invoice(Integer number_invoice) {
-        this.number_invoice = number_invoice;
+    public void setNumberInvoice(Integer numberInvoice) {
+        this.numberInvoice = numberInvoice;
     }
 
     public String getNote() {
@@ -69,12 +69,12 @@ public class PurchaseDto {
         this.deletedAt = deletedAt;
     }
 
-    public Instant getDate_invoice() {
-        return date_invoice;
+    public Instant getDateInvoice() {
+        return dateInvoice;
     }
 
-    public void setDate_invoice(Instant date_invoice) {
-        this.date_invoice = date_invoice;
+    public void setDateInvoice(Instant dateInvoice) {
+        this.dateInvoice = dateInvoice;
     }
 
     public String getSupplier() {
@@ -95,31 +95,31 @@ public class PurchaseDto {
         }
         PurchaseDto that = (PurchaseDto) o;
         return getId().equals(that.getId())
-                && getNumber_invoice().equals(that.getNumber_invoice())
+                && getNumberInvoice().equals(that.getNumberInvoice())
                 && Objects.equals(getNote(), that.getNote())
                 && getCreatedAt().equals(that.getCreatedAt())
                 && Objects.equals(getUpdatedAt(), that.getUpdatedAt())
                 && Objects.equals(getDeletedAt(), that.getDeletedAt())
-                && getDate_invoice().equals(that.getDate_invoice())
+                && getDateInvoice().equals(that.getDateInvoice())
                 && getSupplier().equals(that.getSupplier());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getNumber_invoice(), getNote(), getCreatedAt(), getUpdatedAt(), getDeletedAt(),
-                getDate_invoice(), getSupplier());
+        return Objects.hash(getId(), getNumberInvoice(), getNote(), getCreatedAt(), getUpdatedAt(), getDeletedAt(),
+                getDateInvoice(), getSupplier());
     }
 
     @Override
     public String toString() {
         return "PurchaseDto{" +
                 "id=" + id +
-                ", number_invoice=" + number_invoice +
+                ", number_invoice=" + numberInvoice +
                 ", note='" + note + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 ", deletedAt=" + deletedAt +
-                ", date_invoice=" + date_invoice +
+                ", date_invoice=" + dateInvoice +
                 ", supplier='" + supplier + '\'' +
                 '}';
     }
