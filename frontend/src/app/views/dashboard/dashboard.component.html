@@ -1,50 +1,70 @@
 <div class="container my-3">
-  <div class="row">
-    <div class="col bg-light">
-      <canvas baseChart style="width: 10px; height: 10px;"
-      [datasets]="lineChartData"
-      [labels]="lineChartLabels"
-      [options]="lineChartOptions"
-      [colors]="lineChartColors"
-      [legend]="lineChartLegend"
-      [chartType]="lineChartType"
-      [plugins]="lineChartPlugins">
-    </canvas>
+  <div class="row mt-2">
+    <div class="col-md-6">
+      <div class="bg-light mx-1 my-1 px-3 py-2 rounded-3">
+        <h2 class="display-6 text-center">Quantità</h2>
+        <div class="input-group mt-3">
+          <span class="input-group-text">Data Inizio</span>
+          <input type="date" aria-label="First name" class="form-control" [(ngModel)]="dataInizio1">
+          <span class="input-group-text">Data Fine</span>
+          <input type="date" aria-label="Last name" class="form-control" [(ngModel)]="dataInizio2">
+          <button class="btn btn-primary" type="button" (click)="filter1()">Filtra</button>
+        </div>
+        <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+          [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
+          [plugins]="lineChartPlugins">
+        </canvas>
+      </div>
     </div>
-    <div class="col bg-light">
-      <canvas baseChart style="width: 10px; height: 10px;"
-      [datasets]="lineChartData"
-      [labels]="lineChartLabels"
-      [options]="lineChartOptions"
-      [colors]="lineChartColors"
-      [legend]="lineChartLegend"
-      [chartType]="lineChartType"
-      [plugins]="lineChartPlugins">
-    </canvas>
+    <div class="col-md-6">
+      <div class="bg-light mx-1 my-1 px-3 py-2 rounded-3">
+        <h2 class="display-6 text-center">Ricavi</h2>
+        <div class="input-group mt-3">
+          <span class="input-group-text">Data Inizio</span>
+          <input type="date" aria-label="First name" class="form-control">
+          <span class="input-group-text">Data Fine</span>
+          <input type="date" aria-label="Last name" class="form-control">
+          <button class="btn btn-primary" type="button" id="button-addon1">Filtra</button>
+        </div>
+        <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+          [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
+          [plugins]="lineChartPlugins">
+        </canvas>
+      </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col bg-light">
-      <canvas baseChart style="width: 10px; height: 10px;"
-      [datasets]="lineChartData"
-      [labels]="lineChartLabels"
-      [options]="lineChartOptions"
-      [colors]="lineChartColors"
-      [legend]="lineChartLegend"
-      [chartType]="lineChartType"
-      [plugins]="lineChartPlugins">
-    </canvas>
+  <div class="row mt-2">
+    <div class="col-md-6">
+      <div class="bg-light mx-1 my-1 px-3 py-2 rounded-3">
+        <h2 class="display-6 text-center">Ricavi</h2>
+        <div class="input-group mt-3">
+          <span class="input-group-text">Data Inizio</span>
+          <input type="date" aria-label="First name" class="form-control">
+          <span class="input-group-text">Data Fine</span>
+          <input type="date" aria-label="Last name" class="form-control">
+          <button class="btn btn-primary" type="button" id="button-addon1">Filtra</button>
+        </div>
+        <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+          [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
+          [plugins]="lineChartPlugins">
+        </canvas>
+      </div>
     </div>
-    <div class="col bg-light">
-      <canvas baseChart style="width: 10px; height: 10px;"
-      [datasets]="lineChartData"
-      [labels]="lineChartLabels"
-      [options]="lineChartOptions"
-      [colors]="lineChartColors"
-      [legend]="lineChartLegend"
-      [chartType]="lineChartType"
-      [plugins]="lineChartPlugins">
-    </canvas>
+    <div class="col-md-6">
+      <div class="bg-light mx-1 my-1 px-3 py-2 rounded-3">
+        <h2 class="display-6 text-center">Ricavi</h2>
+        <div class="input-group mt-3">
+          <span class="input-group-text">Data Inizio</span>
+          <input type="date" aria-label="First name" class="form-control">
+          <span class="input-group-text">Data Fine</span>
+          <input type="date" aria-label="Last name" class="form-control">
+          <button class="btn btn-primary" type="button" id="button-addon1">Filtra</button>
+        </div>
+        <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+          [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
+          [plugins]="lineChartPlugins">
+        </canvas>
+      </div>
     </div>
   </div>
 </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
+import * as moment from 'moment';
 import { Color, Label } from 'ng2-charts';
 
 @Component({
@@ -18,6 +19,8 @@ export class DashboardComponent implements OnInit {
   public lineChartColors: Color[] = [
     {
       borderColor: 'black',
+      borderWidth: 1,
+      hoverBorderWidth: 5,
       backgroundColor: 'rgba(255,0,0,0.3)',
     },
   ];
@@ -25,9 +28,16 @@ export class DashboardComponent implements OnInit {
   public lineChartType =  "line" as ChartType;
   public lineChartPlugins = [];
 
+  dataInizio1 = moment(new Date()).format("YYYY-MM-DD");
+  dataInizio2 = moment(new Date()).add(1, "week").format("YYYY-MM-DD");
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  filter1(): void{
+    
   }
 
 }
