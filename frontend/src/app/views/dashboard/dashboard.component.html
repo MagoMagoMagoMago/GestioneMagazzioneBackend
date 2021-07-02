@@ -1,10 +1,50 @@
-<div class="chart-wrapper">
-    <canvas baseChart 
-    [datasets]="barChartData"
-    [labels]="barChartLabels"
-    [options]="barChartOptions"
-    [plugins]="barChartPlugins"
-    [legend]="barChartLegend"
-    [chartType]="barChartType">
-  </canvas>
+<div class="container my-3">
+  <div class="row">
+    <div class="col bg-light">
+      <canvas baseChart style="width: 10px; height: 10px;"
+      [datasets]="lineChartData"
+      [labels]="lineChartLabels"
+      [options]="lineChartOptions"
+      [colors]="lineChartColors"
+      [legend]="lineChartLegend"
+      [chartType]="lineChartType"
+      [plugins]="lineChartPlugins">
+    </canvas>
+    </div>
+    <div class="col bg-light">
+      <canvas baseChart style="width: 10px; height: 10px;"
+      [datasets]="lineChartData"
+      [labels]="lineChartLabels"
+      [options]="lineChartOptions"
+      [colors]="lineChartColors"
+      [legend]="lineChartLegend"
+      [chartType]="lineChartType"
+      [plugins]="lineChartPlugins">
+    </canvas>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col bg-light">
+      <canvas baseChart style="width: 10px; height: 10px;"
+      [datasets]="lineChartData"
+      [labels]="lineChartLabels"
+      [options]="lineChartOptions"
+      [colors]="lineChartColors"
+      [legend]="lineChartLegend"
+      [chartType]="lineChartType"
+      [plugins]="lineChartPlugins">
+    </canvas>
+    </div>
+    <div class="col bg-light">
+      <canvas baseChart style="width: 10px; height: 10px;"
+      [datasets]="lineChartData"
+      [labels]="lineChartLabels"
+      [options]="lineChartOptions"
+      [colors]="lineChartColors"
+      [legend]="lineChartLegend"
+      [chartType]="lineChartType"
+      [plugins]="lineChartPlugins">
+    </canvas>
+    </div>
+  </div>
 </div>
