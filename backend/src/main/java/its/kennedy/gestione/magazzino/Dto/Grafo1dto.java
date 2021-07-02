@@ -9,10 +9,13 @@ public class Grafo1dto {
 	private Instant settimana;
 	@JsonProperty("ricavi")
 	private Double guadagno;
-
-	public Grafo1dto(Integer settimana, Double guadagno) {
+	@JsonProperty("quantita")
+	private Long quantita;
+	
+	public Grafo1dto(Integer settimana, Double guadagno,Long q) {
 		this.settimana =Instant.parse(settimana/100+"-01-01T00:00:00.00Z").plusSeconds(604800*(settimana%100));
 		this.guadagno = guadagno;
+		this.quantita=q;
 	}
 
 }

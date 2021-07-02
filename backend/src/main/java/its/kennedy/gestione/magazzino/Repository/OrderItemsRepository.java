@@ -15,9 +15,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface OrderItemsRepository extends JpaRepository<OrderItem, Integer> {
-	@Query("SELECT new  its.kennedy.gestione.magazzino.Dto.Grafo1dto((YEAR(cor.order.purchaseDate)*100 +WEEK(cor.order.purchaseDate)) as c , sum(cor.itemPriceAmount)) FROM OrderItem cor where cor.order.purchaseDate > ?1  and cor.order.purchaseDate < ?2 group by c")
+	@Query("SELECT new  its.kennedy.gestione.magazzino.Dto.Grafo1dto((YEAR(cor.order.purchaseDate)*100 +WEEK(cor.order.purchaseDate)) as c , sum(cor.itemPriceAmount),sum(cor.quantityOrdered)) FROM OrderItem cor where cor.order.purchaseDate > ?1  and cor.order.purchaseDate < ?2 group by c")
 	List<Grafo1dto> getDateBetween(Instant inizio,Instant fine);
-	@Query("SELECT new  its.kennedy.gestione.magazzino.Dto.Grafo2dto((YEAR(cor.order.purchaseDate)*100 +WEEK(cor.order.purchaseDate)) as c , sum(cor.itemPriceAmount),cor.asin) FROM OrderItem cor where cor.order.purchaseDate > ?1  and cor.order.purchaseDate < ?2 group by c ,cor.asin")
+	@Query("SELECT new  its.kennedy.gestione.magazzino.Dto.Grafo2dto((YEAR(cor.order.purchaseDate)*100 +WEEK(cor.order.purchaseDate)) as c , sum(cor.itemPriceAmount),sum(cor.quantityOrdered),cor.asin) FROM OrderItem cor where cor.order.purchaseDate > ?1  and cor.order.purchaseDate < ?2 group by c ,cor.asin")
 	List<Grafo2dto> getDateBetweenitem(Instant inizio,Instant fine);
 	@Query("SELECT cor FROM OrderItem cor where cor.order.amazonOrderId = ?1")
     List<OrderItem> getAllByAmazonOrderId(String amazonOrderId);
