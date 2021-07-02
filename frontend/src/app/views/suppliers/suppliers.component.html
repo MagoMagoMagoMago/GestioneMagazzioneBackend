@@ -24,9 +24,8 @@
 
 
   <div class="table-responsive-xl pt-2">
-    <table class="table table-secondary table-striped">
-
-      <thead class="thead-dark table-warning header sticky-top">
+    <table class="table">
+      <thead class="thead-dark table header sticky-top">
         <tr>
           <ng-container *ngFor="let col of columns">
             <th class="th" *ngIf="col.visible" (click)="changeOrderBy(col)">
@@ -70,7 +69,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Impostazioni Tabell</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Impostazioni Tabella</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -101,7 +100,7 @@
 <div class="modal fade" id="newEditSupplierModal" tabindex="-1" aria-labelledby="newEditSupplierModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header alert-primary">
         <h5 class="modal-title" id="exampleModalLabel">{{ new ? 'Nuovo' : 'Modifica'}}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -158,7 +157,7 @@
 <div class="modal fade" id="deleteSupplier" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header alert-danger">
         <h5 class="modal-title" id="exampleModalLabel">Eliminazione</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
