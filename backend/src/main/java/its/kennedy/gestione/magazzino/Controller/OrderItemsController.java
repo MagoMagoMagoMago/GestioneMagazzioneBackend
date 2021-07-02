@@ -1,5 +1,7 @@
 package its.kennedy.gestione.magazzino.Controller;
 
+import its.kennedy.gestione.magazzino.Dto.Grafo1dto;
+import its.kennedy.gestione.magazzino.Dto.Grafo2dto;
 import its.kennedy.gestione.magazzino.Dto.OrderItemDto;
 import its.kennedy.gestione.magazzino.Service.OrderItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.Instant;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -33,8 +36,8 @@ public class OrderItemsController {
     }
 
 	@GetMapping("between/{inizio}/{fine}")
-    public ResponseEntity<List<OrderItemDto>> getOrderbetween(@PathVariable Instant inizio, @PathVariable Instant fine) {
-        List<OrderItemDto> orderItemDtoList = null;
+    public ResponseEntity<List<Grafo1dto>> getOrderbetween(@PathVariable Instant inizio, @PathVariable Instant fine) {
+        List<Grafo1dto> orderItemDtoList = null;
         try {
             orderItemDtoList = orderItemsService.getDateBetween(inizio, fine);
         } catch (Exception e) {
@@ -42,5 +45,14 @@ public class OrderItemsController {
         }
         return ResponseEntity.ok().body(orderItemDtoList);
     }
-
+	@GetMapping("betweenitem/{inizio}/{fine}")
+    public ResponseEntity<List<Grafo2dto>> getOrderbetweenitem(@PathVariable Instant inizio, @PathVariable Instant fine) {
+        List<Grafo2dto> orderItemDtoList = null;
+        try {
+            orderItemDtoList = orderItemsService.getDateBetweenitem(inizio, fine);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(orderItemDtoList);
+    }
 }
