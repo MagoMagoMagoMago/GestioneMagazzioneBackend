@@ -2,6 +2,7 @@ package its.kennedy.gestione.magazzino.Service;
 
 import its.kennedy.gestione.magazzino.Dao.OrderItem;
 import its.kennedy.gestione.magazzino.Dto.Grafo1dto;
+import its.kennedy.gestione.magazzino.Dto.Grafo2dto;
 import its.kennedy.gestione.magazzino.Dto.OrderItemDto;
 import its.kennedy.gestione.magazzino.IService.IOrderItems;
 import its.kennedy.gestione.magazzino.Repository.OrderItemsRepository;
@@ -28,14 +29,18 @@ public class OrderItemsService implements IOrderItems {
     }
     @Override
 	public List<Grafo1dto> getDateBetween(Instant inizio, Instant fine) {
-		try {
 			List<Grafo1dto> u=orderItemsRepository.getDateBetween(inizio, fine);
-		return u;
-		}catch(Exception e){
-			return null;
+		    return u;
 		}
 		
-		
+	    @Override
+		public List<Grafo2dto> getDateBetweenitem(Instant inizio, Instant fine) {
+			try {
+				List<Grafo2dto> u=orderItemsRepository.getDateBetweenitem(inizio, fine);
+			return u;
+			}catch(Exception e){
+				return null;
+			}	
 	}
     @Override
     public List<OrderItemDto> getAllByAmazonOrderId(String amazonOrderId) {

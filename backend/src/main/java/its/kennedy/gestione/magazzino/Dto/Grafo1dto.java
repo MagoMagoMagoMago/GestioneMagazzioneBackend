@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Grafo1dto {
 	@JsonProperty("settimana")
 	private Instant settimana;
-	@JsonProperty("guadagno")
+	@JsonProperty("ricavi")
 	private Double guadagno;
 
 	public Grafo1dto(Integer settimana, Double guadagno) {
