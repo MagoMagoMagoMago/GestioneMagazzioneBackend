@@ -36,8 +36,8 @@ public class OrderItemsController {
     }
 
 	@GetMapping("between/{inizio}/{fine}")
-    public ResponseEntity<List<Grafo1dto>> getOrderbetween(@PathVariable Instant inizio, @PathVariable Instant fine) {
-        List<Grafo1dto> orderItemDtoList = null;
+    public ResponseEntity<Grafo1dto> getOrderbetween(@PathVariable Instant inizio, @PathVariable Instant fine) {
+        Grafo1dto orderItemDtoList = null;
         try {
             orderItemDtoList = orderItemsService.getDateBetween(inizio, fine);
         } catch (Exception e) {

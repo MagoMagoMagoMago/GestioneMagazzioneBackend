@@ -28,8 +28,8 @@ public class OrderItemsService implements IOrderItems {
         return modelMapper.map(orderItemsRepository.findById(id), OrderItemDto.class);
     }
     @Override
-	public List<Grafo1dto> getDateBetween(Instant inizio, Instant fine) {
-			List<Grafo1dto> u=orderItemsRepository.getDateBetween(inizio, fine);
+	public Grafo1dto getDateBetween(Instant inizio, Instant fine) {
+			Grafo1dto u=orderItemsRepository.getDateBetween(inizio, fine);
 		    return u;
 		}
 		
