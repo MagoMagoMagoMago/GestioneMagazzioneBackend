@@ -37,9 +37,8 @@
               'dd/MM/yyyy'}}</td>
             <td *ngIf="colPurchases[3].visible" class="align-middle" width=20%>{{purchase.supplier}}</td>
             <td class="align-middle" width=10%>
-              <button type="button" class="btn btn-primary btn-sm shadow-none" data-bs-toggle="modal"
-                data-bs-target="#modalDetails" style="margin: 2%;" (click)="openDetailsModal(purchase)"><i
-                  class="bi bi-search"></i></button>
+              <button type="button" class="buttonInfo btn btn-primary btn-sm shadow-none" data-bs-toggle="modal"
+                data-bs-target="#modalDetails" style="margin: 2%;" (click)="openDetailsModal(purchase)"><i class="bi bi-info-circle"></i></button>
               <button type="button" class="btn btn-secondary btn-sm shadow-none" data-bs-toggle="modal"
                 data-bs-target="#updatePurchase" (click)="onUpdateButtonClick(purchase)" style="margin: 2%;"><i
                   class="bi bi-pencil-fill"></i></button>

@@ -20,13 +20,13 @@ export class ItemsComponent implements OnInit {
   @ViewChild('myModalClose') modalClose: any;
 
   constructor(
-    private itemService: ItemApiService, 
-    private router: Router, 
+    private itemService: ItemApiService,
+    private router: Router,
     private toast: ToastrService,
     public fb: FormBuilder,
     private categoriyService: CategoryApiService,
     private cartService: CartService
-    ) { }
+  ) { }
   public colItems!: Column[];
 
   submitted: boolean = false;
@@ -39,18 +39,22 @@ export class ItemsComponent implements OnInit {
   //dettagli paginazione
   public quantity!: number;
   public page: number = 0;
-  public sort = { name: "title", orderBy: true};
+  public sort = { name: "title", orderBy: true };
   public totalPages: number = 0;
 
+  formFilter = this.fb.group({
+    titleFilter: [null]
+  })
+
   updateForm = this.fb.group({
-    id : [null, Validators.required],
-    asin : [null, [Validators.required, Validators.minLength(10)]],
-    title : [null, Validators.required],
-    description : [null],
-    price : [null, [Validators.required, Validators.pattern("^\\d+\\.\\d{0,2}$")]],
-    storage : [null, Validators.required],
-    minAvailability : [null, Validators.required],
-    image : [null, Validators.required],
+    id: [null, Validators.required],
+    asin: [null, [Validators.required, Validators.minLength(10)]],
+    title: [null, Validators.required],
+    description: [null],
+    price: [null, [Validators.required, Validators.pattern("^\\d+\\.\\d{0,2}$")]],
+    storage: [null, Validators.required],
+    minAvailability: [null, Validators.required],
+    image: [null, Validators.required],
     createdAt: [null, Validators.required],
     updatedAt: [null],
     deletedAt: [null],
@@ -58,10 +62,10 @@ export class ItemsComponent implements OnInit {
   })
 
   ngOnInit(): void {
-    
-    if(localStorage.getItem(this.nameOnStorage) != null){
+
+    if (localStorage.getItem(this.nameOnStorage) != null) {
       this.colItems = JSON.parse(localStorage.getItem(this.nameOnStorage)!) as Column[];
-    }else{
+    } else {
       this.colItems = [
         { name: "asin", text: "Asin", visible: false },
         { name: "title", text: "Titolo", visible: true },
@@ -73,9 +77,9 @@ export class ItemsComponent implements OnInit {
       ];
       localStorage.setItem(this.nameOnStorage, JSON.stringify(this.colItems));
     }
-    if (localStorage.getItem(this.nameOnStorage + "_itemPerPage") !=  null) {
+    if (localStorage.getItem(this.nameOnStorage + "_itemPerPage") != null) {
       this.quantity = Number(localStorage.getItem(this.nameOnStorage + "_itemPerPage"));
-    }else{
+    } else {
       this.quantity = 5;
       localStorage.setItem(this.nameOnStorage + "_itemPerPage", this.quantity.toString());
     }
@@ -84,65 +88,72 @@ export class ItemsComponent implements OnInit {
   }
 
   loadItems() {
-   this.itemService.getAll(this.sort.name, this.sort.orderBy, this.page, this.quantity).subscribe((resp) => {
-     this.listaItems = resp.list;
-     this.totalPages = resp.pagine;
-   })
+    //Filtro
+    if (this.formFilter.value.titleFilter) {
+      this.itemService.getByTitle(this.sort.name, this.sort.orderBy, this.page, this.quantity, this.formFilter.value.titleFilter).subscribe((resp) => {
+        this.listaItems = resp.list;
+        this.totalPages = resp.pagine;
+      })
+    } else {
+      this.itemService.getAll(this.sort.name, this.sort.orderBy, this.page, this.quantity).subscribe((resp) => {
+        this.listaItems = resp.list;
+        this.totalPages = resp.pagine;
+      })
+    }
   }
 
-  isListEmpty(): boolean{
-    if(this.listaItems?.length == 0){
+  isListEmpty(): boolean {
+    if (this.listaItems?.length == 0) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
 
-  changeVisibility(column: Column): void{
+  changeVisibility(column: Column): void {
     column.visible = !column.visible;
     localStorage.setItem(this.nameOnStorage, JSON.stringify(this.colItems));
   }
 
-  onChangeItemPerPage(itemPerPage: string): void{
+  onChangeItemPerPage(itemPerPage: string): void {
     this.quantity = Number(itemPerPage);
     localStorage.setItem(this.nameOnStorage + "_itemPerPage", this.quantity.toString());
     this.loadItems();
   }
 
-  changePage(page: number): void{
+  changePage(page: number): void {
     this.page = page;
     this.loadItems();
   }
 
-  changeOrderBy(column: Column): void{
-    if (this.sort.name == column.name){
+  changeOrderBy(column: Column): void {
+    if (this.sort.name == column.name) {
       this.sort.orderBy = !this.sort.orderBy;
-    } else{
+    } else {
       this.sort = {
         name: column.name,
         orderBy: true
       };
     }
-    
     this.loadItems();
   }
 
-  openDeleteModal(item: Item): void{
+  openDeleteModal(item: Item): void {
     this.itemSelected = item;
   }
 
-  deleteItems(id: number): void{
+  deleteItems(id: number): void {
     this.itemService.deleteById(id).subscribe(
-      (success) => { 
-        this.toast.success("Articolo eliminato con successo.", "Eliminazione", { positionClass: 'toast-bottom-right'}); 
+      (success) => {
+        this.toast.success("Articolo eliminato con successo.", "Eliminazione", { positionClass: 'toast-bottom-right' });
         this.loadItems();
       },
-      (error) => { this.toast.error("Erorre riscontrato nella eliminazione.", "Eliminazione"), { positionClass: 'toast-bottom-right'} }
+      (error) => { this.toast.error("Erorre riscontrato nella eliminazione.", "Eliminazione"), { positionClass: 'toast-bottom-right' } }
     )
   }
 
-  onUpdateButtonClick(item: Item): void{
-    if(this.categories){
+  onUpdateButtonClick(item: Item): void {
+    if (this.categories) {
       this.updateForm.patchValue(
         {
           id: item.id,
@@ -159,8 +170,8 @@ export class ItemsComponent implements OnInit {
           category: this.categories?.filter(x => x.name == item.category)[0].id
         }
       );
-    }else{
-      this.categoriyService.getAll().subscribe((resp: Category[])=>{
+    } else {
+      this.categoriyService.getAll().subscribe((resp: Category[]) => {
         this.categories = resp;
         this.updateForm.patchValue(
           {
@@ -180,43 +191,43 @@ export class ItemsComponent implements OnInit {
         );
       });
     }
-    
+
   }
 
-  onSubmitUpdate(): void{
-    this.updateForm.controls['category'].setValue({id: this.updateForm.get("category")?.value});
+  onSubmitUpdate(): void {
+    this.updateForm.controls['category'].setValue({ id: this.updateForm.get("category")?.value });
     this.itemService.update(this.updateForm.value).subscribe(
-      (success) => { 
-        this.toast.success("Articolo modificato con successo.", "Modifica", { positionClass: 'toast-bottom-right'}); 
+      (success) => {
+        this.toast.success("Articolo modificato con successo.", "Modifica", { positionClass: 'toast-bottom-right' });
         this.loadItems();
         this.modalClose.nativeElement.click();
       },
-      (error) => { 
+      (error) => {
         console.log(error);
-        this.updateForm.controls['category'].setValue(this.categories?.find((x)=> x.id == this.updateForm.get("category")?.value.id)?.id);
-        this.toast.error("Errore riscontrato nella modifica.", "Modifica", { positionClass: 'toast-bottom-right'}) 
+        this.updateForm.controls['category'].setValue(this.categories?.find((x) => x.id == this.updateForm.get("category")?.value.id)?.id);
+        this.toast.error("Errore riscontrato nella modifica.", "Modifica", { positionClass: 'toast-bottom-right' })
       }
     );
   }
 
-  addToCard(item: Item): void{
+  addToCard(item: Item): void {
     this.addToCardQuantity = 1;
     this.itemSelected = item;
   }
 
-  addToCardChangeQuantiity(op: string){
+  addToCardChangeQuantiity(op: string) {
     if (op === "-") {
       if (this.addToCardQuantity > 1) {
         this.addToCardQuantity = this.addToCardQuantity - 1;
       }
-    } else{
+    } else {
       this.addToCardQuantity = this.addToCardQuantity + 1;
     }
   }
-  
-  aggiungiAlCarello(): void{
+
+  aggiungiAlCarello(): void {
     this.cartService.addItemToCartSessionStorage(this.itemSelected, this.addToCardQuantity);
-    this.toast.success(this.itemSelected.title + " è stato aggiunto al carello", "Carello", { positionClass: 'toast-bottom-right'});
+    this.toast.success(this.itemSelected.title + " è stato aggiunto al carello", "Carello", { positionClass: 'toast-bottom-right' });
   }
 
 }

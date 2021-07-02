@@ -94,7 +94,7 @@ public class PurchasesService implements IPurchases {
         Pageable p;
         if (sortBy.length() <= 0) {
             sortBy = "Id";
-        } else if (sortBy.equals("supplierId")) {
+        } else if (sortBy.equals("supplier")) {
             sortBy += ".name";
         }
         if (order) {

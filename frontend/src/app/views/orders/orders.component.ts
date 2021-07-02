@@ -27,7 +27,7 @@ export class OrdersComponent implements OnInit {
   readonly nameOnStorage = "table_orders";
   public quantity!: number;
   public page: number = 0;
-  public sort = { name: "AmazonOrderId", orderBy: true};
+  public sort = { name: "PurchaseDate", orderBy: true};
   public totalPages: number = 0;
  
   ngOnInit(): void {

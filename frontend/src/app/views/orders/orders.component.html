@@ -63,9 +63,8 @@
           <td *ngIf="colOrders[22].visible" class="align-middle" width=10%>{{order.ShippingStateOrRegionPostalCode}}
           </td>
           <td>
-            <button type="button" class="btn btn-primary btn-sm shadow-none" data-bs-toggle="modal"
-              data-bs-target="#modalDetails" style="margin-left: 30%;" (click)="openDetailsModal(order)"><i
-                class="bi bi-search"></i></button>
+            <button type="button" class="buttonInfo btn btn-primary btn-sm shadow-none" data-bs-toggle="modal"
+              data-bs-target="#modalDetails" style="margin-left: 30%;" (click)="openDetailsModal(order)"><i class="bi bi-info-circle"></i></button>
           </td>
         </tr>
         <tr *ngIf="isListEmpty()">
