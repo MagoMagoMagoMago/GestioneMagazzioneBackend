@@ -4,6 +4,7 @@ import its.kennedy.gestione.magazzino.Dto.OrderItemDto;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public interface IOrderItems {
@@ -18,5 +19,5 @@ public interface IOrderItems {
 
     List<OrderItemDto> getAllByAmazonOrderId(String amazonOrderId);
 
-	ArrayList<OrderItemDto> getDateBetween(Instant inizio, Instant fine);
+	Object getDateBetween(Instant inizio, Instant fine);
 }
