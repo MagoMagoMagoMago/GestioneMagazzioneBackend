@@ -6,7 +6,6 @@ import its.kennedy.gestione.magazzino.IService.ISuppliers;
 import its.kennedy.gestione.magazzino.Repository.SuppliersRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,5 @@
 package its.kennedy.gestione.magazzino.Dto;
 
-import java.time.Instant;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Grafo1dto {
@@ -15,4 +13,20 @@ public class Grafo1dto {
 		this.quantita=q;
 	}
 
+	public Double getGuadagno() {
+		return guadagno;
+	}
+
+	public void setGuadagno(Double guadagno) {
+		this.guadagno = guadagno;
+	}
+
+	public Long getQuantita() {
+		return quantita;
+	}
+
+	public void setQuantita(Long quantita) {
+		this.quantita = quantita;
+	}
+    
 }
