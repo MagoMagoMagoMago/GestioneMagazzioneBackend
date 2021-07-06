@@ -25,7 +25,7 @@ export class PurchaseInsert{
 export class PurchaseItem{ 
     id!: number | null;
     purchase_id!: number; 
-    item_id!: number;
+    item!: number;
     quantity!: number;
     unit_price!: number; 
     created_at = null;
