@@ -176,24 +176,7 @@ public class OrderItem implements Serializable {
         this.orderSuccess = orderSuccess;
     }
 
-    @Override
-    public String toString() {
-        return "OrderItemsDao{" +
-                "orderItemId=" + orderItemId +
-                ", amazonOrderId='" + order + '\'' +
-                ", asin='" + asin + '\'' +
-                ", title='" + title + '\'' +
-                ", quantityOrdered=" + quantityOrdered +
-                ", QuantityShipped=" + QuantityShipped +
-                ", pointsGrantedPointsNumber=" + pointsGrantedPointsNumber +
-                ", AmazonOrderId='" + pointsGrantedPointsMonetaryValueCurrencyCode + '\'' +
-                ", pointsGrantedPointsMonetaryValueAmount=" + pointsGrantedPointsMonetaryValueAmount +
-                ", itemPriceCurrencyCode='" + itemPriceCurrencyCode + '\'' +
-                ", itemPriceAmount=" + itemPriceAmount +
-                ", shippingPriceCurrencyCode='" + shippingPriceCurrencyCode + '\'' +
-                ", ShippingPriceAmount=" + ShippingPriceAmount +
-                ", promotionIds='" + promotionIds + '\'' +
-                '}';
+   
     public Order getOrder() {
         return order;
     }
