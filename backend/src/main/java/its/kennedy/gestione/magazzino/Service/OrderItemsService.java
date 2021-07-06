@@ -42,6 +42,9 @@ public class OrderItemsService implements IOrderItems {
 	public List<Grafo2dto> getDateBetweenitem(Instant inizio, Instant fine) {
 		try {
 			List<Grafo2dto> u = orderItemsRepository.getDateBetweenitem(inizio, fine);
+			for (Grafo2dto grafo2dto : u) {
+				grafo2dto.setAsin(itemsRepository.getByAsin(grafo2dto.getAsin()).getTitle());
+			}
 			return u;
 		} catch (Exception e) {
 			return null;

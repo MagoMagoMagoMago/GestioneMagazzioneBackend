@@ -12,6 +12,9 @@ public class Grafo2dto extends Grafo1dto {
 	public String getAsin() {
 		return asin;
 	}
+	public void setAsin(String asin) {
+		this.asin = asin;
+	}
 	
 
 }
