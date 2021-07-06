@@ -15,5 +15,5 @@ public interface IPurchaseItems {
     
     List<PurchaseItemDto> getByPurchase(int id);
 
-    Boolean addPurchases(List<PurchaseItem> purchaseItems);
+    Boolean addPurchases(List<PurchaseItemDto> purchaseItems);
 }

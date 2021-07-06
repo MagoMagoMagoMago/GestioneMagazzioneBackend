@@ -45,15 +45,17 @@ public class PurchaseItemsService implements IPurchaseItems {
     }
 
     @Override
-    public Boolean addPurchases(List<PurchaseItem> purchaseItems) {
-        for (PurchaseItem purchaseItem : purchaseItems) {
+    public Boolean addPurchases(List<PurchaseItemDto> purchaseItems) {
+        for (PurchaseItemDto purchaseItem : purchaseItems) {
             try {
+            	
                 int modicag = purchaseItem.getQuantity();
                 if (purchaseItem.getId() == null) {
                     purchaseItem.setCreated_at(Instant.now());
-
-                    puchasesRepository.saveAndFlush(purchaseItem);
-                    Item n = itemsRepository.getById(purchaseItem.getItem().getId());
+                    final PurchaseItem purchaseItemFinal = modelMapper.map(purchaseItem, PurchaseItem.class);
+                    purchaseItemFinal.setItem(itemsRepository.getById(Integer.parseInt(purchaseItem.getItem())));
+                    puchasesRepository.saveAndFlush(purchaseItemFinal);
+                    Item n = itemsRepository.getById(purchaseItemFinal.getItem().getId());
                     n.setStorage(n.getStorage() + modicag);
                     itemsRepository.saveAndFlush(n);
                 }

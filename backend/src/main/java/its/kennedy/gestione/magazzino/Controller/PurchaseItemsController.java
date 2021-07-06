@@ -61,7 +61,7 @@ public class PurchaseItemsController {
     }
 
     @PostMapping(produces = "application/json")
-    public ResponseEntity<Boolean> insertPurchaseItems(@RequestBody List<PurchaseItem> purchaseItems) {
+    public ResponseEntity<Boolean> insertPurchaseItems(@RequestBody List<PurchaseItemDto> purchaseItems) {
         try {
             return ResponseEntity.ok().body(supplierservice.addPurchases(purchaseItems));
         } catch (Exception e) {
