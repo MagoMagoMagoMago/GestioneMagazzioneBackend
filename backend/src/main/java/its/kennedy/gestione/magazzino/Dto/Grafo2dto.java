@@ -9,5 +9,9 @@ public class Grafo2dto extends Grafo1dto {
 		super(guadagno,q);
 		this.asin=asin;
 	}
+	public String getAsin() {
+		return asin;
+	}
+	
 
 }
