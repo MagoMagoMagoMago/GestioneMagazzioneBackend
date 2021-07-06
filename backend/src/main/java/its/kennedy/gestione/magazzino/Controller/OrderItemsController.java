@@ -34,17 +34,18 @@ public class OrderItemsController {
         return ResponseEntity.ok().body(orderItemDtoList);
     }
 
-	@GetMapping("between/{inizio}/{fine}")
-    public ResponseEntity<List<OrderItemDto>> getOrderbetween(@PathVariable Instant inizio, @PathVariable Instant fine) {
-        List<OrderItemDto> orderItemDtoList = null;
+	@GetMapping("between/{inizio}/{fine}/{asin}")
+    public ResponseEntity<Grafo1dto> getOrderbetween(@PathVariable Instant inizio, @PathVariable Instant fine,@PathVariable String asin) {
+        Grafo1dto orderItemDtoList = null;
         try {
-            orderItemDtoList = orderItemsService.getDateBetween(inizio, fine);
+        	
+        		 orderItemDtoList = orderItemsService.getDateBetween(inizio, fine, asin)	;
+        	
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok().body(orderItemDtoList);
     }
-
 	@GetMapping("between/{inizio}/{fine}")
     public ResponseEntity<Grafo1dto> getOrderbetween(@PathVariable Instant inizio, @PathVariable Instant fine) {
         Grafo1dto orderItemDtoList = null;
