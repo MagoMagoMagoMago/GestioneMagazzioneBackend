@@ -8,16 +8,16 @@ import { environment } from 'src/environments/environment';
 })
 export class ChartApiService {
 
-  private url = environment.host;
+  private url = environment.host + "/orderItems";
 
   constructor(private http: HttpClient) {  }
 
-  public quanita(): Observable<any> {
-    return this.http.get(this.url);
+  public chartOrderItems(start: string, end: string): Observable<any> {
+    return this.http.get(this.url + "/betweenitem/" + start +"T00:00:00.00Z" + "/" + end  + "T00:00:00.00Z");
   }
-  
-  public ricavi(): Observable<any> {
-    return this.http.get(this.url);
+
+  public chartTotalOrderItems(start: string, end: string): Observable<any> {
+    return this.http.get(this.url + "/between/" + start +"T00:00:00.00Z" + "/" + end  + "T00:00:00.00Z");
   }
 
   public bho(): Observable<any> {
