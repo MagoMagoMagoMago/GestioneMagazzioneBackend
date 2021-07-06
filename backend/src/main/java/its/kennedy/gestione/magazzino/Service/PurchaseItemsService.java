@@ -3,6 +3,7 @@ package its.kennedy.gestione.magazzino.Service;
 import its.kennedy.gestione.magazzino.Dao.Item;
 import its.kennedy.gestione.magazzino.Dao.PurchaseItem;
 import its.kennedy.gestione.magazzino.Dto.PurchaseItemDto;
+import its.kennedy.gestione.magazzino.Dto.PurchaseItemDtoInsert;
 import its.kennedy.gestione.magazzino.IService.IPurchaseItems;
 import its.kennedy.gestione.magazzino.Repository.ItemsRepository;
 import its.kennedy.gestione.magazzino.Repository.PurchaseItemsRepository;
@@ -45,21 +46,22 @@ public class PurchaseItemsService implements IPurchaseItems {
     }
 
     @Override
-    public Boolean addPurchases(List<PurchaseItemDto> purchaseItems) {
-        for (PurchaseItemDto purchaseItem : purchaseItems) {
+    public Boolean addPurchases(List<PurchaseItemDtoInsert> purchaseItems) {
+        for (PurchaseItemDtoInsert purchaseItem : purchaseItems) {
             try {
             	
                 int modicag = purchaseItem.getQuantity();
                 if (purchaseItem.getId() == null) {
                     purchaseItem.setCreated_at(Instant.now());
                     final PurchaseItem purchaseItemFinal = modelMapper.map(purchaseItem, PurchaseItem.class);
-                    purchaseItemFinal.setItem(itemsRepository.getById(Integer.parseInt(purchaseItem.getItem())));
+                    purchaseItemFinal.setItem(itemsRepository.getById(purchaseItem.getItem()));
                     puchasesRepository.saveAndFlush(purchaseItemFinal);
                     Item n = itemsRepository.getById(purchaseItemFinal.getItem().getId());
                     n.setStorage(n.getStorage() + modicag);
                     itemsRepository.saveAndFlush(n);
                 }
             } catch (Exception e) {
+            	System.out.println(e);
                 return false;
             }
         }

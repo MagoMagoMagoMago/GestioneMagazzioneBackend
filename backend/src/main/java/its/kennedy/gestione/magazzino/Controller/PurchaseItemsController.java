@@ -2,6 +2,7 @@ package its.kennedy.gestione.magazzino.Controller;
 
 import its.kennedy.gestione.magazzino.Dao.PurchaseItem;
 import its.kennedy.gestione.magazzino.Dto.PurchaseItemDto;
+import its.kennedy.gestione.magazzino.Dto.PurchaseItemDtoInsert;
 import its.kennedy.gestione.magazzino.Service.PurchaseItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -61,7 +62,7 @@ public class PurchaseItemsController {
     }
 
     @PostMapping(produces = "application/json")
-    public ResponseEntity<Boolean> insertPurchaseItems(@RequestBody List<PurchaseItemDto> purchaseItems) {
+    public ResponseEntity<Boolean> insertPurchaseItems(@RequestBody List<PurchaseItemDtoInsert> purchaseItems) {
         try {
             return ResponseEntity.ok().body(supplierservice.addPurchases(purchaseItems));
         } catch (Exception e) {

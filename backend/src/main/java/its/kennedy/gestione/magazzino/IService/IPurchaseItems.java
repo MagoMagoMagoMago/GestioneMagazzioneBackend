@@ -2,6 +2,7 @@ package its.kennedy.gestione.magazzino.IService;
 
 import its.kennedy.gestione.magazzino.Dao.PurchaseItem;
 import its.kennedy.gestione.magazzino.Dto.PurchaseItemDto;
+import its.kennedy.gestione.magazzino.Dto.PurchaseItemDtoInsert;
 
 import java.util.List;
 
@@ -15,5 +16,5 @@ public interface IPurchaseItems {
     
     List<PurchaseItemDto> getByPurchase(int id);
 
-    Boolean addPurchases(List<PurchaseItemDto> purchaseItems);
+    Boolean addPurchases(List<PurchaseItemDtoInsert> purchaseItems);
 }
