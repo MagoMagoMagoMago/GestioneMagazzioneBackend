@@ -1,6 +1,7 @@
 package its.kennedy.gestione.magazzino.Controller;
 
 import its.kennedy.gestione.magazzino.Dto.Grafo1dto;
+import its.kennedy.gestione.magazzino.Dto.Grafo2dto;
 import its.kennedy.gestione.magazzino.Dto.OrderItemDto;
 import its.kennedy.gestione.magazzino.Dto.grafo3;
 import its.kennedy.gestione.magazzino.Service.OrderItemsService;
@@ -57,14 +58,12 @@ public class OrderItemsController {
         return ResponseEntity.ok().body(orderItemDtoList);
     }
 	@GetMapping("betweenitem/{inizio}/{fine}/{asin}")
-    public ResponseEntity<Grafo1dto> getOrderbetweenitem(@PathVariable Instant inizio, @PathVariable Instant fine,@PathVariable String asin) {
-        Grafo1dto orderItemDtoList = null;
+    public ResponseEntity<List<Grafo2dto>> getOrderbetweenitem(@PathVariable Instant inizio, @PathVariable Instant fine,@PathVariable String asin) {
+        List<Grafo2dto> orderItemDtoList = null;
         try {
-        	if(asin.isBlank()||asin==null) {
-            orderItemDtoList = orderItemsService.getDateBetween(inizio, fine);
-        	}else {
-        		 orderItemDtoList = orderItemsService.getDateBetween(inizio, fine,asin);
-        	}
+        	
+            orderItemDtoList = orderItemsService.getDateBetweenitem(inizio, fine);
+        	
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
