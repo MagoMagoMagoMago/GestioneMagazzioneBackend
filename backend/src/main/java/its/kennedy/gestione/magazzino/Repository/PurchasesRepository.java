@@ -23,4 +23,7 @@ public interface PurchasesRepository extends JpaRepository<Purchase, Integer> {
      * @return a filtered Page of Purchase
      */
     Page<Purchase> findAllByDeletedAt(Instant instant, Pageable pageable);
+
+    Boolean existsPurchaseBySupplierId(Integer id);
+
 }

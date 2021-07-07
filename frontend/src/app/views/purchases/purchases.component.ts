@@ -8,6 +8,7 @@ import { Column } from 'src/app/models/columns';
 import { PurchaseItems } from 'src/app/models/purchaseItems';
 import { Supplier } from 'src/app/models/supplier';
 import { Purchases } from '../../models/purchases';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-purchases',
@@ -23,7 +24,8 @@ export class PurchasesComponent implements OnInit {
     private supplierApi: SupplierApiService,
     private purchaseItemsApi: PurchaseItemsApiService,
     public fb: FormBuilder,
-    public toast: ToastrService
+    public toast: ToastrService,
+    public datepipe : DatePipe
     ) { }
 
   public colPurchases!: Column[];
@@ -44,9 +46,9 @@ export class PurchasesComponent implements OnInit {
 
   updateForm = this.fb.group({
     id: [null, Validators.required],
-    number_invoice : [null, Validators.required],
+    numberInvoice : [null, Validators.required],
     note: [null, Validators.required], 
-    date_invoice: [null, Validators.required],
+    dateInvoice: [null, Validators.required],
     supplier: [null, Validators.required],
     createdAt: [null, Validators.required],
     updatedAt: [null],
@@ -58,9 +60,9 @@ export class PurchasesComponent implements OnInit {
       this.colPurchases = JSON.parse(localStorage.getItem(this.nameOnStorage)!) as Column[];
     }else{
       this.colPurchases = [
-        { name: "number_invoice", text: "N. Fattura",  visible: true },
+        { name: "numberInvoice", text: "N. Fattura",  visible: true },
         { name: "note", text: "Descrizione",  visible: true },
-        { name: "date_invoice", text: "Data", visible: true},
+        { name: "dateInvoice", text: "Data", visible: true},
         { name: "supplier", text: "Fornitore", visible: true}, 
       ];
 
@@ -109,9 +111,9 @@ export class PurchasesComponent implements OnInit {
       this.updateForm.patchValue(
         {
           id: purchase.id,
-          number_invoice: purchase.number_invoice,
+          numberInvoice: purchase.numberInvoice,
           note: purchase.note, 
-          date_invoice: purchase.date_invoice,
+          dateInvoice: purchase.dateInvoice,
           createdAt: purchase.createdAt,
           updatedAt: purchase.updateAt,
           deletedAt: purchase.deletedAt,
@@ -124,9 +126,9 @@ export class PurchasesComponent implements OnInit {
         this.updateForm.patchValue(
           {
             id: purchase.id,
-            number_invoice: purchase.number_invoice,
+            numberInvoice: purchase.numberInvoice,
             note: purchase.note, 
-            date_invoice: purchase.date_invoice,
+            dateInvoice: this.datepipe.transform(purchase.dateInvoice, 'dd/MM/yyyy'),
             createdAt: purchase.createdAt,
             updatedAt: purchase.updateAt,
             deletedAt: purchase.deletedAt,
@@ -162,8 +164,8 @@ export class PurchasesComponent implements OnInit {
     })
   }
 
-  onChangePurchasePerPage(orderPerPage: string): void{
-    this.quantity = Number(orderPerPage);
+  onChangeItemPerPage(itemPerPage: string): void{
+    this.quantity = Number(itemPerPage);
     localStorage.setItem(this.nameOnStorage + "_itemPerPage", this.quantity.toString());
     this.loadPurchases();
   }
@@ -186,7 +188,7 @@ export class PurchasesComponent implements OnInit {
     this.loadPurchases();
   }
 
-  changePurchasesBy(column: Column): void{
+  changeOrderBy(column: Column): void{
     if (this.sort.name == column.name){
       this.sort.orderBy = !this.sort.orderBy;
     } else{
@@ -195,6 +197,7 @@ export class PurchasesComponent implements OnInit {
         orderBy: true
       };
     }
+    this.loadPurchases();
   }
   
 }
