@@ -54,12 +54,12 @@ public class PurchasesService implements IPurchases {
         }
         return true;
     }
-    
+
     @Override
     public Integer insert(Purchase entity) {
         try {
             if (entity.getId() != null) {
-            	entity.setId(null);
+                entity.setId(null);
             }
             entity.setCreatedAt(Instant.now());
             entity = puchasesRepository.saveAndFlush(entity);
@@ -94,6 +94,8 @@ public class PurchasesService implements IPurchases {
         Pageable p;
         if (sortBy.length() <= 0) {
             sortBy = "Id";
+        } else if (sortBy.equals("supplierId")) {
+            sortBy += ".name";
         }
         if (order) {
             p = PageRequest.of(pagina, quantita, Sort.by(sortBy).ascending());

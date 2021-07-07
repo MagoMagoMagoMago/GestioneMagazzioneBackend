@@ -57,8 +57,8 @@ public class OrderItemsController {
         }
         return ResponseEntity.ok().body(orderItemDtoList);
     }
-	@GetMapping("betweenitem/{inizio}/{fine}/{asin}")
-    public ResponseEntity<List<Grafo2dto>> getOrderbetweenitem(@PathVariable Instant inizio, @PathVariable Instant fine,@PathVariable String asin) {
+	@GetMapping("betweenitem/{inizio}/{fine}")
+    public ResponseEntity<List<Grafo2dto>> getOrderbetweenitem(@PathVariable Instant inizio, @PathVariable Instant fine) {
         List<Grafo2dto> orderItemDtoList = null;
         try {
         	

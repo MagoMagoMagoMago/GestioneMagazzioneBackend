@@ -15,54 +15,103 @@ import { Item } from 'src/app/models/item';
 export class DashboardComponent implements OnInit {
   chartone!: ChartOne[];
   public lineChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
+    { data: [], label: 'Articoli' },
   ];
-  public lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public lineChartLabels: Label[] = [];
   public lineChartOptions: ChartOptions = {
     responsive: true,
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true
+          }
+        }
+      ]
+    }
   };
   public lineChartColors: Color[] = [
     {
       borderColor: 'black',
       borderWidth: 1,
-      hoverBorderWidth: 5,
+      hoverBorderWidth: 3,
+      backgroundColor: 'rgba(255,0,0,0.3)',
+    },
+    {
+      borderColor: 'white',
+      borderWidth: 1,
+      hoverBorderWidth: 3,
       backgroundColor: 'rgba(255,0,0,0.3)',
     },
   ];
-  public lineChartLegend = true;
-  public lineChartType =  "bar" as ChartType;
+  public lineChartLegend = false;
+  public lineChartType = "bar" as ChartType;
   public lineChartPlugins = [];
 
   public articoli!: Item[];
 
   dataInizio1 = moment(new Date()).add(-1, "week").format("YYYY-MM-DD");
   dataFine1 = moment(new Date()).format("YYYY-MM-DD");
-  articoloSelezionato = "-----------------------------TUTTI----------------------------";
+  articoloSelezionato = "null";
   quantita = 0;
   ricavi = 0;
+
+
+  dataInizio2 = moment(new Date()).add(-1, "week").format("YYYY-MM-DD");
+  dataFine2 = moment(new Date()).format("YYYY-MM-DD");
 
   constructor(
     private chartService: ChartApiService,
     private itemService: ItemApiService
-    ) { }
+  ) { }
 
   ngOnInit() {
-    this.itemService.getAll("title", true,0,20).subscribe(
-      (success)=>{
+    this.itemService.getAll("title", true, 0, 20).subscribe(
+      (success) => {
         this.articoli = success.list;
       }
-      );
+    );
     this.filter1();
+    this.filter2();
+
   }
 
-  filter1(): void{
-    this.chartService.chartTotalOrderItems(this.dataInizio1.toString(), this.dataFine1.toString()).subscribe(
-      (success: ChartOne)=>{
-        this.quantita = success.quantita;
-        this.ricavi = success.ricavi;
+  filter1(): void {
+    if (this.articoloSelezionato == "null") {
+      this.chartService.chartTotalOrderItems(this.dataInizio1.toString(), this.dataFine1.toString()).subscribe(
+        (success: ChartOne) => {
+          this.quantita = success.quantita;
+          this.ricavi = success.ricavi;
+        },
+        (err) => { console.log(err) }
+      );
+    } else {
+      this.chartService.chartTotalOrderItemsByAsin(this.dataInizio1.toString(), this.dataFine1.toString(), this.articoloSelezionato).subscribe(
+        (success: ChartOne) => {
+          this.quantita = success.quantita;
+          this.ricavi = success.ricavi;
+        },
+        (err) => { console.log(err) }
+      );
+    }
+  }
+
+  filter2(): void {
+    this.chartService.istogrammaArticoli(this.dataInizio2, this.dataFine2).subscribe(
+      (success) => {
+        this.lineChartData[0].data = [];
+        this.lineChartLabels = [];
+        
+        success.map((x: { ricavi: number, quantita: number, asin: string }) => {
+          this.lineChartData[0].data!.push(x.quantita);
+          const label: Label = x.asin;
+          this.lineChartLabels.push(label);
+        })
       },
-      (err)=>{console.log(err)}
-    );
+      (error) => {
+        alert("errore");
+      }
+    )
   }
 
 }

@@ -12,7 +12,7 @@
         <div class="input-group mt-3">
           <span class="input-group-text">Articolo</span>
           <select class="form-select" [(ngModel)]="articoloSelezionato" aria-label="Default select example" (change)="filter1()">
-            <option value="-----------------------------TUTTI----------------------------" selected>----------------------------------- TUTTI -----------------------------------</option>
+            <option value="null" selected>----------------------------------- TUTTI -----------------------------------</option>
             <ng-container *ngFor="let articolo of articoli">
               <option value="{{articolo.asin}}" >
                 {{articolo.title}}
@@ -35,13 +35,13 @@
         </div>
         <div class="row my-3">
           <div class="col d-flex justify-content-center">
-            <div class="circle bg-success d-flex align-items-center justify-content-center">
-              <h2 class="display-5 text-white">{{quantita}}</h2>
+            <div class="circle d-flex align-items-center justify-content-center" style="background-color: #6f42c1;">
+              <h2 class="display-5 text-white">{{quantita != null ? quantita : "0"}}</h2>
             </div>
           </div>
           <div class="col d-flex justify-content-center">
-            <div class="circle bg-primary d-flex align-items-center justify-content-center">
-              <h2 class="display-6 text-white">€ {{ricavi | number:'1.2-2'}}</h2>
+            <div class="circle d-flex align-items-center justify-content-center" style="background-color: #20c997;">
+              <h2 class="display-6 text-white">€ {{ ricavi != null ? (ricavi | number:'1.2-2') : "0"}}</h2>
             </div>
           </div>
         </div>
@@ -50,12 +50,11 @@
     <div class="col-md-6">
       <div class="bg-light mx-1 my-1 px-3 py-2 rounded-3">
         <h2 class="display-6 text-center">Ricavi</h2>
-        <div class="input-group mt-3">
+        <div class="input-group my-3">
           <span class="input-group-text">Data Inizio</span>
-          <input type="date" aria-label="First name" class="form-control">
+          <input type="date" aria-label="First name" class="form-control" [(ngModel)]="dataInizio2" (change)="filter2()">
           <span class="input-group-text">Data Fine</span>
-          <input type="date" aria-label="Last name" class="form-control">
-          <button class="btn btn-primary" type="button" id="button-addon1">Filtra</button>
+          <input type="date" aria-label="Last name" class="form-control" [(ngModel)]="dataFine2" (change)="filter2()">
         </div>
         <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
           [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"

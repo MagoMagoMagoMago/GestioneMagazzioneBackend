@@ -27,7 +27,7 @@ public class Purchase implements Serializable {
 
 
     @Column(name = "number_invoice", nullable = false, unique = true)
-    private Integer number_invoice;
+    private Integer numberInvoice;
 
     @Column(name = "note", length = 400)
     private String note;
@@ -44,7 +44,7 @@ public class Purchase implements Serializable {
 
     @NotNull
     @Column(name = "date_invoice", nullable = false)
-    private Instant date_invoice;
+    private Instant dateInvoice;
 
     public Integer getId() {
         return id;
@@ -62,12 +62,12 @@ public class Purchase implements Serializable {
         this.supplier = supplier;
     }
 
-    public Integer getNumber_invoice() {
-        return number_invoice;
+    public Integer getNumberInvoice() {
+        return numberInvoice;
     }
 
-    public void setNumber_invoice(Integer number_invoice) {
-        this.number_invoice = number_invoice;
+    public void setNumberInvoice(Integer numberInvoice) {
+        this.numberInvoice = numberInvoice;
     }
 
     public String getNote() {
@@ -102,12 +102,12 @@ public class Purchase implements Serializable {
         this.deletedAt = deletedAt;
     }
 
-    public Instant getDate_invoice() {
-        return date_invoice;
+    public Instant getDateInvoice() {
+        return dateInvoice;
     }
 
-    public void setDate_invoice(Instant date_invoice) {
-        this.date_invoice = date_invoice;
+    public void setDateInvoice(Instant dateInvoice) {
+        this.dateInvoice = dateInvoice;
     }
 
     @Override
@@ -121,18 +121,18 @@ public class Purchase implements Serializable {
         Purchase purchase = (Purchase) o;
         return getId().equals(purchase.getId())
                 && getSupplier().equals(purchase.getSupplier())
-                && getNumber_invoice().equals(purchase.getNumber_invoice())
+                && getNumberInvoice().equals(purchase.getNumberInvoice())
                 && Objects.equals(getNote(), purchase.getNote())
                 && getCreatedAt().equals(purchase.getCreatedAt())
                 && Objects.equals(getUpdatedAt(), purchase.getUpdatedAt())
                 && Objects.equals(getDeletedAt(), purchase.getDeletedAt())
-                && getDate_invoice().equals(purchase.getDate_invoice());
+                && getDateInvoice().equals(purchase.getDateInvoice());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getSupplier(), getNumber_invoice(), getNote(), getCreatedAt(), getUpdatedAt(),
-                getDeletedAt(), getDate_invoice());
+        return Objects.hash(getId(), getSupplier(), getNumberInvoice(), getNote(), getCreatedAt(), getUpdatedAt(),
+                getDeletedAt(), getDateInvoice());
     }
 
     @Override
@@ -140,12 +140,12 @@ public class Purchase implements Serializable {
         return "Purchase{" +
                 "id=" + id +
                 ", supplier=" + supplier +
-                ", number_invoice=" + number_invoice +
+                ", number_invoice=" + numberInvoice +
                 ", note='" + note + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 ", deletedAt=" + deletedAt +
-                ", date_invoice=" + date_invoice +
+                ", date_invoice=" + dateInvoice +
                 '}';
     }
 

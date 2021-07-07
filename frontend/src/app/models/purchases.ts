@@ -2,9 +2,9 @@ import { Moment } from "moment";
 
 export class Purchases {
     id!: number;
-    number_invoice!: number;
+    numberInvoice!: number;
     note!: string; 
-    date_invoice!: Date;
+    dateInvoice!: Date;
     supplier!: string;
     createdAt!: Moment;
     updateAt!: Moment;
