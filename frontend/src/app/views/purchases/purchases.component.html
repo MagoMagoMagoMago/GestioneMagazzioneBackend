@@ -20,9 +20,8 @@
         <thead class="thead-dark table header sticky-top">
           <tr>
             <ng-container *ngFor="let col of colPurchases">
-              <th class="th" *ngIf="col.visible" (click)="changePurchasesBy(col)">
-                {{ col.text }} <i class="bi bi-caret-down-square-fill" *ngIf="col.name === sort.name"
-                  [ngClass]="{'bi-caret-down-square-fill': sort.orderBy == true, 'bi-caret-up-square-fill': sort.orderBy == false}"></i>
+              <th class="th" *ngIf="col.visible" (click)="changeOrderBy(col)">
+                {{ col.text }} <i class="bi bi-caret-down-square-fill" *ngIf="col.name === sort.name" [ngClass]="{'bi-caret-down-square-fill': sort.orderBy == true, 'bi-caret-up-square-fill': sort.orderBy == false}"></i>
               </th>
             </ng-container>
             <th>
@@ -32,9 +31,9 @@
         </thead>
         <tbody>
           <tr *ngFor="let purchase of listaPurchases">
-            <td *ngIf="colPurchases[0].visible" class="align-middle" width=20%>{{purchase.number_invoice}}</td>
+            <td *ngIf="colPurchases[0].visible" class="align-middle" width=20%>{{purchase.numberInvoice}}</td>
             <td *ngIf="colPurchases[1].visible" class="align-middle" width=20%>{{purchase.note}}</td>
-            <td *ngIf="colPurchases[2].visible" class="align-middle" width=20%>{{purchase.date_invoice | date:
+            <td *ngIf="colPurchases[2].visible" class="align-middle" width=20%>{{purchase.dateInvoice | date:
               'dd/MM/yyyy'}}</td>
             <td *ngIf="colPurchases[3].visible" class="align-middle" width=20%>{{purchase.supplier}}</td>
             <td class="align-middle" width=10%>
@@ -94,7 +93,7 @@
             </div>
             <div class="col-sm">
               <select class="form-select shadow-lg" aria-label="Default select example" #purchasePerPage
-                (change)="onChangePurchasePerPage(purchasePerPage.value)">
+                (change)="onChangeItemPerPage(purchasePerPage.value)">
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="20">20</option>
@@ -138,7 +137,7 @@
           <ng-container *ngFor="let purchaseItem of listaPurchaseItems">
             <ul class="list-group list-group-flush">
               <li class="list-group-item listDelete d-flex justify-content-between align-items-center">{{purchaseItem.item}}
-                <span class="badge badge-pill">Totale:    {{purchaseItem.quantity}}</span></li>
+                <span class="badge badge-pill">Totale: {{purchaseItem.quantity}}</span></li>
             </ul>
           </ng-container>
 
@@ -164,8 +163,8 @@
           <div class="modal-body">
             <div class="row">
               <div class=" col mb-2">
-                <label for="number_invoice" class="col-form-label">Numero Acquisto:</label>
-                <input type="text" class="form-control" id="number_invoice" formControlName="number_invoice" readonly>
+                <label for="numberInvoice" class="col-form-label">Numero Acquisto:</label>
+                <input type="text" class="form-control" id="numberInvoice" formControlName="numberInvoice" readonly>
               </div>
             </div>
             <div class="row">
@@ -188,8 +187,8 @@
             </div>
             <div class="row">
               <div class="col mb-2">
-                <label for="date_invoice" class="col-form-label">Data Acquisto: </label>
-                <input class="form-control" id="date_invoice" formControlName="date_invoice" readonly>
+                <label for="dateInvoice" class="col-form-label">Data Acquisto: </label>
+                <input class="form-control" id="dateInvoice" formControlName="dateInvoice" readonly>
               </div>
             </div>
           </div>
