@@ -13,9 +13,9 @@ export class Purchases {
 
 export class PurchaseInsert{
     id!: number | null;
-    number_invoice!: number;
+    numberInvoice!: number;
     note!: string; 
-    date_invoice!: string;
+    dateInvoice!: string;
     supplier!: { id: number};
     createdAt = null;
     updateAt = null;

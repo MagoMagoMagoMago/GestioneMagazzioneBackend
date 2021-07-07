@@ -117,9 +117,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   buy(): void{
     const purchaseBody: PurchaseInsert = {
       id: null,
-      number_invoice: this.numeroFattura!,
+      numberInvoice: this.numeroFattura!,
       note: this.note!,
-      date_invoice: moment(this.dataFattura).format("YYYY-MM-DDTHH:mm:ssZ"),
+      dateInvoice: moment(this.dataFattura).format("YYYY-MM-DD") + "T00:00:00Z",
       supplier: { id: Number(this.fornitore) },
       createdAt: null,
       updateAt: null,
