@@ -5,20 +5,23 @@
         <h2 class="display-6 text-center">Totale ordini</h2>
         <div class="input-group mt-3">
           <span class="input-group-text">Data Inizio</span>
-          <input type="date" aria-label="First name" class="form-control" (change)="filter1()" [(ngModel)]="dataInizio1">
+          <input type="date" aria-label="First name" class="form-control" (change)="filter1()"
+            [(ngModel)]="dataInizio1">
           <span class="input-group-text">Data Fine</span>
-          <input type="date" aria-label="Last name" class="form-control" (change)="filter1()" [(ngModel)]="dataFine1"> 
+          <input type="date" aria-label="Last name" class="form-control" (change)="filter1()" [(ngModel)]="dataFine1">
         </div>
         <div class="input-group mt-3">
           <span class="input-group-text">Articolo</span>
-          <select class="form-select" [(ngModel)]="articoloSelezionato" aria-label="Default select example" (change)="filter1()">
-            <option value="null" selected>----------------------------------- TUTTI -----------------------------------</option>
+          <select class="form-select" [(ngModel)]="articoloSelezionato" aria-label="Default select example"
+            (change)="filter1()">
+            <option value="null" selected>----------------------------------- TUTTI -----------------------------------
+            </option>
             <ng-container *ngFor="let articolo of articoli">
-              <option value="{{articolo.asin}}" >
+              <option value="{{articolo.asin}}">
                 {{articolo.title}}
               </option>
             </ng-container>
-            
+
           </select>
         </div>
         <div class="row my-3">
@@ -47,12 +50,16 @@
         </div>
       </div>
     </div>
+    
+  </div>
+  <div class="row mt-2">
     <div class="col-md-6">
       <div class="bg-light mx-1 my-1 px-3 py-2 rounded-3">
         <h2 class="display-6 text-center">Articoli ordinati</h2>
         <div class="input-group my-3">
           <span class="input-group-text">Data Inizio</span>
-          <input type="date" aria-label="First name" class="form-control" [(ngModel)]="dataInizio2" (change)="filter2()">
+          <input type="date" aria-label="First name" class="form-control" [(ngModel)]="dataInizio2"
+            (change)="filter2()">
           <span class="input-group-text">Data Fine</span>
           <input type="date" aria-label="Last name" class="form-control" [(ngModel)]="dataFine2" (change)="filter2()">
         </div>
@@ -60,21 +67,23 @@
           [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
           [plugins]="lineChartPlugins">
         </canvas>
-     
-      <br/>
-      <div >
-        <div class="bg-light mx-1 my-1 px-3 py-2 rounded-3">
-          <br/>
-          <br/>
-          <h2 class="display-6 text-center">Articoli guadagni</h2>
-          <div class="input-group my-3">
-          </div>
-          <canvas baseChart [datasets]="lineChartData2" [labels]="lineChartLabels" [options]="lineChartOptions"
-            [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
-            [plugins]="lineChartPlugins">
-          </canvas>
-        </div>
       </div>
-  </div>
+    </div>
+    <div class="col-md-6">
+      <div class="bg-light mx-1 my-1 px-3 py-2 rounded-3">
+        <h2 class="display-6 text-center">Guadagni</h2>
+        <div class="input-group my-3">
+          <span class="input-group-text">Data Inizio</span>
+          <input type="date" aria-label="First name" class="form-control" (change)="filter3()"
+            [(ngModel)]="dataInizio3">
+          <span class="input-group-text">Data Fine</span>
+          <input type="date" aria-label="Last name" class="form-control" (change)="filter3()" [(ngModel)]="dataFine3">
+        </div>
+        <canvas baseChart [datasets]="lineChartData2" [labels]="lineChartLabels" [options]="lineChartOptions"
+          [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
+          [plugins]="lineChartPlugins">
+        </canvas>
+      </div>
+    </div>
   </div>
 </div>

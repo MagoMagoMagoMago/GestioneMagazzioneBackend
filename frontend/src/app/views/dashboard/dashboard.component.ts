@@ -21,6 +21,7 @@ export class DashboardComponent implements OnInit {
     { data: [], label: 'Articoli' },
   ];
   public lineChartLabels: Label[] = [];
+  public lineChartLabels2: Label[] = [];
   public lineChartOptions: ChartOptions = {
     responsive: true,
     scales: {
@@ -36,15 +37,9 @@ export class DashboardComponent implements OnInit {
   public lineChartColors: Color[] = [
     {
       borderColor: 'black',
-      borderWidth: 1,
-      hoverBorderWidth: 3,
-      backgroundColor: 'rgba(255,0,0,0.3)',
-    },
-    {
-      borderColor: 'white',
-      borderWidth: 1,
-      hoverBorderWidth: 3,
-      backgroundColor: 'rgba(255,0,0,0.3)',
+      borderWidth: 0,
+      hoverBorderWidth: 1,
+      backgroundColor: 'rgba(255,100,0,0.3)',
     },
   ];
   public lineChartLegend = false;
@@ -63,6 +58,9 @@ export class DashboardComponent implements OnInit {
   dataInizio2 = moment(new Date()).add(-1, "week").format("YYYY-MM-DD");
   dataFine2 = moment(new Date()).format("YYYY-MM-DD");
 
+  dataInizio3 = moment(new Date()).add(-1, "week").format("YYYY-MM-DD");
+  dataFine3 = moment(new Date()).format("YYYY-MM-DD");
+
   constructor(
     private chartService: ChartApiService,
     private itemService: ItemApiService
@@ -74,8 +72,10 @@ export class DashboardComponent implements OnInit {
         this.articoli = success.list;
       }
     );
+
     this.filter1();
     this.filter2();
+    this.filter3();
 
   }
 
@@ -103,14 +103,32 @@ export class DashboardComponent implements OnInit {
     this.chartService.istogrammaArticoli(this.dataInizio2, this.dataFine2).subscribe(
       (success) => {
         this.lineChartData[0].data = [];
-        this.lineChartData2[0].data = [];
         this.lineChartLabels = [];
         
         success.map((x: { ricavi: number, quantita: number, asin: string }) => {
           this.lineChartData[0].data!.push(x.quantita);
-          this.lineChartData2[0].data!.push(x.ricavi);
+          this.lineChartData[0].backgroundColor =["#EBEA74", "#F09756", "#D259D9", "#5697F0", "#53E66E"];
           const label: Label = x.asin;
           this.lineChartLabels.push(label);
+        })
+      },
+      (error) => {
+        alert("errore");
+      }
+    )
+  }
+
+  filter3(): void {
+    this.chartService.istogrammaArticoli(this.dataInizio3, this.dataFine3).subscribe(
+      (success) => {
+        this.lineChartData2[0].data = [];
+        this.lineChartLabels2 = [];
+        
+        success.map((x: { ricavi: number, quantita: number, asin: string }) => {
+          this.lineChartData2[0].data!.push(x.ricavi);
+          this.lineChartData2[0].backgroundColor =["#EBEA74", "#F09756", "#D259D9", "#5697F0", "#53E66E"];
+          const label: Label = x.asin;
+          this.lineChartLabels2.push(label);
         })
       },
       (error) => {
