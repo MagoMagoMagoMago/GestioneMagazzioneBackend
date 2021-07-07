@@ -17,6 +17,9 @@ export class DashboardComponent implements OnInit {
   public lineChartData: ChartDataSets[] = [
     { data: [], label: 'Articoli' },
   ];
+  public lineChartData2: ChartDataSets[] = [
+    { data: [], label: 'Articoli' },
+  ];
   public lineChartLabels: Label[] = [];
   public lineChartOptions: ChartOptions = {
     responsive: true,
@@ -100,10 +103,12 @@ export class DashboardComponent implements OnInit {
     this.chartService.istogrammaArticoli(this.dataInizio2, this.dataFine2).subscribe(
       (success) => {
         this.lineChartData[0].data = [];
+        this.lineChartData2[0].data = [];
         this.lineChartLabels = [];
         
         success.map((x: { ricavi: number, quantita: number, asin: string }) => {
           this.lineChartData[0].data!.push(x.quantita);
+          this.lineChartData2[0].data!.push(x.ricavi);
           const label: Label = x.asin;
           this.lineChartLabels.push(label);
         })
