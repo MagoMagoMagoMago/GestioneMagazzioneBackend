@@ -134,7 +134,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           const item: PurchaseItem = {
             id: null,
             purchase_id: success,
-            item_id: element.item.id,
+            item: element.item.id,
             quantity: element.quantity,
             unit_price: element.item.price,
             created_at: null,
