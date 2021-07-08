@@ -1,12 +1,12 @@
 <div class="container my-3">
   <div class="row">
     <div class="col d-flex justify-content-center">
-      <h1 class="display-5 text-white">Lista Articoli</h1>
+      <h1 class="display-5 text-white">Dashboard</h1>
     </div>
   </div>
   <div class="row mt-2">
     <div class="col-md-6">
-      <div class="bg-light mx-1 my-1 px-3 py-2 rounded-3">
+      <div class="bg-light mx-1 my-1 px-3 py-2 rounded-3 tabella">
         <h2 class="display-6 text-center">Totale ordini</h2>
         <div class="input-group mt-3">
           <span class="input-group-text">Data Inizio</span>
@@ -55,12 +55,39 @@
         </div>
       </div>
     </div>
-    
+    <div class="col-md-6 ">
+      <div class="bg-light mx-1 my-1 px-3 py-2 rounded-3 tabella">
+        <h2 class="display-6 text-center"><i class="bi bi-exclamation-triangle-fill text-danger"></i> Articoli con scarsa giacenza</h2>
+        <div class="table-responsive">
+          <table class="table mt-5">
+            <thead>
+              <tr>
+                <th scope="col">ASIN</th>
+                <th scope="col">Titolo</th>
+                <th scope="col">Giacenza</th>
+                <th scope="col">Minimo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of articoliScarsaGiacenza">
+                <td>{{item.asin}}</td>
+                <td>{{item.title}}</td>
+                <td>{{item.storage}}</td>
+                <td>{{item.minAvailability}}</td>
+              </tr>
+              <tr *ngIf="articoliScarsaGiacenza.length < 1">
+                <td colspan="4" class="text-center">Nessun risultato trovato.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="row mt-2">
     <div class="col-md-6">
       <div class="bg-light mx-1 my-1 px-3 py-2 rounded-3">
-        <h2 class="display-6 text-center">Articoli ordinati</h2>
+        <h2 class="display-6 text-center">Articoli ordinati (quantità)</h2>
         <div class="input-group my-3">
           <span class="input-group-text">Data Inizio</span>
           <input type="date" aria-label="First name" class="form-control" [(ngModel)]="dataInizio2"
@@ -76,7 +103,7 @@
     </div>
     <div class="col-md-6">
       <div class="bg-light mx-1 my-1 px-3 py-2 rounded-3">
-        <h2 class="display-6 text-center">Guadagni</h2>
+        <h2 class="display-6 text-center">Ricavi (euro)</h2>
         <div class="input-group my-3">
           <span class="input-group-text">Data Inizio</span>
           <input type="date" aria-label="First name" class="form-control" (change)="filter3()"
@@ -84,7 +111,7 @@
           <span class="input-group-text">Data Fine</span>
           <input type="date" aria-label="Last name" class="form-control" (change)="filter3()" [(ngModel)]="dataFine3">
         </div>
-        <canvas baseChart [datasets]="lineChartData2" [labels]="lineChartLabels" [options]="lineChartOptions"
+        <canvas baseChart [datasets]="lineChartData2" [labels]="lineChartLabels2" [options]="lineChartOptions"
           [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
           [plugins]="lineChartPlugins">
         </canvas>
