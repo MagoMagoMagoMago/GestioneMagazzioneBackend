@@ -16,6 +16,10 @@ export class ItemApiService {
     return this.http.get(this.url + "/pagina/" + sortBy + "/" + orderBy + "/" + pagine + "/" + quantita );
   }
 
+  public getByTitle(sortBy: string, orderBy: boolean,  pagine: number, quantita: number, title: string): Observable<any> {
+    return this.http.get(this.url + "/pagina/" + sortBy + "/" + orderBy + "/" + pagine + "/" + quantita + "?title=" + title);
+  }
+
   public deleteById(id: number): Observable<any>{
     return this.http.delete(this.url + "/" + id);
   }

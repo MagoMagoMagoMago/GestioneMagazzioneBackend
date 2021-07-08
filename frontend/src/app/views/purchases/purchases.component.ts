@@ -39,7 +39,7 @@ export class PurchasesComponent implements OnInit {
   readonly nameOnStorage = "table_purchases";
   public quantity!: number;
   public page: number = 0;
-  public sort = { name: "note", orderBy: true};
+  public sort = { name: "dateInvoice", orderBy: true};
   public totalPages: number = 0;
   //ordinamento
   public order = "name";

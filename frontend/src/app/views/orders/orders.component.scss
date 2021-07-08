@@ -1,5 +1,5 @@
 .table {
-    background-color: transparentize($color: rgb(252, 252, 252), $amount: 0.5)
+    background-color: transparentize($color: rgb(252, 252, 252), $amount: 0.3)
 }
 
 .header{
@@ -34,4 +34,9 @@ img {
 
 .not-found{
     height: 50vh;
+}
+
+.buttonInfo{
+    background-color: #3e86eb;
+    
 }

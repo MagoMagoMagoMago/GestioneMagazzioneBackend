@@ -1,5 +1,5 @@
 .table {
-    background-color: transparentize($color: rgb(252, 252, 252), $amount: 0.5)
+    background-color: transparentize($color: rgb(252, 252, 252), $amount: 0.3)
 }
 
 .header{
@@ -49,4 +49,8 @@ img {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+.buttonCarrello{
+    background-color: #f0cd31;
 }
