@@ -5,7 +5,12 @@ body {
   max-height: 100vh;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-image: linear-gradient(to right top, #e7f4ff, #daedfe, #cfe5fd, #c4ddfd, #bad5fc, #adcaf2, #a1bfe9, #94b4df, #81a3ca, #6f93b5, #5d82a1, #4d728dbd);
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/e/ea/Vervet_Monkey_%28Chlorocebus_pygerythrus%29.jpg");
+  //background: #FEAC5E;  /* fallback for old browsers */
+  //background: -webkit-linear-gradient(to right, #4BC0C8, #C779D0, #FEAC5E);  /* Chrome 10-25, Safari 5.1-6 */
+  //background: linear-gradient(to right, #4BC0C8, #C779D0, #FEAC5E); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
+  //background-image: linear-gradient(to right top, #e7f4ff, #daedfe, #cfe5fd, #c4ddfd, #bad5fc, #adcaf2, #a1bfe9, #94b4df, #81a3ca, #6f93b5, #5d82a1, #4d728dbd);
 }
 
 .error:focus,
