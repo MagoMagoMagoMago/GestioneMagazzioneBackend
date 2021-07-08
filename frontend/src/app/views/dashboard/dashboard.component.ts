@@ -47,6 +47,7 @@ export class DashboardComponent implements OnInit {
   public lineChartPlugins = [];
 
   public articoli!: Item[];
+  public articoliScarsaGiacenza!: Item[];
 
   dataInizio1 = moment(new Date()).add(-1, "week").format("YYYY-MM-DD");
   dataFine1 = moment(new Date()).format("YYYY-MM-DD");
@@ -76,6 +77,7 @@ export class DashboardComponent implements OnInit {
     this.filter1();
     this.filter2();
     this.filter3();
+    this.filter4();
 
   }
 
@@ -135,6 +137,13 @@ export class DashboardComponent implements OnInit {
         alert("errore");
       }
     )
+  }
+
+  filter4(): void{
+    this.chartService.articoliConScarsaGiacenza().subscribe(
+      (success)=>{this.articoliScarsaGiacenza = success},
+      (error)=>{alert("Error: Articoli con scarsa giacenza")}
+    );
   }
 
 }

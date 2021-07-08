@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Item } from '../models/item';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,7 @@ export class ChartApiService {
     return this.http.get<any[]>(this.url + "/betweenitem/" + start +"T00:00:00.00Z" + "/" + end  + "T00:00:00.00Z");
   }
 
-  public bho(): Observable<any> {
-    return this.http.get(this.url);
+  public articoliConScarsaGiacenza(): Observable<Item[]> {
+    return this.http.get<Item[]>(environment.host + "/" + environment.endpoint.items + "/graph4");
   }
 }
